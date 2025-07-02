@@ -1,0 +1,17 @@
+# General
+.DS_Store
+backend_temp
+
+# Python/Django
+__pycache__/
+*.pyc
+.venv/
+.env
+db.sqlite3
+
+# Node.js/Vite
+node_modules/
+dist/
+.env.local
+npm-debug.log
+yarn-error.log
