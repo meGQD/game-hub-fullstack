@@ -9,6 +9,7 @@ requests = "*"
 django-cors-headers = "*"
 
 [dev-packages]
+locust = "*"
 
 [requires]
 python_version = "3.11"
