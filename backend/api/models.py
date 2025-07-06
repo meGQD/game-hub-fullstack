@@ -10,8 +10,11 @@ class Platform(models.Model):
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
-    metacritic = models.IntegerField()
+    released = models.DateField(null=True, blank=True)
+    added = models.DateTimeField(auto_now_add=True)
+    rating = models.DecimalField(max_digits=3, decimal_places=2)
     rating_top = models.IntegerField()
+    metacritic = models.IntegerField()
     background_image = models.URLField(max_length=500, null=True, blank=True)
-    genre = models.ManyToManyField(Genre, related_name='games')
+    genres = models.ManyToManyField(Genre, related_name='games')
     parent_platforms = models.ManyToManyField(Platform, related_name='games')
