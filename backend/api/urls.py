@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('games', views.get_games, name='get_games'),
-    path('genres', views.get_genres, name='get_genres'),
+    path('games', views.GameViewSet.as_view({'get': 'list'}), name='get_games'),
+    path('genres', views.GenreViewSet.as_view({'get': 'list'}), name='get_genres'),
 ]

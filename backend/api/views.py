@@ -1,38 +1,22 @@
-import requests
-from django.conf import settings
-from django.http import JsonResponse
-from django.views.decorators.cache import cache_page
-
-@cache_page(60 * 15)
-def get_games(request):
-
-    api_url = 'https://api.rawg.io/api/games'
-    params = request.GET.copy()
-    params['key'] = settings.RAWG_API_KEY
-
-    try:
-        response = requests.get(api_url, params=params)
-        response.raise_for_status()
-        data = response.json()
-
-        return JsonResponse(data)
+from django.db.models.aggregates import Count
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.filters import OrderingFilter, SearchFilter
+from .models import Game, Genre
+from .serializers import GameSerializer, GenreSerializer
     
-    except requests.exceptions.RequestException as e:
-        return JsonResponse({'error': str(e)}, status=503)
+class GameViewSet(ReadOnlyModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
 
-@cache_page(60 * 60 * 24)
-def get_genres(request):
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
 
-    api_url = 'https://api.rawg.io/api/genres'
-    params = request.GET.copy()
-    params['key'] = settings.RAWG_API_KEY
+    search_fields = ['name']
 
-    try:
-        response = requests.get(api_url, params=params)
-        response.raise_for_status()
-        data = response.json()
+    ordering_fields = ['name', 'released', 'added', 'rating', 'metacritic']
 
-        return JsonResponse(data)
-    
-    except requests.exceptions.RequestException as e:
-        return JsonResponse({'error': str(e)}, status=503)
+    filterset_fields = ['genres', 'parent_platforms']
+
+class GenreViewSet(ReadOnlyModelViewSet):
+    queryset = Genre.objects.annotate(games_count=Count('games')).all()
+    serializer_class = GenreSerializer

@@ -9,6 +9,7 @@ requests = "*"
 django-cors-headers = "*"
 django-redis = "*"
 djangorestframework = "*"
+django-filter = "*"
 
 [dev-packages]
 locust = "*"
