@@ -11,6 +11,8 @@ django-redis = "*"
 djangorestframework = "*"
 django-filter = "*"
 drf-nested-routers = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 locust = "*"
