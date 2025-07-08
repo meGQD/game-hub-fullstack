@@ -18,6 +18,7 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = [  'id',
                     'name',
+                    'description',
                     'released',
                     'added',
                     'rating',

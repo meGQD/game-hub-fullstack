@@ -73,29 +73,40 @@ class Command(BaseCommand):
                 Platform.objects.get_or_create(name=platform_data['name'], slug=platform_data['slug'])
             self.stdout.write(self.style.SUCCESS(f"Successfully seeded {len(platforms_data)} parent platforms."))
 
-        # --- 3. Seed a sample of Games with a page limit ---
+        # --- 3. Seed a sample of Games ---
         self.stdout.write(self.style.SUCCESS("\n--- Seeding a sample of Games ---"))
 
-        games_data = _fetch_paginated_data(
-            f"{base_url}/games?page_size=40", 
-            api_key, 
-            self, 
-            max_pages=5 
-        )
+        # Fetch the initial list of games
+        games_list_data = _fetch_paginated_data(f"{base_url}/games?page_size=40", api_key, self, max_pages=5)
         
-        if games_data:
-            for game_data in games_data:
+        if games_list_data:
+            for game_summary in games_list_data:
+                game_id = game_summary['id']
+                detail_url = f"{base_url}/games/{game_id}?key={api_key}"
+                
+                self.stdout.write(f"  Fetching details for game ID: {game_id}...")
+                
+                # --- API call for game details ---
+                try:
+                    response = requests.get(detail_url, timeout=10)
+                    response.raise_for_status()
+                    game_data = response.json()
+                except requests.exceptions.RequestException as e:
+                    self.stdout.write(self.style.ERROR(f"    Could not fetch details for game {game_id}: {e}"))
+                    continue
+
                 platforms_to_add = [Platform.objects.get(slug=p['platform']['slug']) for p in game_data.get('parent_platforms', []) if Platform.objects.filter(slug=p['platform']['slug']).exists()]
                 genres_to_add = [Genre.objects.get(name=g['name']) for g in game_data.get('genres', []) if Genre.objects.filter(name=g['name']).exists()]
 
                 game, created = Game.objects.update_or_create(
                     name=game_data['name'],
                     defaults={
+                        'description': game_data.get('description_raw'),
                         'metacritic': game_data.get('metacritic'),
                         'rating': game_data.get('rating'),
                         'rating_top': game_data.get('rating_top'),
                         'released': game_data.get('released'),
-                        'background_image': game_data.get('background_image')
+                        'background_image': game_data.get('background_image'),
                     }
                 )
 
@@ -103,8 +114,8 @@ class Command(BaseCommand):
                 game.genres.set(genres_to_add)
 
                 if created:
-                    self.stdout.write(f"  + Created game: {game.name}")
+                    self.stdout.write(f"    + Created game: {game.name}")
             
-            self.stdout.write(self.style.SUCCESS(f"Successfully seeded {len(games_data)} games."))
+            self.stdout.write(self.style.SUCCESS(f"Successfully seeded {len(games_list_data)} games with details."))
 
         self.stdout.write(self.style.SUCCESS("\nDatabase seeding complete!"))
