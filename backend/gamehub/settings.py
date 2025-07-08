@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'api',
-    'auth',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -152,4 +152,4 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 }
 
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'core.User'
