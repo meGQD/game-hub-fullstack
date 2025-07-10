@@ -5,8 +5,8 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.filters import OrderingFilter, SearchFilter
-from .models import Game, Genre
-from .serializers import GameSerializer, GenreSerializer
+from .models import Game, Genre, Platform
+from .serializers import GameSerializer, GenreSerializer, PlatformSerializer
 
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 30))
@@ -27,3 +27,9 @@ class GameViewSet(ReadOnlyModelViewSet):
 class GenreViewSet(ReadOnlyModelViewSet):
     queryset = Genre.objects.annotate(games_count=Count('games')).all()
     serializer_class = GenreSerializer
+
+@method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
+@method_decorator(name='dispatch', decorator=cache_page(60 * 60 * 24 * 30))
+class PlatformViewSet(ReadOnlyModelViewSet):
+    queryset = Platform.objects.all()
+    serializer_class = PlatformSerializer
