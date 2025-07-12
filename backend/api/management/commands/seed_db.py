@@ -2,7 +2,7 @@ import requests
 import time
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from ...models import Game, Genre, Platform
+from ...models import Game, Genre, Platform, GameScreenshot
 
 def _fetch_paginated_data(start_url, api_key, command, max_pages=None):
     """
@@ -101,6 +101,7 @@ class Command(BaseCommand):
                 game, created = Game.objects.update_or_create(
                     name=game_data['name'],
                     defaults={
+                        'slug': game_data.get('slug'),
                         'description': game_data.get('description_raw'),
                         'metacritic': game_data.get('metacritic'),
                         'rating': game_data.get('rating'),
@@ -112,6 +113,15 @@ class Command(BaseCommand):
 
                 game.parent_platforms.set(platforms_to_add)
                 game.genres.set(genres_to_add)
+
+                screenshots_data = game_summary.get('short_screenshots', [])
+                if screenshots_data:
+                    GameScreenshot.objects.filter(game=game).delete()
+                    for screenshot_data in screenshots_data:
+                        GameScreenshot.objects.create(
+                            game=game,
+                            image=screenshot_data['image']
+                        )
 
                 if created:
                     self.stdout.write(f"    + Created game: {game.name}")
