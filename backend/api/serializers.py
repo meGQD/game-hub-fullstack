@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Genre, Game, Platform
+from .models import Genre, Game, Platform, GameScreenshot
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,11 +13,17 @@ class PlatformSerializer(serializers.ModelSerializer):
         model = Platform
         fields = ['id', 'name', 'slug']
 
+class GameScreenshotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GameScreenshot
+        fields = ['id', 'image']
+
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = [  'id',
                     'name',
+                    'slug',
                     'description',
                     'released',
                     'added',
@@ -26,8 +32,12 @@ class GameSerializer(serializers.ModelSerializer):
                     'metacritic',
                     'background_image', 
                     'genres', 
-                    'parent_platforms'
+                    'parent_platforms',
+                    'screenshots',
                 ]
 
     parent_platforms = PlatformSerializer(many=True, read_only=True)
     genres = GenreSerializer(many=True, read_only=True)
+    screenshots = GameScreenshotSerializer(many=True, read_only=True)
+
+    # add slugify field

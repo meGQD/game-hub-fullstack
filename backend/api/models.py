@@ -16,6 +16,7 @@ class Platform(models.Model):
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.TextField(null=True, blank=True)
     released = models.DateField(null=True, blank=True)
     added = models.DateTimeField(auto_now_add=True)
@@ -28,3 +29,7 @@ class Game(models.Model):
 
     def __str__(self):
         return self.name
+
+class GameScreenshot(models.Model):
+    image = models.URLField(max_length=500, null=True, blank=True)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='screenshots')
