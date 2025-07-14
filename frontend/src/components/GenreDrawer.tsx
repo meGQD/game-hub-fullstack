@@ -1,15 +1,9 @@
 import { TbBaselineDensityMedium } from "react-icons/tb";
 import { Button, CloseButton, Drawer, Portal } from "@chakra-ui/react";
 import { useState } from "react";
-import type { Genre } from "@/hooks/useGenres";
 import GenreList from "./GenreList";
 
-interface Props {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
-}
-
-const GenreDrawer = ({ onSelectGenre, selectedGenre }: Props) => {
+const GenreDrawer = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,10 +21,7 @@ const GenreDrawer = ({ onSelectGenre, selectedGenre }: Props) => {
               <Drawer.Title></Drawer.Title>
             </Drawer.Header>
             <Drawer.Body>
-              <GenreList
-                onSelectGenre={onSelectGenre}
-                selectedGenre={selectedGenre}
-              />
+              <GenreList />
             </Drawer.Body>
             <Drawer.CloseTrigger asChild>
               <CloseButton size="sm" />

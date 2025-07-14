@@ -1,4 +1,4 @@
-import type { GameQuery } from "@/App";
+import type { GameQuery } from "@/store";
 import useData from "./useData";
 import type { Platform } from "./usePlatforms";
 
