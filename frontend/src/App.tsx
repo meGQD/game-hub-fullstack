@@ -1,7 +1,6 @@
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GenreList from "./components/GenreList";
-import HomePage from "./pages/HomePage";
 import { Outlet } from "react-router-dom";
 
 function App() {
