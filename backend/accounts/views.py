@@ -29,6 +29,8 @@ class FavoriteGamesViewSet(ModelViewSet):
 
     permission_classes = [IsAuthenticated]
 
+    lookup_field = 'game__slug'
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return AddFavoriteGameSerializer

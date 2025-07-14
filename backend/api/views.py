@@ -14,6 +14,8 @@ class GameViewSet(ReadOnlyModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
+    lookup_field = 'slug'
+
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
 
     search_fields = ['name']
