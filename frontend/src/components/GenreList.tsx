@@ -9,10 +9,12 @@ import {
   List,
   Spinner,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const GenreList = () => {
   const selectedGenre = useGameQueryStore((s) => s.gameQuery.genre);
   const setGenre = useGameQueryStore((s) => s.setGenre);
+  const navigate = useNavigate();
   const { data, isLoading } = useGenres();
 
   if (isLoading) return <Spinner />;
@@ -34,7 +36,10 @@ const GenreList = () => {
               />
               <Button
                 fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
-                onClick={() => setGenre(genre)}
+                onClick={() => {
+                  setGenre(genre);
+                  navigate("/");
+                }}
                 variant="ghost"
                 fontSize="lg"
                 whiteSpace="normal"
