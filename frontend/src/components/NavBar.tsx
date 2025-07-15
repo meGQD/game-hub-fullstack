@@ -3,6 +3,7 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
 import role from "../assets/role.svg";
 import GenreDrawer from "./GenreDrawer";
+import { Link } from "react-router-dom";
 
 interface Props {
   showAside: boolean | undefined;
@@ -12,7 +13,9 @@ const NavBar = ({ showAside }: Props) => {
   return (
     <div>
       <HStack paddingX="20px" paddingY="10px">
-        <Image src={role} boxSize="50px"></Image>
+        <Link to={"/"}>
+          <Image src={role} boxSize="50px" minWidth="50px"></Image>
+        </Link>
         <Container fluid>
           <SearchInput />
         </Container>
