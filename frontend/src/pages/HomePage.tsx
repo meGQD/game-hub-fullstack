@@ -1,5 +1,5 @@
 import GameGrid from "@/components/GameGrid";
-import GameHeading from "@/components/GameHeading";
+import GameGridHeading from "@/components/GameGridHeading";
 import PlatformList from "@/components/PlatformList";
 import SortSelector from "@/components/SortSelector";
 import { Box, HStack } from "@chakra-ui/react";
@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <div>
       <Box padding={3}>
-        <GameHeading />
+        <GameGridHeading />
         <HStack spaceX={3} marginBottom={5}>
           <PlatformList />
           <SortSelector />

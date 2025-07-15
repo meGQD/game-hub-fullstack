@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import type { Platform } from "./usePlatforms";
 import apiClient from "@/services/api-client";
 
+interface Screenshot{
+    id: number;
+    image: string;
+}
+
 interface GameDetail {
-    id: number,
+    id: number;
     name: string;
     slug: string;
     description: string;
     background_image: string;
+    screenshot: Screenshot[];
     parent_platforms: Platform[];
     metacritic: number;
     rating_top: number;

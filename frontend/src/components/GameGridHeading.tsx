@@ -1,7 +1,7 @@
 import useGameQueryStore from "@/store";
 import { Heading } from "@chakra-ui/react";
 
-const GameHeading = () => {
+const GameGridHeading = () => {
   const gameQuery = useGameQueryStore((s) => s.gameQuery);
   const heading = `
   ${gameQuery.platform?.name || ""} 
@@ -16,4 +16,4 @@ const GameHeading = () => {
   );
 };
 
-export default GameHeading;
+export default GameGridHeading;
