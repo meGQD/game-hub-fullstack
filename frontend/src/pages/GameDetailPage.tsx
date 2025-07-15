@@ -1,25 +1,8 @@
-import useGameDetails from "@/hooks/useGameDetails";
-import useGameQueryStore from "@/store";
+import GameDetail from "@/components/GameDetail";
 import { Box, Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 const GameDetailPage = () => {
   const showAside = useBreakpointValue({ base: false, lg: true });
-  const { slug } = useParams();
-  const { game, error, isLoading } = useGameDetails(slug!);
-  const setBackgroundImageUrl = useGameQueryStore(
-    (s) => s.setBackgroundImageUrl
-  );
-
-  useEffect(() => {
-    if (game) {
-      setBackgroundImageUrl(game.background_image);
-    }
-    return () => {
-      setBackgroundImageUrl(null);
-    };
-  }, [game, setBackgroundImageUrl]);
 
   return (
     <>
@@ -30,9 +13,7 @@ const GameDetailPage = () => {
           justifyContent="center"
         >
           <GridItem area="main">
-            <h1>Game detail page</h1>
-            <p>{game?.name}</p>
-            <p>{game?.description}</p>
+            <GameDetail />
           </GridItem>
           {showAside && (
             <GridItem area="side">
