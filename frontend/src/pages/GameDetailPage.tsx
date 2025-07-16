@@ -1,9 +1,41 @@
-import GameDetail from "@/components/GameDetail";
+import GameDetails from "@/components/GameDetails";
 import GameScreenshotGrid from "@/components/GameScreenshotGrid";
-import { Box, Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
+import useGameDetails from "@/hooks/useGameDetails";
+import useGameQueryStore from "@/store";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Spinner,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const GameDetailPage = () => {
   const showAside = useBreakpointValue({ base: false, lg: true });
+  const { slug } = useParams();
+  const { game, error, isLoading } = useGameDetails(slug!);
+
+  const setBackgroundImageUrl = useGameQueryStore(
+    (s) => s.setBackgroundImageUrl
+  );
+
+  useEffect(() => {
+    if (game) {
+      setBackgroundImageUrl(game.background_image);
+    }
+    return () => {
+      setBackgroundImageUrl(null);
+    };
+  }, [game, setBackgroundImageUrl]);
+
+  if (isLoading) return <Spinner />;
+
+  if (error) return <Text color="red">{error}</Text>;
+
+  if (!game) return null;
 
   return (
     <>
@@ -14,11 +46,11 @@ const GameDetailPage = () => {
           justifyContent="center"
         >
           <GridItem area="main">
-            <GameDetail />
+            <GameDetails game={game} />
           </GridItem>
           {showAside && (
             <GridItem area="side">
-              <GameScreenshotGrid />
+              <GameScreenshotGrid game={game} />
             </GridItem>
           )}
         </Grid>

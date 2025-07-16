@@ -1,19 +1,16 @@
-import useGameDetail from "@/hooks/useGameDetails";
-import { Button, Grid, GridItem, Spinner } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { type GameDetail } from "@/hooks/useGameDetails";
+import { Button, Grid, GridItem } from "@chakra-ui/react";
 import GameScreenshot from "./GameScreenshot";
 import { useState } from "react";
 
-const GameScreenshotGrid = () => {
-  const { slug } = useParams();
-  const { game, isLoading, error } = useGameDetail(slug!);
+interface Props {
+  game: GameDetail;
+}
+
+const GameScreenshotGrid = ({ game }: Props) => {
   const [isExpanded, setExpanded] = useState(false);
 
-  if (isLoading) return <Spinner />;
-
-  if (error) return null;
-
-  const screenshots = game?.screenshots || [];
+  const screenshots = game.screenshots || [];
   if (screenshots.length <= 1) {
     return null;
   }

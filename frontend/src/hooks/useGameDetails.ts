@@ -8,7 +8,7 @@ export interface Screenshot{
     image: string;
 }
 
-interface GameDetail {
+export interface GameDetail {
     id: number;
     name: string;
     slug: string;
