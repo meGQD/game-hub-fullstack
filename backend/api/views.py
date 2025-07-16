@@ -30,7 +30,7 @@ class GameScreenshotViewSet(ReadOnlyModelViewSet):
     serializer_class = GameScreenshotSerializer
 
     def get_queryset(self):
-        return GameScreenshot.objects.filter(game_id=self.kwargs['game_pk'])
+        return GameScreenshot.objects.filter(game__slug=self.kwargs['game_slug'])
 
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 60 * 24))
