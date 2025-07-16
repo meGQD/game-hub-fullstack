@@ -3,7 +3,7 @@ import type { Platform } from "./usePlatforms";
 import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
 
-interface Screenshot{
+export interface Screenshot{
     id: number;
     image: string;
 }
@@ -14,7 +14,7 @@ interface GameDetail {
     slug: string;
     description: string;
     background_image: string;
-    screenshot: Screenshot[];
+    screenshots: Screenshot[];
     parent_platforms: Platform[];
     metacritic: number;
     rating_top: number;

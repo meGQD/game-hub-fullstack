@@ -1,4 +1,5 @@
 import GameDetail from "@/components/GameDetail";
+import GameScreenshotGrid from "@/components/GameScreenshotGrid";
 import { Box, Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 
 const GameDetailPage = () => {
@@ -17,7 +18,7 @@ const GameDetailPage = () => {
           </GridItem>
           {showAside && (
             <GridItem area="side">
-              <p>Screenshot pannel</p>
+              <GameScreenshotGrid />
             </GridItem>
           )}
         </Grid>
