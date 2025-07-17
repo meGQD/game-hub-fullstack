@@ -44,9 +44,10 @@ const GameDetailPage = () => {
           templateAreas={{ base: `"main"`, lg: `"main side"` }}
           templateColumns={{ base: "450px", lg: "550px 400px" }}
           justifyContent="center"
+          spaceX={10}
         >
           <GridItem area="main">
-            <GameDetails game={game} />
+            <GameDetails showAside={showAside} game={game} />
           </GridItem>
           {showAside && (
             <GridItem area="side">

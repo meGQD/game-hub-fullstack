@@ -9,7 +9,7 @@ const GameHeading = ({ name }: Props) => {
     <div>
       <Heading
         as="h1"
-        fontSize={{ base: "4xl", md: "7xl" }}
+        fontSize={{ base: "6xl", md: "7xl" }}
         fontWeight="bold"
         lineHeight={1}
       >
