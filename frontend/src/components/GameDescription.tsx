@@ -9,7 +9,7 @@ const GameDescription = ({ description }: Props) => {
   const [isExpanded, setExpanded] = useState(false);
   const modifiedDescription = isExpanded
     ? description
-    : description.slice(0, 500) + "...";
+    : description.slice(0, 350) + "...";
   return (
     <>
       <Heading as="h1" fontSize="2xl" fontWeight="bold">

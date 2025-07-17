@@ -3,7 +3,7 @@ import GameHeading from "./GameHeading";
 import GameDescription from "./GameDescription";
 import GameScreenshotGrid from "./GameScreenshotGrid";
 import GameSlug from "./GameSlug";
-import { HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import GameReleasedDate from "./GameReleasedDate";
 import GameReleasedDateContainer from "./GameReleasedDateContainer";
 import PlatformIconsList from "./PlatformIconsList";
@@ -24,7 +24,9 @@ const GameDetails = ({ game, showAside }: Props) => {
         <PlatformIconsList platforms={game.parent_platforms} />
       </HStack>
       <GameHeading name={game.name} />
-      <GameDescription description={game.description} />
+      <Box marginY={5}>
+        <GameDescription description={game.description} />
+      </Box>
       {!showAside && <GameScreenshotGrid game={game} />}
     </>
   );
