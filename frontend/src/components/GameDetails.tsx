@@ -24,11 +24,13 @@ const GameDetails = ({ game, showAside }: Props) => {
         </GameReleasedDateContainer>
         <PlatformIconsList platforms={game.parent_platforms} />
       </HStack>
-      <GameHeading name={game.name} />
+      <Box marginBottom={5}>
+        <GameHeading name={game.name} />
+      </Box>
+      {!showAside && <GameScreenshotGrid game={game} />}
       <Box marginY={5}>
         <GameDescription description={game.description} />
       </Box>
-      {!showAside && <GameScreenshotGrid game={game} />}
       <GameExtraDetails game={game} />
     </>
   );
