@@ -3,6 +3,9 @@ import GameHeading from "./GameHeading";
 import GameDescription from "./GameDescription";
 import GameScreenshotGrid from "./GameScreenshotGrid";
 import GameSlug from "./GameSlug";
+import { HStack } from "@chakra-ui/react";
+import GameReleasedDate from "./GameReleasedDate";
+import GameReleasedDateContainer from "./GameReleasedDateContainer";
 
 interface Props {
   game: GameDetail;
@@ -13,6 +16,11 @@ const GameDetails = ({ game, showAside }: Props) => {
   return (
     <>
       <GameSlug slug={game.slug} />
+      <HStack marginTop={7}>
+        <GameReleasedDateContainer>
+          <GameReleasedDate released={game.released} />
+        </GameReleasedDateContainer>
+      </HStack>
       <GameHeading name={game.name} />
       <GameDescription description={game.description} />
       {!showAside && <GameScreenshotGrid game={game} />}

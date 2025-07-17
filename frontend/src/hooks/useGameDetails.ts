@@ -13,11 +13,12 @@ export interface GameDetail {
     name: string;
     slug: string;
     description: string;
+    metacritic: number;
+    rating_top: number;
+    released: string
     background_image: string;
     screenshots: Screenshot[];
     parent_platforms: Platform[];
-    metacritic: number;
-    rating_top: number;
 }
 
 const useGameDetail = (slug: string) => {
