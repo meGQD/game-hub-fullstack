@@ -7,6 +7,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import GameReleasedDate from "./GameReleasedDate";
 import GameReleasedDateContainer from "./GameReleasedDateContainer";
 import PlatformIconsList from "./PlatformIconsList";
+import GameExtraDetails from "./GameInformation";
 
 interface Props {
   game: GameDetail;
@@ -28,6 +29,7 @@ const GameDetails = ({ game, showAside }: Props) => {
         <GameDescription description={game.description} />
       </Box>
       {!showAside && <GameScreenshotGrid game={game} />}
+      <GameExtraDetails game={game} />
     </>
   );
 };
