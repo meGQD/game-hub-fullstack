@@ -6,6 +6,7 @@ import GameSlug from "./GameSlug";
 import { HStack } from "@chakra-ui/react";
 import GameReleasedDate from "./GameReleasedDate";
 import GameReleasedDateContainer from "./GameReleasedDateContainer";
+import PlatformIconsList from "./PlatformIconsList";
 
 interface Props {
   game: GameDetail;
@@ -16,10 +17,11 @@ const GameDetails = ({ game, showAside }: Props) => {
   return (
     <>
       <GameSlug slug={game.slug} />
-      <HStack marginTop={7}>
+      <HStack marginTop={7} spaceX={2}>
         <GameReleasedDateContainer>
           <GameReleasedDate released={game.released} />
         </GameReleasedDateContainer>
+        <PlatformIconsList platforms={game.parent_platforms} />
       </HStack>
       <GameHeading name={game.name} />
       <GameDescription description={game.description} />
