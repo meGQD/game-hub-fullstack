@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Platform } from "./usePlatforms";
 import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
+import type { Genre } from "./useGenres";
 
 export interface Screenshot{
     id: number;
@@ -17,6 +18,7 @@ export interface GameDetail {
     rating_top: number;
     released: string
     background_image: string;
+    genres: Genre[]
     screenshots: Screenshot[];
     parent_platforms: Platform[];
 }

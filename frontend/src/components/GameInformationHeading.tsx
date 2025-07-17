@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 interface Props {
   heading: string;
@@ -7,14 +7,16 @@ interface Props {
 const GameInformationHeading = ({ heading }: Props) => {
   return (
     <div>
-      <Text
-        as="h1"
-        textTransform="capitalize"
-        fontWeight="medium"
-        color={{ base: "gray.900", _dark: "gray.600" }}
-      >
-        {heading}
-      </Text>
+      <Box marginBottom={2}>
+        <Text
+          as="h1"
+          textTransform="capitalize"
+          fontWeight="medium"
+          color={{ base: "gray.900", _dark: "gray.600" }}
+        >
+          {heading}
+        </Text>
+      </Box>
     </div>
   );
 };

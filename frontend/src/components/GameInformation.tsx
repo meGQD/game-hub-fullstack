@@ -1,6 +1,8 @@
 import type { GameDetail } from "@/hooks/useGameDetails";
-import { GridItem, SimpleGrid } from "@chakra-ui/react";
-import GameExtraDetailHeading from "./GameInformationHeading";
+import { GridItem, HStack, SimpleGrid, Text } from "@chakra-ui/react";
+import MetaCriticScore from "./MetaCriticScore";
+import GameReleasedDate from "./GameReleasedDate";
+import GameInformationHeading from "./GameInformationHeading";
 
 interface Props {
   game: GameDetail;
@@ -9,18 +11,30 @@ interface Props {
 const GameInformation = ({ game }: Props) => {
   return (
     <div>
-      <SimpleGrid columns={2}>
+      <SimpleGrid columns={2} rowGap={7} columnGap={5}>
         <GridItem>
-          <GameExtraDetailHeading heading="Platforms" />
+          <GameInformationHeading heading="Platforms" />
+          <HStack flexWrap="wrap">
+            {game.parent_platforms.map((platform) => (
+              <Text>{platform.name},</Text>
+            ))}
+          </HStack>
         </GridItem>
         <GridItem>
-          <GameExtraDetailHeading heading="Metascore" />
+          <GameInformationHeading heading="Metascore" />
+          <MetaCriticScore score={game.metacritic} />
         </GridItem>
         <GridItem>
-          <GameExtraDetailHeading heading="Genre" />
+          <GameInformationHeading heading="Genre" />
+          <HStack flexWrap="wrap">
+            {game.genres.map((genre) => (
+              <Text>{genre.name}</Text>
+            ))}
+          </HStack>
         </GridItem>
         <GridItem>
-          <GameExtraDetailHeading heading="Release date" />
+          <GameInformationHeading heading="Release date" />
+          <GameReleasedDate released={game.released} />
         </GridItem>
       </SimpleGrid>
     </div>
