@@ -8,6 +8,7 @@ import GameReleasedDate from "./GameReleasedDate";
 import GameReleasedDateContainer from "./GameReleasedDateContainer";
 import PlatformIconsList from "./PlatformIconsList";
 import GameExtraDetails from "./GameInformation";
+import FavoriteButton from "./FavoriteButton";
 
 interface Props {
   game: GameDetail;
@@ -18,11 +19,14 @@ const GameDetails = ({ game, showAside }: Props) => {
   return (
     <>
       <GameSlug slug={game.slug} />
-      <HStack marginTop={7} spaceX={2}>
-        <GameReleasedDateContainer>
-          <GameReleasedDate released={game.released} />
-        </GameReleasedDateContainer>
-        <PlatformIconsList platforms={game.parent_platforms} />
+      <HStack marginTop={7} spaceX={2} justifyContent="space-between">
+        <HStack>
+          <GameReleasedDateContainer>
+            <GameReleasedDate released={game.released} />
+          </GameReleasedDateContainer>
+          <PlatformIconsList platforms={game.parent_platforms} />
+        </HStack>
+        <FavoriteButton />
       </HStack>
       <Box marginBottom={5}>
         <GameHeading name={game.name} />
