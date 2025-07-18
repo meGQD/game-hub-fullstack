@@ -16,7 +16,7 @@ const GameInformation = ({ game }: Props) => {
           <GameInformationHeading heading="Platforms" />
           <HStack flexWrap="wrap">
             {game.parent_platforms.map((platform) => (
-              <Text>{platform.name},</Text>
+              <Text key={platform.id}>{platform.name},</Text>
             ))}
           </HStack>
         </GridItem>
@@ -28,7 +28,7 @@ const GameInformation = ({ game }: Props) => {
           <GameInformationHeading heading="Genre" />
           <HStack flexWrap="wrap">
             {game.genres.map((genre) => (
-              <Text>{genre.name},</Text>
+              <Text key={genre.id}>{genre.name},</Text>
             ))}
           </HStack>
         </GridItem>
