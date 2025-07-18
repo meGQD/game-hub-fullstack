@@ -23,7 +23,7 @@ const BackgroundImage = () => {
           bgImage={`${gradient}, url(${backgroundImageUrl})`}
           bgSize="contain"
           bgRepeat="no-repeat"
-          filter=" brightness(0.6)"
+          filter={{ base: "brightness(1)", _dark: "brightness(0.4)" }}
           zIndex={-1}
         />
       )}

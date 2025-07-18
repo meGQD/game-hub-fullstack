@@ -20,7 +20,7 @@ const GameDescription = ({ description }: Props) => {
         <Button
           onClick={() => setExpanded(!isExpanded)}
           size="xs"
-          variant="subtle"
+          variant="solid"
           height={6}
         >
           {isExpanded ? "less" : "more"}

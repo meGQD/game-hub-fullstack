@@ -12,7 +12,7 @@ const GameInformationHeading = ({ heading }: Props) => {
           as="h1"
           textTransform="capitalize"
           fontWeight="medium"
-          color={{ base: "gray.900", _dark: "gray.600" }}
+          color={{ base: "gray.600", _dark: "gray.600" }}
         >
           {heading}
         </Text>
