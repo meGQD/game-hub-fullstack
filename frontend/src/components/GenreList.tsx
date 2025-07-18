@@ -42,6 +42,8 @@ const GenreList = () => {
                 }}
                 variant="ghost"
                 fontSize="lg"
+                flex={1}
+                justifyContent="flex-start"
                 whiteSpace="normal"
                 textAlign="left"
               >
