@@ -1,6 +1,6 @@
-import meh from "..//assets/meh.webp";
-import thumbsUp from "..//assets/thumbs-up.webp";
-import bullsEye from "..//assets/bulls-eye.webp";
+import meh from "@/assets/meh.webp";
+import thumbsUp from "@/assets/thumbs-up.webp";
+import bullsEye from "@/assets/bulls-eye.webp";
 import { Image, type ImageProps } from "@chakra-ui/react";
 
 interface Props {

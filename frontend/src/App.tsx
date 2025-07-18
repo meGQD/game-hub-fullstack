@@ -1,6 +1,6 @@
 import { Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-import GenreList from "./components/GenreList";
+import GenreList from "./features/genres/components/GenreList";
 import { Outlet } from "react-router-dom";
 import BackgroundImage from "./components/BackgroundImage";
 

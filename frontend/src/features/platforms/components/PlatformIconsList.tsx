@@ -16,7 +16,7 @@ import {
   SiCommodore,
 } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs";
-import type { Platform } from "@/hooks/usePlatforms";
+import type { Platform } from "@/features/platforms/hooks/usePlatforms";
 import { HStack, Icon } from "@chakra-ui/react";
 import type { IconType } from "react-icons";
 

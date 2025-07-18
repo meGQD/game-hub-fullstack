@@ -1,6 +1,6 @@
-import GameDetails from "@/components/GameDetails";
-import GameScreenshotGrid from "@/components/GameScreenshotGrid";
-import useGameDetails from "@/hooks/useGameDetails";
+import GameDetails from "@/features/games/components/GameDetails";
+import GameScreenshotGrid from "@/features/games/components/GameScreenshotGrid";
+import useGameDetails from "@/features/games/hooks/useGameDetails";
 import useGameQueryStore from "@/store";
 import {
   Box,

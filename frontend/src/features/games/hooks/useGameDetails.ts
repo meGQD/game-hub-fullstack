@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { Platform } from "./usePlatforms";
 import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
-import type { Genre } from "./useGenres";
+import type { Genre } from "@/features/genres/hooks/useGenres";
+import type { Platform } from "@/features/platforms/hooks/usePlatforms";
 
 export interface Screenshot{
     id: number;

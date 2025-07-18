@@ -1,4 +1,4 @@
-import type { Screenshot } from "@/hooks/useGameDetails";
+import type { Screenshot } from "@/features/games/hooks/useGameDetails";
 import getCroppedImageUrl from "@/services/image-url";
 import { Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";

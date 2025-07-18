@@ -1,4 +1,4 @@
-import usePlatforms from "@/hooks/usePlatforms";
+import usePlatforms from "@/features/platforms/hooks/usePlatforms";
 import useGameQueryStore from "@/store";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";

@@ -1,6 +1,6 @@
-import GameGrid from "@/components/GameGrid";
-import GameGridHeading from "@/components/GameGridHeading";
-import PlatformList from "@/components/PlatformList";
+import GameGrid from "@/features/games/components/GameGrid";
+import GameGridHeading from "@/features/games/components/GameGridHeading";
+import PlatformList from "@/features/platforms/components/PlatformList";
 import SortSelector from "@/components/SortSelector";
 import { Box, HStack } from "@chakra-ui/react";
 

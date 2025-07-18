@@ -1,6 +1,6 @@
 import type { GameQuery } from "@/store";
-import useData from "./useData";
-import type { Platform } from "./usePlatforms";
+import type { Platform } from "@/features/platforms/hooks/usePlatforms";
+import useData from "@/hooks/useData";
 
 export interface Game {
   id: number;

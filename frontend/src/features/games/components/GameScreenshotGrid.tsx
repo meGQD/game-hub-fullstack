@@ -1,4 +1,4 @@
-import { type GameDetail } from "@/hooks/useGameDetails";
+import { type GameDetail } from "@/features/games/hooks/useGameDetails";
 import { Button, Grid, GridItem } from "@chakra-ui/react";
 import GameScreenshot from "./GameScreenshot";
 import { useState } from "react";

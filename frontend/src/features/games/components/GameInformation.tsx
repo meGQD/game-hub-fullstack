@@ -1,4 +1,4 @@
-import type { GameDetail } from "@/hooks/useGameDetails";
+import type { GameDetail } from "@/features/games/hooks/useGameDetails";
 import { GridItem, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import MetaCriticScore from "./MetaCriticScore";
 import GameReleasedDate from "./GameReleasedDate";

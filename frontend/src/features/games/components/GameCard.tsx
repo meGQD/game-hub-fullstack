@@ -1,10 +1,10 @@
-import type { Game } from "@/hooks/useGames";
+import type { Game } from "@/features/games/hooks/useGames";
 import { Card, Heading, HStack, Image } from "@chakra-ui/react";
-import PlatformIconsList from "./PlatformIconsList";
-import MetaCriticScore from "./MetaCriticScore";
+import PlatformIconsList from "@/features/platforms/components/PlatformIconsList";
 import getCroppedImageUrl from "@/services/image-url";
 import Emoji from "./Emoji";
 import { Link } from "react-router-dom";
+import MetaCriticScore from "./MetaCriticScore";
 
 interface Props {
   game: Game;

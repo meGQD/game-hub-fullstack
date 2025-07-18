@@ -1,8 +1,8 @@
 import { Container, HStack, Image } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
-import role from "../assets/role.svg";
-import GenreDrawer from "./GenreDrawer";
+import role from "@/assets/role.svg";
+import GenreDrawer from "@/features/genres/components/GenreDrawer";
 import { Link } from "react-router-dom";
 
 interface Props {
