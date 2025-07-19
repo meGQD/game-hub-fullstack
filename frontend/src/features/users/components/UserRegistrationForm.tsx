@@ -130,7 +130,9 @@ const UserRegistrationForm = () => {
               <Field.ErrorText>{errors.email.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Button type="submit">SignUp</Button>
+          <Button colorPalette="green" type="submit">
+            SignUp
+          </Button>
         </Stack>
       </form>
     </div>

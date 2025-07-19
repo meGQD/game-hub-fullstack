@@ -67,7 +67,9 @@ const UserLoginForm = () => {
               <Field.ErrorText>{errors.password.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Button type="submit">Login</Button>
+          <Button colorPalette="cyan" type="submit">
+            Login
+          </Button>
         </Stack>
       </form>
     </div>
