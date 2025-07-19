@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Badge,
-  Box,
   Button,
   Field,
   FieldRequiredIndicator,
@@ -32,12 +31,12 @@ const schema = z.object({
   first_name: z
     .string()
     .min(1, { message: "First name is required." })
-    .regex(/^[a-zA-z]+$/, {
+    .regex(/^[a-zA-z ]+$/, {
       message: "Your first name can only contain letters.",
     }),
   last_name: z
     .string()
-    .regex(/^[a-zA-z]+$/, {
+    .regex(/^[a-zA-z ]+$/, {
       message: "Your first name can only contain letters.",
     })
     .optional()
@@ -55,14 +54,13 @@ const UserRegistrationForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<UserRegisterData>({ resolver: zodResolver(schema) });
 
   return (
     <div>
       <form onSubmit={handleSubmit((data) => console.log(data))}>
         <Stack gap={5}>
-          <Field.Root required invalid>
+          <Field.Root required invalid={errors.username && true}>
             <Field.Label>
               Username <FieldRequiredIndicator />
             </Field.Label>
@@ -75,7 +73,7 @@ const UserRegistrationForm = () => {
               <Field.ErrorText>{errors.username.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Field.Root required invalid>
+          <Field.Root required invalid={errors.password && true}>
             <Field.Label>
               Password <FieldRequiredIndicator />
             </Field.Label>
@@ -88,7 +86,7 @@ const UserRegistrationForm = () => {
               <Field.ErrorText>{errors.password.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Field.Root required invalid>
+          <Field.Root required invalid={errors.first_name && true}>
             <Field.Label>
               First name <FieldRequiredIndicator />
             </Field.Label>
@@ -101,7 +99,7 @@ const UserRegistrationForm = () => {
               <Field.ErrorText>{errors.first_name.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Field.Root invalid>
+          <Field.Root invalid={errors.last_name && true}>
             <Field.Label>
               Last name{" "}
               <FieldRequiredIndicator
@@ -121,7 +119,7 @@ const UserRegistrationForm = () => {
               <Field.ErrorText>{errors.last_name.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Field.Root required invalid>
+          <Field.Root required invalid={errors.email && true}>
             <Field.Label>
               Email <FieldRequiredIndicator />
             </Field.Label>

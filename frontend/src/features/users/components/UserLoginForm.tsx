@@ -2,7 +2,6 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Box,
   Button,
   Field,
   FieldRequiredIndicator,
@@ -37,13 +36,12 @@ const UserLoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<UserLoginData>({ resolver: zodResolver(schema) });
   return (
     <div>
       <form onSubmit={handleSubmit((data) => console.log(data))}>
         <Stack gap={5}>
-          <Field.Root required invalid>
+          <Field.Root required invalid={errors.username && true}>
             <Field.Label>
               Username <FieldRequiredIndicator />
             </Field.Label>
@@ -56,7 +54,7 @@ const UserLoginForm = () => {
               <Field.ErrorText>{errors.username.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Field.Root required invalid>
+          <Field.Root required invalid={errors.password && true}>
             <Field.Label>
               Password <FieldRequiredIndicator />
             </Field.Label>
