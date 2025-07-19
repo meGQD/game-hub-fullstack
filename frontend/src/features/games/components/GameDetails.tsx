@@ -12,10 +12,10 @@ import PlatformIconsList from "@/features/platforms/components/PlatformIconsList
 
 interface Props {
   game: GameDetail;
-  showAside: boolean | undefined;
+  showScreenshotsSide: boolean | undefined;
 }
 
-const GameDetails = ({ game, showAside }: Props) => {
+const GameDetails = ({ game, showScreenshotsSide }: Props) => {
   return (
     <>
       <GameSlug slug={game.slug} />
@@ -31,7 +31,7 @@ const GameDetails = ({ game, showAside }: Props) => {
       <Box marginBottom={5}>
         <GameHeading name={game.name} />
       </Box>
-      {!showAside && <GameScreenshotGrid game={game} />}
+      {!showScreenshotsSide && <GameScreenshotGrid game={game} />}
       <Box marginY={5}>
         <GameDescription description={game.description} />
       </Box>

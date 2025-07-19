@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const GameDetailPage = () => {
-  const showAside = useBreakpointValue({ base: false, lg: true });
+  const showScreenshotsSide = useBreakpointValue({ base: false, lg: true });
   const { slug } = useParams();
   const { game, error, isLoading } = useGameDetails(slug!);
 
@@ -47,9 +47,12 @@ const GameDetailPage = () => {
           spaceX={10}
         >
           <GridItem area="main">
-            <GameDetails showAside={showAside} game={game} />
+            <GameDetails
+              showScreenshotsSide={showScreenshotsSide}
+              game={game}
+            />
           </GridItem>
-          {showAside && (
+          {showScreenshotsSide && (
             <GridItem area="side">
               <GameScreenshotGrid game={game} />
             </GridItem>
