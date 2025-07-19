@@ -30,13 +30,15 @@ const schema = z.object({
     }),
   first_name: z
     .string()
+    .trim()
     .min(1, { message: "First name is required." })
-    .regex(/^[a-zA-z ]+$/, {
+    .regex(/^[a-zA-z]+([a-zA-z ]+)*$/, {
       message: "Your first name can only contain letters.",
     }),
   last_name: z
     .string()
-    .regex(/^[a-zA-z ]+$/, {
+    .trim()
+    .regex(/^[a-zA-z]+([a-zA-z ]+)*$/, {
       message: "Your first name can only contain letters.",
     })
     .optional()
