@@ -4,6 +4,7 @@ import SearchInput from "./SearchInput";
 import role from "@/assets/role.svg";
 import GenreDrawer from "@/features/genres/components/GenreDrawer";
 import { Link } from "react-router-dom";
+import ProfileIcon from "@/features/users/components/ProfileIcon";
 
 interface Props {
   showAside: boolean | undefined;
@@ -19,6 +20,7 @@ const NavBar = ({ showAside }: Props) => {
         <Container fluid>
           <SearchInput />
         </Container>
+        <ProfileIcon />
         <ColorModeSwitch />
         {!showAside && <GenreDrawer />}
       </HStack>
