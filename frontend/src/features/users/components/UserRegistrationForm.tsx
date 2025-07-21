@@ -2,6 +2,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  Alert,
   Badge,
   Button,
   Field,
@@ -13,6 +14,8 @@ import {
 import useRegister from "../hooks/useRegister";
 import useLogin from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { getBackendErrorMessage } from "@/services/error-service";
 
 const schema = z.object({
   username: z
@@ -65,9 +68,13 @@ const UserRegistrationForm = () => {
   const registerMutation = useRegister();
   const loginMutation = useLogin();
 
+  const [backendError, setBackendError] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const onSubmit = (data: UserRegisterData) => {
+    setBackendError(null);
+
     registerMutation.mutate(data, {
       onSuccess: () => {
         loginMutation.mutate(
@@ -84,6 +91,7 @@ const UserRegistrationForm = () => {
       },
       onError: (error) => {
         console.error("Registration failed:", error.message);
+        setBackendError(getBackendErrorMessage(error));
       },
     });
   };
@@ -92,6 +100,15 @@ const UserRegistrationForm = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={5}>
+          {backendError && (
+            <Alert.Root status="error">
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>Error</Alert.Title>
+                <Alert.Description>{backendError}</Alert.Description>
+              </Alert.Content>
+            </Alert.Root>
+          )}
           <Field.Root required invalid={errors.username && true}>
             <Field.Label>
               Username <FieldRequiredIndicator />

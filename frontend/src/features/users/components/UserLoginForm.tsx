@@ -2,6 +2,7 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  Alert,
   Button,
   Field,
   FieldRequiredIndicator,
@@ -11,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import useLogin from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { getBackendErrorMessage } from "@/services/error-service";
 
 const schema = z.object({
   username: z
@@ -41,17 +44,22 @@ const UserLoginForm = () => {
     formState: { errors },
   } = useForm<UserLoginData>({ resolver: zodResolver(schema) });
 
-  const navigate = useNavigate();
-
   const loginMutation = useLogin();
 
+  const [backendError, setBackendError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
   const onSubmit = (data: UserLoginData) => {
+    setBackendError(null);
+
     loginMutation.mutate(data, {
       onSuccess: () => {
         navigate("/");
       },
       onError: (error) => {
         console.error("Login Failed", error.message);
+        setBackendError(getBackendErrorMessage(error));
       },
     });
   };
@@ -60,6 +68,15 @@ const UserLoginForm = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={5}>
+          {backendError && (
+            <Alert.Root status="error" borderRadius="md">
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>Error</Alert.Title>
+                <Alert.Description>{backendError}</Alert.Description>
+              </Alert.Content>
+            </Alert.Root>
+          )}
           <Field.Root required invalid={errors.username && true}>
             <Field.Label>
               Username <FieldRequiredIndicator />
