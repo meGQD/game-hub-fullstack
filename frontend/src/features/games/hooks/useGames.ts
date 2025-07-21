@@ -12,7 +12,7 @@ export interface Game {
   rating_top: number
 }
 
-const useGames = (gameQuery: GameQuery) => useData<Game>("/games", 
+const useGames = (gameQuery: GameQuery) => useData<Game>("/api/games", 
   {params:
     { genres: gameQuery?.genre?.id,
       parent_platforms: gameQuery?.platform?.id,

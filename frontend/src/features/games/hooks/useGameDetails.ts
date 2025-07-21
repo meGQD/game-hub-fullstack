@@ -33,7 +33,7 @@ const useGameDetail = (slug: string) => {
         setLoading(true)
 
         apiClient
-            .get(`games/${slug}`, {signal: controller.signal})
+            .get(`/api/games/${slug}`, {signal: controller.signal})
             .then(res => {
                 setGame(res.data)
                 setLoading(false)
