@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ProfileIcon = () => {
   return (
     <div>
-      <Link to={"/auth"}>
+      <Link to={"/profile"}>
         <Avatar.Root>
           <Avatar.Fallback name="mamad karimi" />
         </Avatar.Root>

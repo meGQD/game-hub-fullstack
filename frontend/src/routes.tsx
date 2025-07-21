@@ -3,6 +3,7 @@ import App from "./App";
 import HomePage from "./pages/HomePage";
 import GameDetailPage from "./pages/GameDetailPage";
 import RegistrationPage from "./pages/AuthenticationPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "games/:slug", element: <GameDetailPage /> },
       { path: "auth", element: <RegistrationPage /> },
+      { path: "profile", element: <ProfilePage /> },
     ],
   },
 ]);
