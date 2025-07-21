@@ -6,8 +6,11 @@ import {
   Field,
   FieldRequiredIndicator,
   Input,
+  Spinner,
   Stack,
 } from "@chakra-ui/react";
+import useLogin from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   username: z
@@ -37,9 +40,25 @@ const UserLoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<UserLoginData>({ resolver: zodResolver(schema) });
+
+  const navigate = useNavigate();
+
+  const loginMutation = useLogin();
+
+  const onSubmit = (data: UserLoginData) => {
+    loginMutation.mutate(data, {
+      onSuccess: () => {
+        navigate("/");
+      },
+      onError: (error) => {
+        console.error("Login Failed", error.message);
+      },
+    });
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={5}>
           <Field.Root required invalid={errors.username && true}>
             <Field.Label>
@@ -67,8 +86,13 @@ const UserLoginForm = () => {
               <Field.ErrorText>{errors.password.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Button colorPalette="cyan" type="submit">
-            Login
+
+          <Button
+            loading={loginMutation.isPending && true}
+            colorPalette="cyan"
+            type="submit"
+          >
+            {loginMutation.isPending ? <Spinner /> : "Login"}
           </Button>
         </Stack>
       </form>

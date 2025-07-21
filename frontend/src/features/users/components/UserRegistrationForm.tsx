@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import useRegister from "../hooks/useRegister";
 import useLogin from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   username: z
@@ -64,16 +65,25 @@ const UserRegistrationForm = () => {
   const registerMutation = useRegister();
   const loginMutation = useLogin();
 
+  const navigate = useNavigate();
+
   const onSubmit = (data: UserRegisterData) => {
     registerMutation.mutate(data, {
       onSuccess: () => {
-        loginMutation.mutate({
-          username: data.username,
-          password: data.password,
-        });
+        loginMutation.mutate(
+          {
+            username: data.username,
+            password: data.password,
+          },
+          {
+            onSuccess: () => {
+              navigate("/");
+            },
+          }
+        );
       },
       onError: (error) => {
-        console.error("Registration failed", error.message);
+        console.error("Registration failed:", error.message);
       },
     });
   };
