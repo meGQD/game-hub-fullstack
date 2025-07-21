@@ -7,7 +7,7 @@ export interface Profile{
     email: string,
     phone: string,
     birth_date: string,
-    favorite_games: Game[]
+    favorite_games: {game : Game}[]
 }
 
 const useProfile = () => useDatum<Profile>("accounts/profiles/me")

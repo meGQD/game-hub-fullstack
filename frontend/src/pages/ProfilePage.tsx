@@ -1,4 +1,5 @@
 import ProfileDetails from "@/features/users/components/ProfileDetails";
+import ProfileFavoriteGames from "@/features/users/components/ProfileFavoriteGames";
 import useProfile from "@/features/users/hooks/useProfile";
 import useAppStore from "@/store";
 import { Box, Tabs } from "@chakra-ui/react";
@@ -18,16 +19,24 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <Box justifyContent="center" padding={5} maxW="lg" mx="auto">
-        <Tabs.Root defaultValue="profile" variant="outline">
+      <Box justifyContent="center" padding={5} mx="auto">
+        <Tabs.Root defaultValue="profile" variant="line">
           <Tabs.List>
-            <Tabs.Trigger value="profile">Profile</Tabs.Trigger>
-            <Tabs.Trigger value="favorite_games">Favorite Games</Tabs.Trigger>
+            <Tabs.Trigger value="profile" fontSize="2xl">
+              Profile
+            </Tabs.Trigger>
+            <Tabs.Trigger value="favorite_games" fontSize="2xl">
+              Favorite Games
+            </Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="profile">
             <ProfileDetails profile={datum} />
           </Tabs.Content>
-          <Tabs.Content value="favorite_games"></Tabs.Content>
+          <Tabs.Content value="favorite_games">
+            <ProfileFavoriteGames
+              games={datum.favorite_games.map((g) => g.game)}
+            />
+          </Tabs.Content>
         </Tabs.Root>
       </Box>
     </div>
