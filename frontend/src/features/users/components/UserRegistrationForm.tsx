@@ -7,8 +7,11 @@ import {
   Field,
   FieldRequiredIndicator,
   Input,
+  Spinner,
   Stack,
 } from "@chakra-ui/react";
+import useRegister from "../hooks/useRegister";
+import useLogin from "../hooks/useLogin";
 
 const schema = z.object({
   username: z
@@ -58,9 +61,26 @@ const UserRegistrationForm = () => {
     formState: { errors },
   } = useForm<UserRegisterData>({ resolver: zodResolver(schema) });
 
+  const registerMutation = useRegister();
+  const loginMutation = useLogin();
+
+  const onSubmit = (data: UserRegisterData) => {
+    registerMutation.mutate(data, {
+      onSuccess: () => {
+        loginMutation.mutate({
+          username: data.username,
+          password: data.password,
+        });
+      },
+      onError: (error) => {
+        console.error("Registration failed", error.message);
+      },
+    });
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={5}>
           <Field.Root required invalid={errors.username && true}>
             <Field.Label>
@@ -130,8 +150,12 @@ const UserRegistrationForm = () => {
               <Field.ErrorText>{errors.email.message}</Field.ErrorText>
             )}
           </Field.Root>
-          <Button colorPalette="green" type="submit">
-            SignUp
+          <Button
+            loading={registerMutation.isPending && true}
+            colorPalette="green"
+            type="submit"
+          >
+            {registerMutation.isPending ? <Spinner /> : "SignUp"}
           </Button>
         </Stack>
       </form>
