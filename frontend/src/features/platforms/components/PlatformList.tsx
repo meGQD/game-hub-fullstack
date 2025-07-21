@@ -1,11 +1,11 @@
 import usePlatforms from "@/features/platforms/hooks/usePlatforms";
-import useGameQueryStore from "@/store";
+import useAppStore from "@/store";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
 const PlatformList = () => {
-  const selectedPlatform = useGameQueryStore((s) => s.gameQuery.platform);
-  const setPlatform = useGameQueryStore((s) => s.setPlatform);
+  const selectedPlatform = useAppStore((s) => s.gameQuery.platform);
+  const setPlatform = useAppStore((s) => s.setPlatform);
   const { data, error } = usePlatforms();
 
   if (error) return null;

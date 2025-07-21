@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { Genre } from "./features/genres/hooks/useGenres";
 import type { Platform } from "./features/platforms/hooks/usePlatforms";
 import type { GameDetail } from "./features/games/hooks/useGameDetails";
+import type { User } from "./features/users/hooks/useRegister";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -10,10 +11,21 @@ export interface GameQuery {
   searchText: string;
 }
 
-interface GameQueryStore{
+interface AuthState {
+  user: User | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  login: (authData: {user: User, access: string, refresh: string}) => void;
+  logout: () => void;
+  setAccessToken: (token: string) => void;
+
+}
+
+interface AppStore{
     gameQuery : GameQuery;
     backgroundImageUrl : string | null;
-    favoriteGame : GameDetail | null; 
+    favoriteGame : GameDetail | null;
+    auth: AuthState; 
     setGenre : (genre: Genre) => void;
     setPlatform : (platform: Platform) => void;
     setSortOrder : (sortOrder: string) => void;
@@ -22,7 +34,7 @@ interface GameQueryStore{
     setFavoriteGame : (game: GameDetail | null) => void;
 }
 
-const useGameQueryStore = create<GameQueryStore>((set) => ({
+const useAppStore = create<AppStore>((set) => ({
     gameQuery : {} as GameQuery,
     backgroundImageUrl : null,
     favoriteGame : null,
@@ -31,7 +43,15 @@ const useGameQueryStore = create<GameQueryStore>((set) => ({
     setSortOrder : (sortOrder) => set((store) => ({gameQuery: {...store.gameQuery, sortOrder}})),
     setSearchText : (searchText) => set((store) => ({gameQuery: {...store.gameQuery, searchText}})),
     setBackgroundImageUrl : (url) => set({ backgroundImageUrl: url}),
-    setFavoriteGame : (game) => set({ favoriteGame: game })
+    setFavoriteGame : (game) => set({ favoriteGame: game }),
+    auth : {
+      user: null,
+      accessToken: null,
+      refreshToken: null,
+      login : (authData) => set((store) => ({auth: {...store.auth, user: authData.user, accessToken: authData.access, refreshToken: authData.refresh}})),
+      logout : () => set((store) => ({auth: {...store.auth, user: null, accessToken: null, refreshToken: null}})),
+      setAccessToken : (token) => set((store) => ({auth: {...store.auth, accessToken: token}}))
+    }
 }))
 
-export default useGameQueryStore;
+export default useAppStore;

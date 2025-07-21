@@ -1,7 +1,7 @@
 import GameDetails from "@/features/games/components/GameDetails";
 import GameScreenshotGrid from "@/features/games/components/GameScreenshotGrid";
 import useGameDetails from "@/features/games/hooks/useGameDetails";
-import useGameQueryStore from "@/store";
+import useAppStore from "@/store";
 import {
   Box,
   Grid,
@@ -18,9 +18,7 @@ const GameDetailPage = () => {
   const { slug } = useParams();
   const { game, error, isLoading } = useGameDetails(slug!);
 
-  const setBackgroundImageUrl = useGameQueryStore(
-    (s) => s.setBackgroundImageUrl
-  );
+  const setBackgroundImageUrl = useAppStore((s) => s.setBackgroundImageUrl);
 
   useEffect(() => {
     if (game) {

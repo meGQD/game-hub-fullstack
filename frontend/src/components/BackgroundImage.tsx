@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import { useColorMode } from "./ui/color-mode";
-import useGameQueryStore from "@/store";
+import useAppStore from "@/store";
 
 const BackgroundImage = () => {
-  const backgroundImageUrl = useGameQueryStore((s) => s.backgroundImageUrl);
+  const backgroundImageUrl = useAppStore((s) => s.backgroundImageUrl);
   const { colorMode } = useColorMode();
 
   const gradient =

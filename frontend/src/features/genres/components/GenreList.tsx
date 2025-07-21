@@ -1,6 +1,6 @@
 import useGenres from "@/features/genres/hooks/useGenres";
 import getCroppedImageUrl from "@/services/image-url";
-import useGameQueryStore from "@/store";
+import useAppStore from "@/store";
 import {
   Button,
   Heading,
@@ -12,8 +12,8 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const GenreList = () => {
-  const selectedGenre = useGameQueryStore((s) => s.gameQuery.genre);
-  const setGenre = useGameQueryStore((s) => s.setGenre);
+  const selectedGenre = useAppStore((s) => s.gameQuery.genre);
+  const setGenre = useAppStore((s) => s.setGenre);
   const navigate = useNavigate();
   const { data, isLoading } = useGenres();
 

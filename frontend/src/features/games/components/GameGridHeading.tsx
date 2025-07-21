@@ -1,8 +1,8 @@
-import useGameQueryStore from "@/store";
+import useAppStore from "@/store";
 import { Heading } from "@chakra-ui/react";
 
 const GameGridHeading = () => {
-  const gameQuery = useGameQueryStore((s) => s.gameQuery);
+  const gameQuery = useAppStore((s) => s.gameQuery);
   const heading = `
   ${gameQuery.platform?.name || ""} 
   ${gameQuery.genre?.name || ""} Games`;

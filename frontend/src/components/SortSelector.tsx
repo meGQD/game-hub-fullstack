@@ -1,10 +1,10 @@
-import useGameQueryStore from "@/store";
+import useAppStore from "@/store";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
 const SortSelector = () => {
-  const selectedSortOrder = useGameQueryStore((s) => s.gameQuery.sortOrder);
-  const setSortOrder = useGameQueryStore((s) => s.setSortOrder);
+  const selectedSortOrder = useAppStore((s) => s.gameQuery.sortOrder);
+  const setSortOrder = useAppStore((s) => s.setSortOrder);
   const sortOrders = [
     { value: "", label: "Relevance" },
     { value: "name", label: "Name" },

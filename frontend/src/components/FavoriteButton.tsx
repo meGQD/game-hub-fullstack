@@ -2,15 +2,15 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import type { GameDetail } from "@/features/games/hooks/useGameDetails";
-import useGameQueryStore from "@/store";
+import useAppStore from "@/store";
 
 interface Props {
   game: GameDetail;
 }
 
 const FavoriteButton = ({ game }: Props) => {
-  const setFavoriteGame = useGameQueryStore((s) => s.setFavoriteGame);
-  const favoriteGame = useGameQueryStore((s) => s.favoriteGame);
+  const setFavoriteGame = useAppStore((s) => s.setFavoriteGame);
+  const favoriteGame = useAppStore((s) => s.favoriteGame);
   const [clicked, setClick] = useState(false);
 
   useEffect(() => {
