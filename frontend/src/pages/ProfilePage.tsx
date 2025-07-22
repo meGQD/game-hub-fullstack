@@ -1,4 +1,4 @@
-import ProfileDetails from "@/features/users/components/ProfileDetails";
+import ProfileDetailsForm from "@/features/users/components/ProfileDetailsForm";
 import ProfileFavoriteGames from "@/features/users/components/ProfileFavoriteGames";
 import useProfile from "@/features/users/hooks/useProfile";
 import useAppStore from "@/store";
@@ -34,7 +34,7 @@ const ProfilePage = () => {
             </Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="profile">
-            <ProfileDetails profile={datum} />
+            <ProfileDetailsForm profile={datum} />
           </Tabs.Content>
           <Tabs.Content value="favorite_games">
             <ProfileFavoriteGames

@@ -1,15 +1,21 @@
 import {
+  Alert,
+  Box,
   Button,
   Field,
   FieldErrorText,
   HStack,
   Input,
   SimpleGrid,
+  Spinner,
 } from "@chakra-ui/react";
 import type { Profile } from "../hooks/useProfile";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useUpdateProfile from "../hooks/useUpdateProfile";
+import { useState } from "react";
+import { getBackendErrorMessage } from "@/services/error-service";
 
 const schema = z.object({
   first_name: z
@@ -39,7 +45,7 @@ interface Props {
   profile: Profile;
 }
 
-const ProfileDetails = ({ profile }: Props) => {
+const ProfileDetailsForm = ({ profile }: Props) => {
   const {
     register,
     handleSubmit,
@@ -47,14 +53,48 @@ const ProfileDetails = ({ profile }: Props) => {
     reset,
   } = useForm<ProfileData>({ resolver: zodResolver(schema) });
 
+  const updateProfileMutation = useUpdateProfile();
+
+  const [backendError, setBackendError] = useState<string | null>(null);
+
   const onSubmit = (data: ProfileData) => {
-    console.log(data.first_name);
-    console.log(data.birth_date);
+    setBackendError(null);
+
+    updateProfileMutation.mutate(data, {
+      onSuccess: () => {
+        console.log("Profile updated successfully");
+      },
+      onError: (error) => {
+        console.error("Updating profile failed.", error.message);
+        setBackendError(getBackendErrorMessage(error));
+      },
+    });
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {backendError && (
+          <Box marginBottom={5}>
+            <Alert.Root status="error">
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>Error</Alert.Title>
+                <Alert.Description>{backendError}</Alert.Description>
+              </Alert.Content>
+            </Alert.Root>
+          </Box>
+        )}
+        {updateProfileMutation.isSuccess && (
+          <Box marginBottom={5}>
+            <Alert.Root status="success">
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>Profile updated successfully</Alert.Title>
+              </Alert.Content>
+            </Alert.Root>
+          </Box>
+        )}
         <SimpleGrid
           columns={{ sm: 1, md: 2 }}
           columnGap={10}
@@ -121,12 +161,20 @@ const ProfileDetails = ({ profile }: Props) => {
           </Field.Root>
           <Field.Root orientation="horizontal" disabled>
             <Field.Label>Email</Field.Label>
-            <Input placeholder={profile.email} borderRadius={15}></Input>
+            <Input
+              placeholder={profile.email}
+              defaultValue={profile.email}
+              borderRadius={15}
+            ></Input>
           </Field.Root>
         </SimpleGrid>
         <HStack marginTop={5} columnGap={4}>
-          <Button colorPalette="blue" type="submit">
-            Save
+          <Button
+            colorPalette="blue"
+            type="submit"
+            loading={updateProfileMutation.isPending && true}
+          >
+            {updateProfileMutation.isPending ? <Spinner /> : "Save"}
           </Button>
           <Button onClick={() => reset()}>Cancel</Button>
         </HStack>
@@ -135,4 +183,4 @@ const ProfileDetails = ({ profile }: Props) => {
   );
 };
 
-export default ProfileDetails;
+export default ProfileDetailsForm;
