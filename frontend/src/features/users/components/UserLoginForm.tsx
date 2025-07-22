@@ -26,9 +26,8 @@ const schema = z.object({
     }),
   password: z
     .string()
-    .min(8, {
-      message:
-        "This password is too short. It must contain at least 8 characters.",
+    .min(1, {
+      message: "This Field is required.",
     })
     .regex(/[a-zA-z]/, {
       message: "The password must contain at least 1 letter.",
