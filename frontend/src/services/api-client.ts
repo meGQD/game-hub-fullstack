@@ -24,14 +24,13 @@ axiosInstance.interceptors.response.use(
                 useAppStore.getState().auth.logout();
                 return Promise.reject(error);
             }
-            console.log("invalid access token, trying to get a new one using refreshToken")
-            const baseURL = import.meta.env.VITE_BASE_URL;
+            console.log(`invalid access token, trying to get a new one using refreshToken: `)
             return axiosInstance
-                        .post(`${baseURL}/auth/jwt/refresh/`, { refresh: refreshToken })
+                        .post(`/auth/jwt/refresh/`, { refresh: refreshToken })
                         .then(res =>{
                             const newAccessToken = res.data.access;
                             useAppStore.getState().auth.setAccessToken(newAccessToken);
-                            originalRequest.request.headers = `JWT ${newAccessToken}`;
+                            originalRequest.headers.Authorization = `JWT ${newAccessToken}`;
                             return axiosInstance(originalRequest);
                         })
                         .catch(refreshError =>{
