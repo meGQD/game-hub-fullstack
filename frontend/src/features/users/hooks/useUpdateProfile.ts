@@ -8,16 +8,9 @@ interface ProfileData{
     last_name?: string | undefined;
 }
 
-interface UpdateProfileData{
-    first_name: string;
-    phone: string;
-    birth_date: string;
-    last_name?: string | undefined;
-}
-
 const useUpdateProfile = () => {
-    return useMutation<ProfileData, Error, UpdateProfileData>({
-        mutationFn: (profileData: UpdateProfileData) => {
+    return useMutation<ProfileData, Error, ProfileData>({
+        mutationFn: (profileData: ProfileData) => {
             return apiClient
                         .put<ProfileData>("/accounts/profiles/me/", profileData)
                         .then(res => res.data)
