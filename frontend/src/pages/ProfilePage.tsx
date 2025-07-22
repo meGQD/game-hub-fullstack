@@ -2,7 +2,7 @@ import ProfileDetails from "@/features/users/components/ProfileDetails";
 import ProfileFavoriteGames from "@/features/users/components/ProfileFavoriteGames";
 import useProfile from "@/features/users/hooks/useProfile";
 import useAppStore from "@/store";
-import { Box, Tabs } from "@chakra-ui/react";
+import { Box, Spinner, Tabs, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
@@ -14,6 +14,10 @@ const ProfilePage = () => {
   }
 
   const { datum, isLoading, error } = useProfile();
+
+  if (isLoading) return <Spinner />;
+
+  if (error) return <Text color="red">{error}</Text>;
 
   if (!datum) return null;
 
