@@ -17,7 +17,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name', allow_blank=True)
-    email = serializers.EmailField(source='user.email')
+    email = serializers.EmailField(source='user.email', read_only=True)
 
     favorite_games = FavoriteGameSerializer(many=True, read_only=True)
 
@@ -27,7 +27,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         user = instance.user
         user.first_name = user_data.get('first_name', user.first_name)
         user.last_name = user_data.get('last_name', user.last_name)
-        user.email = user_data.get('email', user.email)
         user.save()
 
         return super().update(instance, validated_data)
