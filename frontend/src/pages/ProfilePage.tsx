@@ -3,15 +3,18 @@ import ProfileFavoriteGames from "@/features/users/components/ProfileFavoriteGam
 import useProfile from "@/features/users/hooks/useProfile";
 import useAppStore from "@/store";
 import { Box, Spinner, Tabs, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const user = useAppStore((s) => s.auth.user);
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate("/auth");
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/auth");
+    }
+  }, [user]);
 
   const { datum, isLoading, error } = useProfile();
 
