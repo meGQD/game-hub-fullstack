@@ -3,8 +3,8 @@ import { useMutation } from "@tanstack/react-query";
 
 interface ProfileData{
     first_name: string;
-    phone: string;
-    birth_date: string;
+    phone: string | null;
+    birth_date: string | null;
     last_name?: string | undefined;
 }
 

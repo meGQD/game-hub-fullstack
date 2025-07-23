@@ -33,10 +33,21 @@ const schema = z.object({
     })
     .optional()
     .or(z.literal("")),
-  phone: z.string().regex(/^[0]+[9]+([0-9]+)*$/, {
-    message: "Please enter a valid phone number",
-  }),
-  birth_date: z.string(),
+  phone: z
+    .string()
+    .refine(
+      (val) => {
+        if (val === "") return true;
+        return /^[0]+[9]+([0-9]+)*$/.test(val);
+      },
+      { message: "Please enter a valid phone number starting with 09." }
+    )
+    .transform((val) => (val === "" ? null : val))
+    .nullable(),
+  birth_date: z
+    .string()
+    .transform((val) => (val === "" ? null : val))
+    .nullable(),
 });
 
 type ProfileData = z.infer<typeof schema>;
@@ -51,7 +62,15 @@ const ProfileDetailsForm = ({ profile }: Props) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ProfileData>({ resolver: zodResolver(schema) });
+  } = useForm<ProfileData>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      first_name: profile.first_name,
+      last_name: profile.last_name || "",
+      phone: profile.phone || "",
+      birth_date: profile.birth_date || "",
+    },
+  });
 
   const updateProfileMutation = useUpdateProfile();
 
@@ -110,7 +129,6 @@ const ProfileDetailsForm = ({ profile }: Props) => {
             <Input
               {...register("first_name")}
               type="text"
-              defaultValue={profile.first_name}
               borderRadius={15}
             ></Input>
             {errors.first_name && (
@@ -125,7 +143,6 @@ const ProfileDetailsForm = ({ profile }: Props) => {
             <Input
               {...register("last_name")}
               type="text"
-              defaultValue={profile.last_name}
               borderRadius={15}
             ></Input>
             {errors.last_name && (
@@ -134,12 +151,7 @@ const ProfileDetailsForm = ({ profile }: Props) => {
           </Field.Root>
           <Field.Root orientation="horizontal" invalid={errors.phone && true}>
             <Field.Label>Phone Number</Field.Label>
-            <Input
-              {...register("phone")}
-              type="text"
-              defaultValue={profile.phone}
-              borderRadius={15}
-            ></Input>
+            <Input {...register("phone")} type="text" borderRadius={15}></Input>
             {errors.phone && (
               <FieldErrorText>{errors.phone.message}</FieldErrorText>
             )}
@@ -152,7 +164,6 @@ const ProfileDetailsForm = ({ profile }: Props) => {
             <Input
               {...register("birth_date")}
               type="date"
-              defaultValue={profile.birth_date}
               borderRadius={15}
             ></Input>
             {errors.birth_date && (
