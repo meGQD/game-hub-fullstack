@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import GenreList from "./features/genres/components/GenreList";
 import { Outlet } from "react-router-dom";
 import BackgroundImage from "./components/BackgroundImage";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   const showAside = useBreakpointValue({ base: false, xl: true });
@@ -10,6 +11,7 @@ function App() {
   return (
     <>
       <BackgroundImage />
+      <Toaster />
       <Grid
         templateAreas={{ base: `"nav" "main"`, xl: `"nav nav" "aside main"` }}
         templateColumns={{

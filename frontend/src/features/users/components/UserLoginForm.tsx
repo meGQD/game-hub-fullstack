@@ -14,6 +14,7 @@ import useLogin from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getBackendErrorMessage } from "@/services/error-service";
+import { toaster } from "@/components/ui/toaster";
 
 const schema = z.object({
   username: z
@@ -54,6 +55,12 @@ const UserLoginForm = () => {
 
     loginMutation.mutate(data, {
       onSuccess: () => {
+        toaster.create({
+          title: "Successfully logged in.",
+          type: "success",
+          duration: 5000,
+          closable: true,
+        });
         navigate("/");
       },
       onError: (error) => {
