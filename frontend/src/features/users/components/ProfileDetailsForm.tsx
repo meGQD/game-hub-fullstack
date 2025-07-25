@@ -188,7 +188,7 @@ const ProfileDetailsForm = ({ profile }: Props) => {
             >
               {updateProfileMutation.isPending ? <Spinner /> : "Save"}
             </Button>
-            <Button onClick={() => reset()}>Cancel</Button>
+            <Button onClick={() => reset()}>Revert</Button>
           </HStack>
           <HStack>
             <LogoutButton />

@@ -6,10 +6,10 @@ import type { GameDetail } from "./features/games/hooks/useGameDetails";
 import type { User } from "./features/users/hooks/useRegister";
 
 export interface GameQuery {
-  genre: Genre | null;
-  platform: Platform | null;
-  sortOrder: string;
-  searchText: string;
+  genre?: Genre | null;
+  platform?: Platform | null;
+  sortOrder?: string;
+  searchText?: string;
 }
 
 interface AuthState {
@@ -28,6 +28,7 @@ interface AppStore{
   setPlatform : (platform: Platform) => void;
   setSortOrder : (sortOrder: string) => void;
   setSearchText : (searchText: string) => void;
+  resetGameQuery: () => void;
 
   setBackgroundImageUrl : (url : string | null) => void;
   setFavoriteGame : (game: GameDetail | null) => void;
@@ -39,7 +40,7 @@ interface AppStore{
 
 const useAppStore = create<AppStore>()(
   persist((set) => ({
-    gameQuery : {} as GameQuery,
+    gameQuery : {},
     backgroundImageUrl : null,
     favoriteGame : null,
     auth : {
@@ -52,6 +53,7 @@ const useAppStore = create<AppStore>()(
     setPlatform : (platform) => set((store) => ({gameQuery: {...store.gameQuery, platform}})),
     setSortOrder : (sortOrder) => set((store) => ({gameQuery: {...store.gameQuery, sortOrder}})),
     setSearchText : (searchText) => set((store) => ({gameQuery: {...store.gameQuery, searchText}})),
+    resetGameQuery: () => set({gameQuery: {}}),
 
     setBackgroundImageUrl : (url) => set({ backgroundImageUrl: url}),
     setFavoriteGame : (game) => set({ favoriteGame: game }),
