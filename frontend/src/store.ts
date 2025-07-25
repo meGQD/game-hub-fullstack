@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware"
 import type { Genre } from "./features/genres/hooks/useGenres";
 import type { Platform } from "./features/platforms/hooks/usePlatforms";
 import type { GameDetail } from "./features/games/hooks/useGameDetails";
@@ -34,7 +35,8 @@ interface AppStore{
     setFavoriteGame : (game: GameDetail | null) => void;
 }
 
-const useAppStore = create<AppStore>((set) => ({
+const useAppStore = create<AppStore>()(
+  persist((set) => ({
     gameQuery : {} as GameQuery,
     backgroundImageUrl : null,
     favoriteGame : null,
@@ -52,6 +54,12 @@ const useAppStore = create<AppStore>((set) => ({
       logout : () => set((store) => ({auth: {...store.auth, user: null, accessToken: null, refreshToken: null}})),
       setAccessToken : (token) => set((store) => ({auth: {...store.auth, accessToken: token}}))
     }
-}))
+  }),
+  {
+    name: "auth-storage",
+    partialize: (state) => ({ auth: state.auth})
+  }
+  )
+)
 
 export default useAppStore;
