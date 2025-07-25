@@ -14,8 +14,8 @@ interface AuthResponse{
 }
 
 const useLogin = () => {
-    const loginAction = useAppStore(s => s.auth.login)
-    const setAccessToken = useAppStore(s => s.auth.setAccessToken)
+    const loginAction = useAppStore(s => s.login)
+    const setAccessToken = useAppStore(s => s.setAccessToken)
 
     return useMutation<AuthResponse, Error, LoginData>({
         mutationFn: (loginData: LoginData) => {

@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
             originalRequest._retry = true;
             const refreshToken = useAppStore.getState().auth.refreshToken
             if(!refreshToken){
-                useAppStore.getState().auth.logout();
+                useAppStore.getState().logout();
                 return Promise.reject(error);
             }
             console.log(`invalid access token, trying to get a new one using refreshToken: `)
@@ -29,12 +29,12 @@ axiosInstance.interceptors.response.use(
                         .post(`/auth/jwt/refresh/`, { refresh: refreshToken })
                         .then(res =>{
                             const newAccessToken = res.data.access;
-                            useAppStore.getState().auth.setAccessToken(newAccessToken);
+                            useAppStore.getState().setAccessToken(newAccessToken);
                             originalRequest.headers.Authorization = `JWT ${newAccessToken}`;
                             return axiosInstance(originalRequest);
                         })
                         .catch(refreshError =>{
-                            useAppStore.getState().auth.logout()
+                            useAppStore.getState().logout()
                             return Promise.reject(refreshError)
                         })
         }
