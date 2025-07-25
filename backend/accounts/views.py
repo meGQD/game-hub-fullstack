@@ -37,7 +37,8 @@ class FavoriteGamesViewSet(ModelViewSet):
         return FavoriteGameSerializer
     
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        profile_id = self._get_profile_id()
+        return {'profile_id': profile_id}
     
     def get_queryset(self):
         profile_id = self._get_profile_id()
