@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useUpdateProfile from "../hooks/useUpdateProfile";
 import { useState } from "react";
 import { getBackendErrorMessage } from "@/services/error-service";
+import LogoutButton from "./LogoutButton";
 
 const schema = z.object({
   first_name: z
@@ -118,7 +119,6 @@ const ProfileDetailsForm = ({ profile }: Props) => {
           columns={{ sm: 1, md: 2 }}
           columnGap={10}
           rowGap={6}
-          maxW={"2xl"}
           justifyContent="space-between"
         >
           <Field.Root
@@ -179,15 +179,20 @@ const ProfileDetailsForm = ({ profile }: Props) => {
             ></Input>
           </Field.Root>
         </SimpleGrid>
-        <HStack marginTop={5} columnGap={4}>
-          <Button
-            colorPalette="blue"
-            type="submit"
-            loading={updateProfileMutation.isPending && true}
-          >
-            {updateProfileMutation.isPending ? <Spinner /> : "Save"}
-          </Button>
-          <Button onClick={() => reset()}>Cancel</Button>
+        <HStack marginTop={5} columnGap={4} justifyContent="space-between">
+          <HStack>
+            <Button
+              colorPalette="blue"
+              type="submit"
+              loading={updateProfileMutation.isPending && true}
+            >
+              {updateProfileMutation.isPending ? <Spinner /> : "Save"}
+            </Button>
+            <Button onClick={() => reset()}>Cancel</Button>
+          </HStack>
+          <HStack>
+            <LogoutButton />
+          </HStack>
         </HStack>
       </form>
     </>

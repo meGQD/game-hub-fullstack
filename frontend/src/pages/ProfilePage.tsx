@@ -37,7 +37,9 @@ const ProfilePage = () => {
             </Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="profile">
-            <ProfileDetailsForm profile={datum} />
+            <Box maxW="3xl">
+              <ProfileDetailsForm profile={datum} />
+            </Box>
           </Tabs.Content>
           <Tabs.Content value="favorite_games">
             <ProfileFavoriteGames
