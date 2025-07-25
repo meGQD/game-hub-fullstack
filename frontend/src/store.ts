@@ -2,8 +2,9 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware"
 import type { Genre } from "./features/genres/hooks/useGenres";
 import type { Platform } from "./features/platforms/hooks/usePlatforms";
-import type { GameDetail } from "./features/games/hooks/useGameDetails";
 import type { User } from "./features/users/hooks/useRegister";
+import type { Game } from "./features/games/hooks/useGames";
+import type { FavoriteGame } from "./features/users/hooks/useProfile";
 
 export interface GameQuery {
   genre?: Genre | null;
@@ -21,7 +22,7 @@ interface AuthState {
 interface AppStore{
   gameQuery : GameQuery;
   backgroundImageUrl : string | null;
-  favoriteGame : GameDetail | null;
+  favoriteGames : FavoriteGame[]
   auth: AuthState; 
   // Game query actions defaults
   setGenre : (genre: Genre) => void;
@@ -31,7 +32,8 @@ interface AppStore{
   resetGameQuery: () => void;
 
   setBackgroundImageUrl : (url : string | null) => void;
-  setFavoriteGame : (game: GameDetail | null) => void;
+  setFavoriteGames: (games: FavoriteGame[]) => void;
+  toggleFavoriteGame: (game: Game) => void;
   // Auth Actions defaults
   login: (authData: {user: User, access: string, refresh: string}) => void;
   logout: () => void;
@@ -42,7 +44,7 @@ const useAppStore = create<AppStore>()(
   persist((set) => ({
     gameQuery : {},
     backgroundImageUrl : null,
-    favoriteGame : null,
+    favoriteGames : [],
     auth : {
       user: null,
       accessToken: null,
@@ -56,7 +58,20 @@ const useAppStore = create<AppStore>()(
     resetGameQuery: () => set({gameQuery: {}}),
 
     setBackgroundImageUrl : (url) => set({ backgroundImageUrl: url}),
-    setFavoriteGame : (game) => set({ favoriteGame: game }),
+
+    setFavoriteGames: (games) => set({favoriteGames: games}),
+    toggleFavoriteGame: (game) => set((store) => {
+      const isFavorite = store.favoriteGames.some((g) => g.game.id === game.id);
+      if (isFavorite){
+        return{
+          favoriteGames: store.favoriteGames.filter((g) => g.game.id !== game.id),
+        };
+      } else {
+        // temporary add id field for storing a new favorite game
+        const newFavoriteGame: FavoriteGame = {id: -1, game: game}
+        return {favoriteGames: [...store.favoriteGames, newFavoriteGame]}
+      }
+    }) ,
 
     // Auth actions
     login : (authData) => set((store) => ({auth: {...store.auth, user: authData.user, accessToken: authData.access, refreshToken: authData.refresh}})),

@@ -1,6 +1,5 @@
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import type { GameDetail } from "@/features/games/hooks/useGameDetails";
 import useAppStore from "@/store";
 
@@ -9,29 +8,14 @@ interface Props {
 }
 
 const FavoriteButton = ({ game }: Props) => {
-  const setFavoriteGame = useAppStore((s) => s.setFavoriteGame);
-  const favoriteGame = useAppStore((s) => s.favoriteGame);
-  const [clicked, setClick] = useState(false);
-
-  useEffect(() => {
-    if (clicked) {
-      setFavoriteGame(game);
-      console.log(clicked, favoriteGame);
-    } else {
-      setFavoriteGame(null);
-      console.log(clicked, favoriteGame);
-    }
-  }, [clicked, setFavoriteGame, game]);
+  const favoriteGames = useAppStore((s) => s.favoriteGames);
+  const toggleFavoriteGame = useAppStore((s) => s.toggleFavoriteGame);
+  const isFavorite = favoriteGames.some((g) => g.game.id === game.id);
 
   return (
     <div>
-      <Button
-        variant="solid"
-        onClick={() => {
-          setClick(!clicked);
-        }}
-      >
-        {clicked ? <MdFavorite /> : <MdFavoriteBorder />}
+      <Button variant="solid" onClick={() => toggleFavoriteGame(game)}>
+        {isFavorite ? <MdFavorite /> : <MdFavoriteBorder />}
       </Button>
     </div>
   );

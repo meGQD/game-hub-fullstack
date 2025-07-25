@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const ProfilePage = () => {
   const user = useAppStore((s) => s.auth.user);
   const navigate = useNavigate();
+  const setFavoriteGames = useAppStore((s) => s.setFavoriteGames);
 
   useEffect(() => {
     if (!user) {
@@ -16,13 +17,19 @@ const ProfilePage = () => {
     }
   }, [user]);
 
-  const { datum, isLoading, error } = useProfile();
+  const { datum: profile, isLoading, error } = useProfile();
+
+  useEffect(() => {
+    if (profile) {
+      setFavoriteGames(profile.favorite_games);
+    }
+  }, [profile, setFavoriteGames]);
 
   if (isLoading) return <Spinner />;
 
   if (error) return <Text color="red">{error}</Text>;
 
-  if (!datum) return null;
+  if (!profile) return null;
 
   return (
     <div>
@@ -38,12 +45,12 @@ const ProfilePage = () => {
           </Tabs.List>
           <Tabs.Content value="profile">
             <Box maxW="3xl">
-              <ProfileDetailsForm profile={datum} />
+              <ProfileDetailsForm profile={profile} />
             </Box>
           </Tabs.Content>
           <Tabs.Content value="favorite_games">
             <ProfileFavoriteGames
-              games={datum.favorite_games.map((g) => g.game)}
+              games={profile.favorite_games.map((g) => g.game)}
             />
           </Tabs.Content>
         </Tabs.Root>
