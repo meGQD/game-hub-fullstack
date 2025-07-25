@@ -1,6 +1,7 @@
 # General
 .DS_Store
 backend_temp
+.vscode
 
 # Python/Django
 __pycache__/

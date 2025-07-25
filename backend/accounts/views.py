@@ -40,4 +40,10 @@ class FavoriteGamesViewSet(ModelViewSet):
         return {'profile_id': self.kwargs['profile_pk']}
     
     def get_queryset(self):
-        return FavoriteGame.objects.filter(profile_id=self.kwargs['profile_pk']).select_related('game')
+        profile_id = self._get_profile_id()
+        return FavoriteGame.objects.filter(profile_id=profile_id).select_related('game')
+    
+    def _get_profile_id(self):
+        if(self.kwargs['profile_pk'] == 'me'):
+            return Profile.objects.get(user_id=self.request.user.id).id
+        return self.kwargs['profile_pk']
