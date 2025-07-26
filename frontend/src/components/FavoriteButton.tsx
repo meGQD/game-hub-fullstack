@@ -29,7 +29,12 @@ const FavoriteButton = ({ game }: Props) => {
 
   return (
     <div>
-      <Button variant="solid" onClick={handleToggleFavorite}>
+      <Button
+        variant="subtle"
+        padding={2}
+        borderRadius={20}
+        onClick={handleToggleFavorite}
+      >
         {isLoading ? (
           <Spinner />
         ) : isFavorite ? (
