@@ -2,7 +2,7 @@ import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 
-const useDatum = <T>(endpoint: string) => {
+const useDatum = <T>(endpoint: string, deps?: any[]) => {
   const [datum, setDatum] = useState<T>();
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false)
@@ -24,7 +24,7 @@ const useDatum = <T>(endpoint: string) => {
       });
 
       return () => controller.abort()
-  }, []);
+  }, deps ? [...deps] : []);
 
   return {datum, error ,isLoading}
 }

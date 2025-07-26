@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const ProfilePage = () => {
   const user = useAppStore((s) => s.auth.user);
   const navigate = useNavigate();
-  const setFavoriteGames = useAppStore((s) => s.setFavoriteGames);
 
   useEffect(() => {
     if (!user) {
@@ -18,12 +17,6 @@ const ProfilePage = () => {
   }, [user]);
 
   const { datum: profile, isLoading, error } = useProfile();
-
-  useEffect(() => {
-    if (profile) {
-      setFavoriteGames(profile.favorite_games);
-    }
-  }, [profile, setFavoriteGames]);
 
   if (isLoading) return <Spinner />;
 

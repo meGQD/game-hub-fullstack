@@ -1,5 +1,6 @@
 import type { Game } from "@/features/games/hooks/useGames"
 import useDatum from "@/hooks/useDatum";
+import useAppStore from "@/store";
 
 export interface FavoriteGame{
   id: number;
@@ -15,6 +16,9 @@ export interface Profile{
     favorite_games: FavoriteGame[]
 }
 
-const useProfile = () => useDatum<Profile>("accounts/profiles/me")
+const useProfile = () => {
+  const user = useAppStore(s => s.auth.user)
+  return useDatum<Profile>("accounts/profiles/me", [user])
+}
 
 export default useProfile;
