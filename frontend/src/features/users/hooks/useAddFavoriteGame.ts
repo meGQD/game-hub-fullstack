@@ -4,10 +4,12 @@ import type { FavoriteGame } from "./useProfile"
 import type { Game } from "@/features/games/hooks/useGames"
 import useAppStore from "@/store"
 import { toaster } from "@/components/ui/toaster"
+import { useNavigate } from "react-router-dom"
 
 const useAddFavoriteGame = () => {
     const queryClient = useQueryClient()
     const toggleFavoriteGame = useAppStore(s => s.toggleFavoriteGame)
+    const navigate = useNavigate()
 
     return useMutation<FavoriteGame, Error, Game>({
         mutationFn: (game: Game) => {
@@ -22,10 +24,15 @@ const useAddFavoriteGame = () => {
         onError: (error) => {
             console.error(error.message)
             toaster.create({
-            title: "You need to login first",
-            type: "error",
-            duration: 5000,
-            closable: true,
+                title: "Authorization error",
+                description: "You need to sign-in first.",
+                type: "error",
+                duration: 5000,
+                closable: true,
+                action: {
+                    label: "Sign-in",
+                    onClick: () => navigate("/auth")
+                }
             });
         }
     })

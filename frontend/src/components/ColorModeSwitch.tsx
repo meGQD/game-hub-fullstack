@@ -1,4 +1,4 @@
-import { Icon, Switch, Text } from "@chakra-ui/react";
+import { Icon, Switch } from "@chakra-ui/react";
 import { useColorMode } from "./ui/color-mode";
 import { FaMoon, FaSun } from "react-icons/fa";
 
