@@ -75,7 +75,7 @@ const useAppStore = create<AppStore>()(
 
     // Auth actions
     login : (authData) => set((store) => ({auth: {...store.auth, user: authData.user, accessToken: authData.access, refreshToken: authData.refresh}})),
-    logout : () => set((store) => ({auth: {...store.auth, user: null, accessToken: null, refreshToken: null}})),
+    logout : () => set((store) => ({auth: {...store.auth, user: null, accessToken: null, refreshToken: null}, favoriteGames: []})),
     setAccessToken : (token) => set((store) => ({auth: {...store.auth, accessToken: token}}))
   }),
   {
