@@ -20,8 +20,8 @@ const NavBar = ({ showAside }: Props) => {
         <Container fluid>
           <SearchInput />
         </Container>
-        <ProfileIcon />
         <ColorModeSwitch />
+        <ProfileIcon />
         {!showAside && <GenreDrawer />}
       </HStack>
     </div>
