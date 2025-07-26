@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import apiClient from "@/services/api-client";
-import { CanceledError } from "axios";
 import type { Genre } from "@/features/genres/hooks/useGenres";
 import type { Platform } from "@/features/platforms/hooks/usePlatforms";
+import useDatum from "@/hooks/useDatum";
 
 export interface Screenshot{
     id: number;
@@ -23,29 +21,6 @@ export interface GameDetail {
     parent_platforms: Platform[];
 }
 
-const useGameDetail = (slug: string) => {
-    const [game, setGame] = useState<GameDetail>()
-    const [error, setError] = useState("")
-    const [isLoading, setLoading] = useState(false)
-
-    useEffect(() => {
-        const controller = new AbortController()
-        setLoading(true)
-
-        apiClient
-            .get(`/api/games/${slug}`, {signal: controller.signal})
-            .then(res => {
-                setGame(res.data)
-                setLoading(false)
-            })
-            .catch((err) => {
-                if(err instanceof CanceledError) return;
-                setError(err.message)
-                setLoading(false)
-            })
-        return () => controller.abort()
-    }, [])
-    return {game, error, isLoading}
-}
+const useGameDetail = (slug: string) => useDatum<GameDetail>(`/api/games/${slug}`)
 
 export default useGameDetail;

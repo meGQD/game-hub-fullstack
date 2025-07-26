@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 const GameDetailPage = () => {
   const showScreenshotsSide = useBreakpointValue({ base: false, lg: true });
   const { slug } = useParams();
-  const { game, error, isLoading } = useGameDetails(slug!);
+  const { datum: game, error, isLoading } = useGameDetails(slug!);
 
   const setBackgroundImageUrl = useAppStore((s) => s.setBackgroundImageUrl);
 
