@@ -5,6 +5,7 @@ import getCroppedImageUrl from "@/services/image-url";
 import Emoji from "./Emoji";
 import { Link } from "react-router-dom";
 import MetaCriticScore from "./MetaCriticScore";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface Props {
   game: Game;
@@ -23,7 +24,10 @@ const GameCard = ({ game }: Props) => {
           <Link to={`/games/${game.slug}`}>
             <Heading size={"3xl"}>{game.name}</Heading>
           </Link>
-          <Emoji rating={game.rating_top} />
+          <HStack justifyContent="space-between">
+            <Emoji rating={game.rating_top} />
+            <FavoriteButton game={game} variant="ghost" />
+          </HStack>
         </Card.Body>
       </Card.Root>
     </div>

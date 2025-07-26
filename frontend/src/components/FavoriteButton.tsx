@@ -7,9 +7,10 @@ import useRemoveFavoriteGame from "@/features/users/hooks/useRemoveFavoriteGame"
 
 interface Props {
   game: Game;
+  variant?: "outline" | "solid" | "subtle" | "surface" | "ghost" | "plain";
 }
 
-const FavoriteButton = ({ game }: Props) => {
+const FavoriteButton = ({ game, variant = "solid" }: Props) => {
   const favoriteGames = useAppStore((s) => s.favoriteGames);
   const isFavorite = favoriteGames.some((g) => g.game.id === game.id);
 
@@ -30,7 +31,7 @@ const FavoriteButton = ({ game }: Props) => {
   return (
     <div>
       <Button
-        variant="subtle"
+        variant={variant}
         padding={2}
         borderRadius={20}
         onClick={handleToggleFavorite}

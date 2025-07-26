@@ -26,7 +26,7 @@ const GameDetails = ({ game, showScreenshotsSide }: Props) => {
           </GameReleasedDateContainer>
           <PlatformIconsList platforms={game.parent_platforms} />
         </HStack>
-        <FavoriteButton game={game} />
+        <FavoriteButton game={game} variant="subtle" />
       </HStack>
       <Box marginBottom={5}>
         <GameHeading name={game.name} />
