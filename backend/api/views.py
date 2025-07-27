@@ -11,7 +11,7 @@ from .serializers import GameSerializer, GenreSerializer, PlatformSerializer, Ga
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 30))
 class GameViewSet(ReadOnlyModelViewSet):
-    queryset = Game.objects.all()
+    queryset = Game.objects.prefetch_related('genres', 'screenshots', 'parent_platforms').all()
     serializer_class = GameSerializer
 
     lookup_field = 'slug'
@@ -30,7 +30,7 @@ class GameScreenshotViewSet(ReadOnlyModelViewSet):
     serializer_class = GameScreenshotSerializer
 
     def get_queryset(self):
-        return GameScreenshot.objects.filter(game__slug=self.kwargs['game_slug'])
+        return GameScreenshot.objects.select_related('game').filter(game__slug=self.kwargs['game_slug'])
 
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 60 * 24))

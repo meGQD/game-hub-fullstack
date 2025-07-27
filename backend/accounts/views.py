@@ -8,13 +8,18 @@ from .serializers import ProfileSerializer, AddFavoriteGameSerializer, FavoriteG
 from api.models import Game
 
 class ProfileViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.select_related('user')\
+        .prefetch_related(
+            'favorite_games__game__genres',
+            'favorite_games__game__screenshots',
+            'favorite_games__game__parent_platforms'
+        ).all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAdminUser]
 
     @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
     def me(self, request): 
-        (profile, created) = Profile.objects.get_or_create(user_id= request.user.id)
+        (profile, created) = self.get_queryset().get_or_create(user_id= request.user.id)
         if request.method == 'GET':
             serializer = ProfileSerializer(profile)
             return Response(serializer.data)
@@ -31,6 +36,12 @@ class FavoriteGamesViewSet(ModelViewSet):
 
     lookup_field = 'game__slug'
 
+    def get_queryset(self):
+        profile_id = self._get_profile_id()
+        return FavoriteGame.objects.filter(profile_id=profile_id)\
+            .select_related('game')\
+            .prefetch_related('game__genres', 'game__screenshots', 'game__parent_platforms')
+
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return AddFavoriteGameSerializer
@@ -39,12 +50,19 @@ class FavoriteGamesViewSet(ModelViewSet):
     def get_serializer_context(self):
         profile_id = self._get_profile_id()
         return {'profile_id': profile_id}
-    
-    def get_queryset(self):
-        profile_id = self._get_profile_id()
-        return FavoriteGame.objects.filter(profile_id=profile_id).select_related('game')
-    
+        
     def _get_profile_id(self):
+        # Check if we have cached profile_id already 
+        if hasattr(self, '_cached_profile_id'):
+            return self._cached_profile_id
+
+        # If not cached
         if(self.kwargs['profile_pk'] == 'me'):
-            return Profile.objects.get(user_id=self.request.user.id).id
-        return self.kwargs['profile_pk']
+            profile_id =  Profile.objects.only('id').get(user_id=self.request.user.id).id
+        else:
+            profile_id = self.kwargs['profile_pk']
+
+        # Cache the profile_id       
+        self._cached_profile_id = profile_id
+
+        return profile_id
