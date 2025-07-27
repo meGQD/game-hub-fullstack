@@ -13,6 +13,8 @@ django-filter = "*"
 drf-nested-routers = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
+psycopg2-binary = "*"
+python-decouple = "*"
 
 [dev-packages]
 locust = "*"
