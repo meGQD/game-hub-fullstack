@@ -102,7 +102,7 @@ const UserLoginForm = () => {
             </Field.Label>
             <Input
               {...register("password")}
-              type="text"
+              type="password"
               borderRadius={15}
             ></Input>
             {errors.password && (
