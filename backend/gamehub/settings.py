@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'django_filters',
+    'debug_toolbar',
     'api',
     'core',
     'accounts',
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'gamehub.urls'
@@ -171,3 +173,7 @@ DJOSER = {
         'current_user': 'core.serializers.UserSerializer',
     }
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+]
