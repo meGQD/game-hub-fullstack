@@ -1,5 +1,5 @@
 from rest_framework.decorators import action
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
@@ -7,7 +7,7 @@ from .models import Profile, FavoriteGame
 from .serializers import ProfileSerializer, AddFavoriteGameSerializer, FavoriteGameSerializer
 from api.models import Game
 
-class ProfileViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
+class ProfileViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericViewSet):
     queryset = Profile.objects.select_related('user')\
         .prefetch_related(
             'favorite_games__game__genres',
