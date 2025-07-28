@@ -12,3 +12,11 @@ SIMPLE_JWT = {
 }
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+# Optimized static file serving for WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Security settings
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
