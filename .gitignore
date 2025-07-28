@@ -10,6 +10,7 @@ __pycache__/
 .env
 db.sqlite3
 static
+Tsettings.py
 
 # Node.js/Vite
 node_modules/
