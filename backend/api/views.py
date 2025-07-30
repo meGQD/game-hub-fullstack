@@ -11,7 +11,7 @@ from .serializers import GameSerializer, GenreSerializer, PlatformSerializer, Ga
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 30))
 class GameViewSet(ReadOnlyModelViewSet):
-    queryset = Game.objects.prefetch_related('genres', 'screenshots', 'parent_platforms').all()
+    queryset = Game.objects.prefetch_related('genres', 'screenshots', 'parent_platforms').order_by('id')
     serializer_class = GameSerializer
 
     lookup_field = 'slug'
@@ -30,16 +30,16 @@ class GameScreenshotViewSet(ReadOnlyModelViewSet):
     serializer_class = GameScreenshotSerializer
 
     def get_queryset(self):
-        return GameScreenshot.objects.select_related('game').filter(game__slug=self.kwargs['game_slug'])
+        return GameScreenshot.objects.select_related('game').filter(game__slug=self.kwargs['game_slug']).order_by('id')
 
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 60 * 24))
 class GenreViewSet(ReadOnlyModelViewSet):
-    queryset = Genre.objects.annotate(games_count=Count('games')).all()
+    queryset = Genre.objects.annotate(games_count=Count('games')).order_by('id')
     serializer_class = GenreSerializer
 
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 60 * 24 * 30))
 class PlatformViewSet(ReadOnlyModelViewSet):
-    queryset = Platform.objects.all()
+    queryset = Platform.objects.order_by('id')
     serializer_class = PlatformSerializer
