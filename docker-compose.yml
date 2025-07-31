@@ -21,6 +21,15 @@ services:
       - db
       - redis
 
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        - VITE_BASE_URL=${VITE_BASE_URL}
+    container_name: gamehub-frontend
+    ports:
+      - "3000:80"
+
   db:
     image: postgres:17.5-alpine
     container_name: gamehub-db
