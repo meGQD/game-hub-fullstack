@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -26,4 +26,4 @@ EXPOSE 8000
 CMD sh -c "python wait_for_db.py && \
     python wait_for_redis.py && \
     python manage.py migrate && \
-    gunicorn gamehub.wsgi --bind 0.0.0.0:8000 --log-level=debug"
+    gunicorn gamehub.wsgi --bind 0.0.0.0:8000 --workers 2 --worker-class gevent --timeout 120 --log-level=debug"

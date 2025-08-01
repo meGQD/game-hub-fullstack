@@ -17,6 +17,7 @@ psycopg2-binary = "*"
 python-decouple = "*"
 whitenoise = "*"
 gunicorn = "*"
+gevent = "*"
 
 [dev-packages]
 locust = "*"
