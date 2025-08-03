@@ -130,6 +130,6 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ## 📬 Contact
 
-[Your Name] - [your_email@example.com]
+[MohammadReza Karimi] - [mrk272727mrk@gmail.com]
 
 Project Link: [https://github.com/megqd/game-hub-fullstack](https://github.com/megqd/game-hub-fullstack)
