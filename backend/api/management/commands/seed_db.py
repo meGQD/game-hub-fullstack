@@ -2,6 +2,7 @@ import requests
 import time
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from decouple import config
 from ...models import Game, Genre, Platform, GameScreenshot
 
 def _fetch_paginated_data(start_url, api_key, command, max_pages=None):
@@ -77,7 +78,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS("\n--- Seeding a sample of Games ---"))
 
         # Fetch the initial list of games
-        games_list_data = _fetch_paginated_data(f"{base_url}/games?page_size=40", api_key, self, max_pages=5)
+        SEEDING_MAX_PAGES = config("SEEDING_MAX_PAGES", default=5 ,cast=int)
+        games_list_data = _fetch_paginated_data(f"{base_url}/games?page_size=40", api_key, self, max_pages=SEEDING_MAX_PAGES)
         
         if games_list_data:
             for game_summary in games_list_data:
