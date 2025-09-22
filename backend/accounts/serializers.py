@@ -13,7 +13,7 @@ class FavoriteGameSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'birth_date', 'favorite_games']
+        fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'birth_date', 'favorite_games', 'api_request_count']
 
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name', allow_blank=True)

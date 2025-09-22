@@ -7,9 +7,10 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.filters import OrderingFilter, SearchFilter
 from .models import Game, Genre, Platform, GameScreenshot
 from .serializers import GameSerializer, GenreSerializer, PlatformSerializer, GameScreenshotSerializer
+from accounts.models import Profile
 
-@method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
-@method_decorator(name='dispatch', decorator=cache_page(60 * 30))
+# @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
+# @method_decorator(name='dispatch', decorator=cache_page(60 * 30))
 class GameViewSet(ReadOnlyModelViewSet):
     queryset = Game.objects.prefetch_related('genres', 'screenshots', 'parent_platforms').order_by('id')
     serializer_class = GameSerializer
@@ -23,6 +24,13 @@ class GameViewSet(ReadOnlyModelViewSet):
     ordering_fields = ['name', 'released', 'added', 'rating', 'metacritic']
 
     filterset_fields = ['genres', 'parent_platforms']
+
+    def list(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            profile, created = Profile.objects.get_or_create(user=request.user)
+            profile.api_request_count += 1
+            profile.save()
+        return super().list(request, *args, **kwargs)
 
 @method_decorator(name='dispatch', decorator=vary_on_headers('Accept'))    
 @method_decorator(name='dispatch', decorator=cache_page(60 * 30))
