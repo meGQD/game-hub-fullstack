@@ -6,6 +6,7 @@ interface ProfileData{
     phone: string | null;
     birth_date: string | null;
     last_name?: string | undefined;
+    api_request_count?: number;
 }
 
 const useUpdateProfile = () => {

@@ -13,7 +13,8 @@ export interface Profile{
     email: string,
     phone: string,
     birth_date: string,
-    favorite_games: FavoriteGame[]
+    favorite_games: FavoriteGame[],
+    api_request_count: number
 }
 
 const useProfile = () => {

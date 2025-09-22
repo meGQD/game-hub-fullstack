@@ -4,8 +4,10 @@ import {
   Button,
   Field,
   FieldErrorText,
+  Group,
   HStack,
   Input,
+  InputGroup,
   SimpleGrid,
   Spinner,
 } from "@chakra-ui/react";
@@ -90,6 +92,8 @@ const ProfileDetailsForm = ({ profile }: Props) => {
       },
     });
   };
+
+  const chargedValue = (profile.api_request_count * 0.01).toFixed(2);
 
   return (
     <>
@@ -177,6 +181,19 @@ const ProfileDetailsForm = ({ profile }: Props) => {
               defaultValue={profile.email}
               borderRadius={15}
             ></Input>
+          </Field.Root>
+          <Field.Root orientation="horizontal" disabled>
+            <Field.Label>Charged Bill</Field.Label>
+            <Group>
+              <InputGroup startElement="$" endElement="USD">
+                <Input
+                  placeholder={chargedValue}
+                  defaultValue={chargedValue}
+                  borderRadius={15}
+                ></Input>
+              </InputGroup>
+              <Button>Pay</Button>
+            </Group>
           </Field.Root>
         </SimpleGrid>
         <HStack marginTop={5} columnGap={4} justifyContent="space-between">
