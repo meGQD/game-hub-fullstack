@@ -205,6 +205,7 @@ const ProfileDetailsForm = ({ profile }: Props) => {
                 colorPalette="green"
                 onClick={handlePay}
                 loading={resetApiCountMutation.isPending}
+                disabled={chargedValue == "0.00"}
               >
                 {resetApiCountMutation.isPending ? <Spinner /> : "Pay"}
               </Button>
