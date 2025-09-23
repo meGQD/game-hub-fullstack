@@ -1,5 +1,5 @@
 import useGames from "@/features/games/hooks/useGames";
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
@@ -7,29 +7,39 @@ import useAppStore from "@/store";
 
 const GameGrid = () => {
   const gameQuery = useAppStore((s) => s.gameQuery);
-  const { data, error, isLoading } = useGames(gameQuery);
+  const { data, error, isLoading, hasNextPage, loadMore, isLoadingMore } =
+    useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   if (error) return <Text color={"red"}>{error}</Text>;
 
   return (
-    <SimpleGrid
-      columns={{ sm: 1, md: 2, lg: 3, "2xl": 4 }}
-      columnGap={6}
-      rowGap={6}
-    >
-      {isLoading &&
-        skeletons.map((skeleton) => (
-          <GameCardContainer key={skeleton}>
-            <GameCardSkeleton />
+    <>
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, "2xl": 4 }}
+        columnGap={6}
+        rowGap={6}
+      >
+        {isLoading &&
+          skeletons.map((skeleton) => (
+            <GameCardContainer key={skeleton}>
+              <GameCardSkeleton />
+            </GameCardContainer>
+          ))}
+        {data.map((game) => (
+          <GameCardContainer key={game.id}>
+            <GameCard game={game} />
           </GameCardContainer>
         ))}
-      {data.map((game) => (
-        <GameCardContainer key={game.id}>
-          <GameCard game={game} />
-        </GameCardContainer>
-      ))}
-    </SimpleGrid>
+      </SimpleGrid>
+      {hasNextPage && (
+        <Box display="flex" justifyContent="center" my={5}>
+          <Button onClick={loadMore} loading={isLoadingMore}>
+            {isLoadingMore ? <Spinner /> : "Load More"}
+          </Button>
+        </Box>
+      )}
+    </>
   );
 };
 
