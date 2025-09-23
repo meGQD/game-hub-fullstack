@@ -17,7 +17,7 @@ class ProfileViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, Destr
     serializer_class = ProfileSerializer
     permission_classes = [IsAdminUser]
 
-    @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
+    @action(detail=False, methods=['GET', 'PUT', 'PATCH'], permission_classes=[IsAuthenticated])
     def me(self, request): 
         (profile, created) = self.get_queryset().get_or_create(user_id= request.user.id)
         if request.method == 'GET':
@@ -25,6 +25,11 @@ class ProfileViewSet(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, Destr
             return Response(serializer.data)
         elif request.method == 'PUT':
             serializer = ProfileSerializer(profile, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        elif request.method == 'PATCH':
+            serializer = ProfileSerializer(profile, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
