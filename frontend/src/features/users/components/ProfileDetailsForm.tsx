@@ -19,6 +19,7 @@ import useUpdateProfile from "../hooks/useUpdateProfile";
 import { useState } from "react";
 import { getBackendErrorMessage } from "@/services/error-service";
 import LogoutButton from "./LogoutButton";
+import useResetApiCount from "../hooks/useResetApiCount";
 
 const schema = z.object({
   first_name: z
@@ -76,8 +77,10 @@ const ProfileDetailsForm = ({ profile }: Props) => {
   });
 
   const updateProfileMutation = useUpdateProfile();
+  const resetApiCountMutation = useResetApiCount();
 
   const [backendError, setBackendError] = useState<string | null>(null);
+  const [apiCount, setApiCount] = useState(profile.api_request_count);
 
   const onSubmit = (data: ProfileData) => {
     setBackendError(null);
@@ -93,7 +96,12 @@ const ProfileDetailsForm = ({ profile }: Props) => {
     });
   };
 
-  const chargedValue = (profile.api_request_count * 0.01).toFixed(2);
+  const chargedValue = (apiCount * 0.01).toFixed(2);
+
+  const handlePay = () => {
+    resetApiCountMutation.mutate();
+    setApiCount(0);
+  };
 
   return (
     <>
@@ -189,10 +197,17 @@ const ProfileDetailsForm = ({ profile }: Props) => {
                 <Input
                   placeholder={chargedValue}
                   defaultValue={chargedValue}
+                  key={chargedValue}
                   borderRadius={15}
                 ></Input>
               </InputGroup>
-              <Button>Pay</Button>
+              <Button
+                colorPalette="green"
+                onClick={handlePay}
+                loading={resetApiCountMutation.isPending}
+              >
+                {resetApiCountMutation.isPending ? <Spinner /> : "Pay"}
+              </Button>
             </Group>
           </Field.Root>
         </SimpleGrid>
