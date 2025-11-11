@@ -16,8 +16,8 @@ before_script:
 
 deploy:
   stage: deploy
-  environment: 
-    name: prod 
+  # environment: 
+  #   name: prod 
   when: manual
   script: 
     - docker compose down
