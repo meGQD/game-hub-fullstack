@@ -5,6 +5,9 @@ stages:
   - deploy
 
 before_script:
+  - echo "the CI_REGISTRY value is $CI_REGISTRY" 
+  - echo "the CI_REGISTRY_USER value is $CI_REGISTRY_USER" 
+  - echo "the CI_REGISTRY_PASSWORD is $CI_REGISTRY_PASSWORD" 
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 # build:
