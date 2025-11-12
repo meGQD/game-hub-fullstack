@@ -23,22 +23,8 @@ deploy:
     - docker compose down
     - docker compose up --build -d
 
-
-
-
-
-# - SECRET_KEY1=$SECRET_KEY
-# - echo $SECRET_KEY
-# - echo $SECRET_KEY1
-# - RAWG_API_KEY=$RAWG_API_KEY
-# - SEEDING_MAX_PAGES=$SEEDING_MAX_PAGES
-# - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
-# - FRONT_END_URL=$FRONT_END_URL
-# - REDIS_LOCATION=$REDIS_LOCATION
-# - ALLOWED_HOSTS=$ALLOWED_HOSTS
-# - DB_NAME=$DB_NAME
-# - DB_USER=$DB_USER
-# - DB_PASSWORD=$DB_PASSWORD
-# - DB_HOST=$DB_HOST
-# - DB_PORT=$DB_PORT
-# - VITE_BASE_URL=$VITE_BASE_URL
+data_fetch:
+  stage: data_fetch
+  when: manual
+  script: 
+    - docker compose exec gamehub_backend seed_db
