@@ -20,9 +20,9 @@ deploy:
   #   name: prod 
   when: manual
   script: 
-    - SECRET_KEY1=$SECRET_KEY
-    - echo $SECRET_KEY
-    - echo $SECRET_KEY1
+    # - SECRET_KEY1=$SECRET_KEY
+    # - echo $SECRET_KEY
+    # - echo $SECRET_KEY1
     - RAWG_API_KEY=$RAWG_API_KEY
     - SEEDING_MAX_PAGES=$SEEDING_MAX_PAGES
     - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
