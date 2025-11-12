@@ -20,6 +20,18 @@ deploy:
   #   name: prod 
   when: manual
   script: 
-    - export SECRET_KEY=`echo $SECRET_KEY`
+    - SECRET_KEY=$SECRET_KEY
+    - RAWG_API_KEY=$RAWG_API_KEY
+    - SEEDING_MAX_PAGES=$SEEDING_MAX_PAGES
+    - DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+    - FRONT_END_URL=$FRONT_END_URL
+    - REDIS_LOCATION=$REDIS_LOCATION
+    - ALLOWED_HOSTS=$ALLOWED_HOSTS
+    - DB_NAME=$DB_NAME
+    - DB_USER=$DB_USER
+    - DB_PASSWORD=$DB_PASSWORD
+    - DB_HOST=$DB_HOST
+    - DB_PORT=$DB_PORT
+    - VITE_BASE_URL=$VITE_BASE_URL
     - docker compose down
     - docker compose up --build -d
