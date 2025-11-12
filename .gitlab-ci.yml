@@ -27,4 +27,4 @@ data_fetch:
   stage: data_fetch
   when: manual
   script: 
-    - docker compose exec gamehub_backend seed_db
+    - docker compose exec gamehub-backend seed_db
