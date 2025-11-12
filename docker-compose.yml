@@ -13,12 +13,11 @@ services:
       - FRONTEND_URL=${FRONTEND_URL}
       - REDIS_LOCATION=${REDIS_LOCATION}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - DB_NAME="gamehub_db"
-      - DB_USER="postgres"
-      - DB_PASSWORD="postgres"
-      - DB_HOST="db"
-      - DB_PORT=5432
-      - KOS=${KOS}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
     depends_on:
       - db
       - redis
@@ -31,9 +30,6 @@ services:
     container_name: gamehub-frontend
     ports:
       - "3000:80"
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
-      - RAWG_API_KEY=${RAWG_API_KEY}
 
   db:
     image: postgres:17.5-alpine
@@ -42,9 +38,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB="gamehub_db"
-      - POSTGRES_USER="postgres"
-      - POSTGRES_PASSWORD="postgres"
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
 
   redis:
     image: redis:6-alpine
