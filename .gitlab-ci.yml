@@ -20,6 +20,6 @@ deploy:
   #   name: prod 
   when: manual
   script: 
-    - echo $SECRET_KEY
+    - export SECRET_KEY=`$SECRET_KEY`
     - docker compose down
     - docker compose up --build -d
