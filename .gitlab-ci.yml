@@ -18,7 +18,7 @@ deploy:
   stage: deploy
   # environment: 
   #   name: prod 
-  when: manual
+  # when: manual
   script: 
     - docker compose down
     - docker compose up --build -d
