@@ -13,11 +13,11 @@ services:
       - FRONTEND_URL=${FRONTEND_URL}
       - REDIS_LOCATION=${REDIS_LOCATION}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=db
-      - DB_PORT=${DB_PORT}
+      - DB_NAME="gamehub_db"
+      - DB_USER="postgres"
+      - DB_PASSWORD="postgres"
+      - DB_HOST="db"
+      - DB_PORT="5432"
     depends_on:
       - db
       - redis
@@ -41,9 +41,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB="gamehub_db"
+      - POSTGRES_USER="postgres"
+      - POSTGRES_PASSWORD="postgres"
 
   redis:
     image: redis:6-alpine
