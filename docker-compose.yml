@@ -30,6 +30,8 @@ services:
     container_name: gamehub-frontend
     ports:
       - "3000:80"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
 
   db:
     image: postgres:17.5-alpine
