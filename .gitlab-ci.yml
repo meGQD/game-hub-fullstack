@@ -11,8 +11,8 @@ before_script:
 build:
   stage: build
   script:
-    docker build ./backend -t megqd/gamehub-backend
-    docker build ./frontend -t megqd/gamehub-frontend
+    - docker build ./backend -t megqd/gamehub-backend
+    - docker build ./frontend -t megqd/gamehub-frontend
 
 deploy:
   stage: deploy
