@@ -25,19 +25,13 @@ build frontend:
     - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend
 
 
-# push_images backend:
-#   stage: push_images
-#   script:
-#     - docker push qemu1:5050/root/gamehub-backend
-
-
 deploy:
   stage: deploy
   # environment: 
   #   name: prod 
   script:
     - docker compose down
-    - docker compose up -d
+    - docker compose -f docker-compose.cicd.yml up -d
 
 data_fetch:
   stage: data_fetch

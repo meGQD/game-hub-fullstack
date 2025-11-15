@@ -1,0 +1,48 @@
+services:
+  backend:
+    image: qemu1:5050/root/gamehub/gamehub-backend
+    container_name: gamehub-backend
+    # command: gunicorn gamehub.wsgi --bind 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=gamehub.settings.prod
+      - SECRET_KEY=${SECRET_KEY}
+      - RAWG_API_KEY=${RAWG_API_KEY}
+      - SEEDING_MAX_PAGES=${SEEDING_MAX_PAGES}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - REDIS_LOCATION=${REDIS_LOCATION}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    depends_on:
+      - db
+      - redis
+
+  frontend:
+    image: qemu1:5050/root/gamehub/gamehub-frontend
+    container_name: gamehub-frontend
+    ports:
+      - "3000:80"
+
+  db:
+    image: postgres:17.5-alpine
+    container_name: gamehub-db
+    # Store DataBase data to postgres_data
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+
+  redis:
+    image: redis:6-alpine
+    container_name: gamehub-redis
+
+# Create postgres_data if it dosen't exist already
+volumes:
+  postgres_data:
