@@ -7,22 +7,18 @@ stages:
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-# build:
-#   stage: build
-#   only:
-#     - CICD
-#   script:
-#     docker build 
+build:
+  stage: build
+  script:
+    docker compose --build 
 
 deploy:
   stage: deploy
   # environment: 
   #   name: prod 
-  # when: manual
-  
-  script: 
+  script:
     - docker compose down
-    - docker compose up --build -d
+    - docker compose up -d
 
 data_fetch:
   stage: data_fetch
