@@ -1,6 +1,6 @@
 stages:
   - build
-  - push_to_docker_registery
+  - push_images
   - test
   - deploy
   - data_fetch
@@ -11,8 +11,13 @@ before_script:
 build:
   stage: build
   script:
-    - docker build ./backend -t megqd/gamehub-backend
-    - docker build ./frontend -t megqd/gamehub-frontend
+    - docker build ./backend -t qemu1:5050/root/gamehub-backend
+    - docker build ./frontend -t qemu1:5050/root/gamehub-frontend
+
+push_images:
+  stage: push_images
+  script:
+    - docker push $CI_REGISTRY
 
 deploy:
   stage: deploy
