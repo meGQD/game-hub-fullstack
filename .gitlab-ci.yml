@@ -6,28 +6,23 @@ stages:
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - echo $CI_REGISTRY
 
 
 build backend:
   stage: build
   script:
-    - docker login -u $CONTAINER_REGISTRY_USER -p $CONTAINER_REGISTRY_PASSWORD $CONTAINER_REGISTRY_URL
+    - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend
 
-    - docker build ./backend -t qemu1:5050/root/gamehub-backend
-
-    - docker push $CONTAINER_REGISTRY_URL/$CONTAINER_REGISTRY_USER/gamehub-backend
+    - docker push $CI_REGISTRY/root/gamehub/gamehub-backend
 
 build frontend:
   stage: build
-  script:
-    - docker login -u $CONTAINER_REGISTRY_USER -p $CONTAINER_REGISTRY_PASSWORD $CONTAINER_REGISTRY_URL
-    
+  script:    
     - docker build 
       --build-arg VITE_BASE_URL=$VITE_BASE_URL 
-      ./frontend -t $CONTAINER_REGISTRY_URL/$CONTAINER_REGISTRY_USER/gamehub-frontend
+      ./frontend -t $CI_REGISTRY/root/gamehub/gamehub-frontend
 
-    - docker push $CONTAINER_REGISTRY_URL/$CONTAINER_REGISTRY_USER/gamehub-frontend
+    - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend
 
 
 # push_images backend:
