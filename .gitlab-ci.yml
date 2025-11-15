@@ -16,10 +16,9 @@ build backend:
 build frontend:
   stage: build
   script:
-    - docker build \
-      --build-arg VITE_BASE_URL=$VITE_BASE_URL \
-      ./frontend \
-      -t qemu1:5050/root/gamehub-frontend
+    - docker build 
+      --build-arg VITE_BASE_URL=$VITE_BASE_URL 
+      ./frontend -t qemu1:5050/root/gamehub-frontend
 
 # push_images:
 #   stage: push_images
