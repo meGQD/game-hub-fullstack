@@ -8,6 +8,7 @@ stages:
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
+
 build backend:
   stage: build
   script:
@@ -20,10 +21,17 @@ build frontend:
       --build-arg VITE_BASE_URL=$VITE_BASE_URL 
       ./frontend -t qemu1:5050/root/gamehub-frontend
 
-# push_images:
-#   stage: push_images
-#   script:
-#     - docker push $CI_REGISTRY
+
+push_images backend:
+  stage: push_images
+  script:
+    - docker push qemu1:5050/root/gamehub-backend
+
+push_images frontend:
+  stage: push_images
+  script:
+    - docker push qemu1:5050/root/gamehub-frontend
+
 
 deploy:
   stage: deploy
