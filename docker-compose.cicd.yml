@@ -1,6 +1,6 @@
 services:
   backend:
-    image: qemu1:5050/root/gamehub/gamehub-backend
+    image: qemu1:5050/root/gamehub/gamehub-backendd
     container_name: gamehub-backend
     # command: gunicorn gamehub.wsgi --bind 0.0.0.0:8000
     ports:
