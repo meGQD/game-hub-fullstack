@@ -1,5 +1,6 @@
 stages:
   - build
+  - push_to_docker_registery
   - test
   - deploy
   - data_fetch
@@ -10,7 +11,8 @@ before_script:
 build:
   stage: build
   script:
-    docker compose --build 
+    docker build ./backend -t megqd/gamehub-backend
+    docker build ./frontend -t megqd/gamehub-frontend
 
 deploy:
   stage: deploy
