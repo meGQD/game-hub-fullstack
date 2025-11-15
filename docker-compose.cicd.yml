@@ -23,7 +23,7 @@ services:
       - redis
 
   frontend:
-    image: qemu1:5050/root/gamehub/gamehub-frontend
+    image: ${CI_REGISTRY}/root/gamehub/gamehub-frontend
     container_name: gamehub-frontend
     ports:
       - "3000:80"
