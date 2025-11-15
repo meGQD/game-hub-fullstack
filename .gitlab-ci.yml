@@ -14,10 +14,10 @@ build:
     - docker build ./backend -t qemu1:5050/root/gamehub-backend
     - docker build ./frontend -t qemu1:5050/root/gamehub-frontend
 
-push_images:
-  stage: push_images
-  script:
-    - docker push $CI_REGISTRY
+# push_images:
+#   stage: push_images
+#   script:
+#     - docker push $CI_REGISTRY
 
 deploy:
   stage: deploy
