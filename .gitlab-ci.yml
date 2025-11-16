@@ -28,10 +28,10 @@ build frontend:
     - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend
 
 
-deploy dev:
+deploy beta:
   stage: deploy
   environment: 
-    name: dev 
+    name: beta 
   script:
     - docker compose down
     - docker compose up --build -d

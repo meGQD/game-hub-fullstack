@@ -38,7 +38,7 @@ services:
     restart: unless-stopped
     # Store DataBase data to postgres_data
     volumes:
-      - postgres_data_dev:/var/lib/postgresql/data/
+      - postgres_data_beta:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
@@ -51,4 +51,4 @@ services:
 
 # Create postgres_data if it dosen't exist already
 volumes:
-  postgres_data_dev:
+  postgres_data_beta:
