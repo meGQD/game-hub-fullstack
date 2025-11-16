@@ -11,6 +11,8 @@ build backend:
   stage: build
   environment:
     name: prod
+  tags:
+    - prod
   script:
     - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend
 
@@ -20,6 +22,8 @@ build frontend:
   stage: build
   environment:
     name: prod
+  tags:
+    - prod
   script:    
     - docker build 
       --build-arg VITE_BASE_URL=$VITE_BASE_URL 
@@ -31,7 +35,9 @@ build frontend:
 deploy beta:
   stage: deploy
   environment: 
-    name: beta 
+    name: beta
+  tags:
+    - beta
   script:
     - docker compose down
     - docker compose up --build -d
@@ -40,6 +46,8 @@ deploy prod:
   stage: deploy
   environment: 
     name: prod 
+  tags:
+    - prod
   when: manual
   script:
     - docker compose down
@@ -48,6 +56,9 @@ deploy prod:
 
 data_fetch:
   stage: data_fetch
+  tags:
+    - beta
+    - prod
   when: manual
   script: 
     - docker compose exec backend python manage.py seed_db
