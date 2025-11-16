@@ -2,7 +2,7 @@ services:
   backend:
     image: ${CI_REGISTRY}/root/gamehub/gamehub-backend
     container_name: gamehub-backend
-    # command: gunicorn gamehub.wsgi --bind 0.0.0.0:8000
+    restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
@@ -25,12 +25,14 @@ services:
   frontend:
     image: ${CI_REGISTRY}/root/gamehub/gamehub-frontend
     container_name: gamehub-frontend
+    restart: unless-stopped
     ports:
       - "3000:80"
 
   db:
     image: postgres:17.5-alpine
     container_name: gamehub-db
+    restart: unless-stopped
     # Store DataBase data to postgres_data
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -40,6 +42,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
 
   redis:
+    restart: unless-stopped
     image: redis:6-alpine
     container_name: gamehub-redis
 
