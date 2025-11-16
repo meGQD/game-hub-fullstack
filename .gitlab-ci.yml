@@ -10,6 +10,8 @@ before_script:
 
 build backend:
   stage: build
+  environment:
+    name: prod
   script:
     - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend
 
@@ -17,6 +19,8 @@ build backend:
 
 build frontend:
   stage: build
+  environment:
+    name: prod
   script:    
     - docker build 
       --build-arg VITE_BASE_URL=$VITE_BASE_URL 
@@ -25,13 +29,23 @@ build frontend:
     - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend
 
 
-deploy:
+deploy dev:
   stage: deploy
-  # environment: 
-  #   name: prod 
+  environment: 
+    name: dev 
+  script:
+    - docker compose down
+    - docker compose up --build -d
+
+deploy prod:
+  stage: deploy
+  environment: 
+    name: prod 
+  when: manual
   script:
     - docker compose down
     - docker compose -f docker-compose.cicd.yml up -d
+
 
 data_fetch:
   stage: data_fetch

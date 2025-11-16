@@ -2,11 +2,11 @@ services:
   backend:
     build: ./backend
     container_name: gamehub-backend
-    # command: gunicorn gamehub.wsgi --bind 0.0.0.0:8000
+    restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
-      - DJANGO_SETTINGS_MODULE=gamehub.settings.prod
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
       - SECRET_KEY=${SECRET_KEY}
       - RAWG_API_KEY=${RAWG_API_KEY}
       - SEEDING_MAX_PAGES=${SEEDING_MAX_PAGES}
@@ -28,15 +28,17 @@ services:
       args:
         - VITE_BASE_URL=${VITE_BASE_URL}
     container_name: gamehub-frontend
+    restart: unless-stopped
     ports:
-      - "3000:80"
+      - "3001:80"
 
   db:
     image: postgres:17.5-alpine
     container_name: gamehub-db
+    restart: unless-stopped
     # Store DataBase data to postgres_data
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_dev:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
@@ -45,7 +47,8 @@ services:
   redis:
     image: redis:6-alpine
     container_name: gamehub-redis
+    restart: unless-stopped
 
 # Create postgres_data if it dosen't exist already
 volumes:
-  postgres_data:
+  postgres_data_dev:

@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DJANGO_SETTINGS_MODULE=gamehub.settings.prod
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
       - SECRET_KEY=${SECRET_KEY}
       - RAWG_API_KEY=${RAWG_API_KEY}
       - SEEDING_MAX_PAGES=${SEEDING_MAX_PAGES}
@@ -35,7 +35,7 @@ services:
     restart: unless-stopped
     # Store DataBase data to postgres_data
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_prod:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
@@ -48,4 +48,4 @@ services:
 
 # Create postgres_data if it dosen't exist already
 volumes:
-  postgres_data:
+  postgres_data_prod:
