@@ -5,6 +5,7 @@
 [![PostgreSQL Badge](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Redis Badge](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
 [![Docker Badge](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![GitLab Badge](https://img.shields.io/badge/GitLab-ffffff?style=for-the-badge&logo=gitlab&logoColor=orange)](https://www.gitlab.com/)
 
 A full-stack web application for discovering video games, built with a modern, containerized architecture. This platform allows users to browse a vast library of games, view detailed information, and manage their personal favorites.
 
@@ -55,7 +56,8 @@ The project is built with a modern, decoupled architecture using the following t
 
 | Category             | Technology                                                                            |
 | :------------------- | :------------------------------------------------------------------------------------ |
-| **Containerization** | [Docker](https://www.docker.com/), [Docker Compose](https://docs.docker.com/compose/) |
+| **Containerization** | [Docker](https://docker.com/), [Docker Compose](https://docs.docker.com/compose/)     |
+| **CI/CD Automation** | [GitLab(CI/CD)](https://www.gitlab.com/)                                              |
 | **Web Server/Proxy** | [Nginx](https://www.nginx.com/)                                                       |
 
 ## 🚀 Getting Started
