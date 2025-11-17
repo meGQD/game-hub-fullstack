@@ -94,20 +94,20 @@ You must have the following software installed on your machine:
     This command will build the Docker images for the frontend and backend and start all the necessary services.
 
     ```bash
-    docker-compose up --build
+    docker-compose up --build -d
     ```
 
     The application should now be running.
 
-    - **Frontend:** [http://localhost:3000](http://localhost:3000)
-    - **Backend API:** [http://localhost:8000/api/](http://localhost:8000/api/)
+    - **Frontend:** [http://localhost:3001](http://localhost:3000)
+    - **Backend API:** [http://localhost:8001/api/](http://localhost:8000/api/)
 
 4.  **One-Time Database Setup (Important)**
     After the containers are running for the first time, you need to set up the database. Open a **new terminal window** and run the following commands:
 
     - **Seed the Database with Games:** This command will populate the database with games from the RAWG API. This is a long-running process.
       ```bash
-      docker-compose exec backend python manage.py seed_db
+      docker compose exec backend python manage.py seed_db
       ```
 
 Your application is now fully set up and ready to use!
@@ -116,7 +116,7 @@ Your application is now fully set up and ready to use!
 
 ## 🎈 Usage
 
-- Open your browser and go to `http://localhost:3000`.
+- Open your browser and go to `http://localhost:3001`.
 - Filter games by Genres and Platforms from the sidebars.
 - Use the search bar to find specific games by name.
 - Click on a game card to navigate to its detailed view.
