@@ -99,8 +99,8 @@ You must have the following software installed on your machine:
 
     The application should now be running.
 
-    - **Frontend:** [http://localhost:3001](http://localhost:3000)
-    - **Backend API:** [http://localhost:8001/api/](http://localhost:8000/api/)
+    - **Frontend:** [http://localhost:3001](http://localhost:3001)
+    - **Backend API:** [http://localhost:8001/api/](http://localhost:8001/api/)
 
 4.  **One-Time Database Setup (Important)**
     After the containers are running for the first time, you need to set up the database. Open a **new terminal window** and run the following commands:
@@ -126,6 +126,20 @@ Your application is now fully set up and ready to use!
 
 - Click the heart icon on any game to add it to your favorites.
 - Access your profile page to change your information or view your list of favorite games.
+
+---
+
+## 🔄 CI/CD Pipeline
+
+This project uses a GitLab CI/CD pipeline to automate builds and deployments. The pipeline is structured into `beta` (automatic) and `prod` (manual) environments.
+
+The pipeline's main jobs are:
+
+* **Build (Automatic):** On every push, new Docker images for the frontend and backend are built and pushed to the GitLab Container Registry.
+* **Deploy Beta (Automatic):** The latest build is automatically deployed to the `beta` environment using `docker-compose.yml`.
+* **Deploy Prod (Manual):** Requires a manual trigger from the GitLab UI to deploy the `prod` environment using its specific `docker-compose.cicd.yml`.
+* **Data Fetch (Manual):** An optional job to run `manage.py seed_db` and populate the database on either environment.
+
 
 ## 🤝 Contributing
 
