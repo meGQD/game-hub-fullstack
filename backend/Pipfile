@@ -18,10 +18,11 @@ python-decouple = "*"
 whitenoise = "*"
 gunicorn = "*"
 gevent = "*"
+django-prometheus = "*"
 
 [dev-packages]
 locust = "*"
 django-debug-toolbar = "*"
 
 [requires]
-python_version = "3.11"
+python_version = "3.12.3"
