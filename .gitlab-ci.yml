@@ -52,7 +52,7 @@ deploy prod:
   # when: manual
   script:
     - docker compose down
-    - docker compose -f docker-compose.cicd.yml up --build --remove-orphans -d 
+    - docker compose -f docker-compose.cicd.yml up --build --remove-orphans --force-recreate -d 
 
 
 data_fetch:

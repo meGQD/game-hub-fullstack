@@ -21,6 +21,7 @@ yarn-error.log
 
 /etc/prometheus/my.crt
 /etc/prometheus/my.key
+/etc/prometheus/qemu1.crt
 /etc/alertmanager/my.crt
 /etc/alertmanager/my.key
 /etc/node_exporter/qemu1.key
