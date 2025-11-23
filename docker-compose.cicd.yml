@@ -124,9 +124,7 @@ services:
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     ports:
        - "9100:9100"
-    networks:
-       - monitoring
-
+       
 
 # Create postgres_data if it dosen't exist already
 volumes:
