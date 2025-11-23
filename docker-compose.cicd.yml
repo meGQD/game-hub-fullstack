@@ -79,7 +79,7 @@ services:
       - '--web.page-title=Prometheus'
       - '--storage.tsdb.path=/prometheus'
     ports:
-      - "9090:9090"
+      - "9091:9090"
 
   alertmanager:
     image: prom/alertmanager
