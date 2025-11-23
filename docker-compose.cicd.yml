@@ -94,7 +94,7 @@ services:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--web.config.file=/etc/alertmanager/web.yml'
     ports:
-      - "9094:9093"
+      - "9095:9093"
 
   grafana:
     image: grafana/grafana
