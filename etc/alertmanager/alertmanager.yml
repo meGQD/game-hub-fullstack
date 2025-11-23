@@ -1,0 +1,12 @@
+route:
+  receiver: 'slack_receiver'
+
+receivers:
+  - name: 'slack_receiver'
+    slack_configs:
+      - api_url: ${SLACK_API_URL}
+inhibit_rules:
+  - source_match:
+      team: "Team SysAdmin"
+    target_match:
+      team: "Team Development"

@@ -1,0 +1,8 @@
+groups:
+  - name: node_exporter_rules
+    rules:
+    - record: cpu:node_cpu_seconds_total:avg
+      expr: avg(rate(node_cpu_seconds_total[1m])) by(cpu) 
+      labels: 
+        exporter_type: node
+      

@@ -1,0 +1,22 @@
+groups:
+  - name: Alerts
+    rules:
+    - alert: Is node exporter up
+      expr: up{job="node_exporter"} == 0
+      # for: 10s
+      labels:
+        team: Team SysAdmin
+        severity: Critical
+      annotations:
+        summary: "{{ $labels.instance }} is down."
+        description: "Team SysAdmin has to restart the server {{ $labels }} expr_VALUE: {{ $value }}"
+
+    - alert: Is Gamehub-Backend Up
+      expr: up{job="gamehub_backend"} == 0
+      # for: 10s
+      labels:
+        team: Team Development
+        severity: error
+      annotations:
+        summary: "{{ $labels.instance }} is down."
+        description: "Team Development has to restart the server {{ $labels }} expr_VALUE: {{ $value }}"

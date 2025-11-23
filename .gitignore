@@ -18,3 +18,10 @@ dist/
 .env.local
 npm-debug.log
 yarn-error.log
+
+/etc/prometheus/my.crt
+/etc/prometheus/my.key
+/etc/alertmanager/my.crt
+/etc/alertmanager/my.key
+/etc/node_exporter/qemu1.key
+/etc/node_exporter/qemu1.crt
