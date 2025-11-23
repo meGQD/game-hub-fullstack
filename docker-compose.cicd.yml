@@ -65,13 +65,9 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - ./etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./etc/prometheus/web.yml:/etc/prometheus/web.yml
-      - ./etc/my.crt:/etc/prometheus/my.crt
-      - ./etc/my.key:/etc/prometheus/my.key
-      - ./etc/prometheus/qemu1.crt:/etc/prometheus/qemu1.crt
-      - ./etc/prometheus/rules/alerts.yml:/etc/prometheus/rules/alerts.yml
-      - ./etc/prometheus/rules/recording_rules.yml:/etc/prometheus/rules/recording_rules.yml
+      - ./etc/prometheus/:/etc/prometheus/
+      - ./etc:/etc/prometheus
+      - ./etc/prometheus/rules/:/etc/prometheus/rules/
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
