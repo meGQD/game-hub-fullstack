@@ -40,6 +40,21 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - database      
+
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    container_name: postgres_exporter
+    environment:
+      # Format: postgres://user:password@hostname:5432/dbname?sslmode=disable
+      - DATA_SOURCE_NAME=postgresql://${DB_POSTGRES_EXPORTER_USER}:${DB_POSTGRES_EXPORTER_PASSWORD}@${DB_HOST}:${DB_PORT}/postgres?sslmode=disable
+    ports:
+      - "9187:9187"
+    networks:
+      - database
+    depends_on:
+      - db
 
   redis:
     restart: unless-stopped
@@ -49,3 +64,8 @@ services:
 # Create postgres_data if it dosen't exist already
 volumes:
   postgres_data:
+
+
+networks:
+  database:
+    driver: bridge
