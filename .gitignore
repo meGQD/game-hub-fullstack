@@ -26,3 +26,5 @@ yarn-error.log
 /etc/alertmanager/my.key
 /etc/node_exporter/qemu1.key
 /etc/node_exporter/qemu1.crt
+/etc/my.crt
+/etc/my.crt

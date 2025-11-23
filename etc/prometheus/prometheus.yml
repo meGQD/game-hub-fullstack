@@ -4,11 +4,11 @@ global:
 
 scrape_configs:
   - job_name: 'prometheus'
-    scheme: https
-    tls_config:
-      ca_file: /etc/my.crt
-      server_name: 'localhost'
-      insecure_skip_verify: true
+    # scheme: https
+    # tls_config:
+    #   ca_file: /etc/my.crt
+    #   server_name: 'localhost'
+    #   insecure_skip_verify: true
     basic_auth:
       username: admin
       password: admin
