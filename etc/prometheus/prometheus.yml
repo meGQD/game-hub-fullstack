@@ -13,7 +13,7 @@ scrape_configs:
       username: admin
       password: admin
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['localhost:9091']
 
   - job_name: 'node_exporter'
     scheme: https
@@ -25,7 +25,7 @@ scrape_configs:
       username: admin
       password: admin
     static_configs:
-      - targets: ['node-exporter:9100'] 
+      - targets: ['node-exporter:9101'] 
 
   - job_name: 'gamehub-backend'
     static_configs:
@@ -50,6 +50,6 @@ alerting:
         username: admin
         password: admin
       static_configs:
-        - targets: ['alertmanager:9093']
+        - targets: ['alertmanager:9095']
 
         
