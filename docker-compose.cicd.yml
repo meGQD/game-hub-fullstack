@@ -44,6 +44,7 @@ services:
   postgres-exporter:
     image: quay.io/prometheuscommunity/postgres-exporter
     container_name: postgres_exporter
+    restart: unless-stopped
     environment:
       # Format: postgres://user:password@hostname:5432/dbname?sslmode=disable
       - DATA_SOURCE_NAME=postgresql://${DB_POSTGRES_EXPORTER_USER}:${DB_POSTGRES_EXPORTER_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
@@ -60,6 +61,7 @@ services:
   redis-exporter:
     image: oliver006/redis_exporter
     container_name: redis_exporter
+    restart: unless-stopped
     environment:
       - REDIS_ADDR=redis://redis:6379
     ports:
