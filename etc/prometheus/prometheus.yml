@@ -13,7 +13,7 @@ scrape_configs:
       username: admin
       password: admin
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['localhost:9091']
 
   - job_name: 'node_exporter'
     # scheme: https
