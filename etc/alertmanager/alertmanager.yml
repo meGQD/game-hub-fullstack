@@ -4,7 +4,8 @@ route:
 receivers:
   - name: 'slack_receiver'
     slack_configs:
-      - api_url: ${SLACK_API_URL}
+      - api_url: "API_URL_FROM_SLACK"
+
 inhibit_rules:
   - source_match:
       team: "Team SysAdmin"
