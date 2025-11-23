@@ -63,7 +63,7 @@ services:
     environment:
       - REDIS_ADDR=redis://redis:6379
     ports:
-      - "9121:9121"
+      - "9122:9121"
     depends_on:
       - redis
 
