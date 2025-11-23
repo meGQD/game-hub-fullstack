@@ -29,7 +29,7 @@ scrape_configs:
 
   - job_name: 'gamehub-backend'
     static_configs:
-      - targets: ['backend:8000']   
+      - targets: ['localhost:8000']   
 
   - job_name: 'gamehub-postgres-exporter'
     static_configs:
