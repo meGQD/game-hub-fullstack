@@ -41,12 +41,12 @@ rule_files:
 
 alerting:
   alertmanagers:
-    - scheme: http
+    # - scheme: http
       # tls_config:
       #   ca_file: /etc/my.crt
       #   server_name: 'localhost'
       #   insecure_skip_verify: true
-      basic_auth:
+    - basic_auth:
         username: admin
         password: admin
       static_configs:

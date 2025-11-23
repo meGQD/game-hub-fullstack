@@ -83,8 +83,6 @@ services:
     volumes:
       - ./etc/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - ./etc/alertmanager/web.yml:/etc/alertmanager/web.yml
-      - ./etc/my.key:/etc/alertmanager/my.key
-      - ./etc/my.crt:/etc/alertmanager/my.crt
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--web.config.file=/etc/alertmanager/web.yml'
@@ -106,8 +104,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./etc/node_exporter/node_web.yml:/etc/node_exporter/node_web.yml
-      - ./etc/my.key:/etc/node_exporter/my.key
-      - ./etc/my.crt:/etc/node_exporter/my.crt
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
