@@ -66,7 +66,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./etc/prometheus/:/etc/prometheus/
-      - ./etc:/etc/prometheus
       - ./etc/prometheus/rules/:/etc/prometheus/rules/
       - prometheus_data:/prometheus
     command:
