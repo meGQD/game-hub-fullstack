@@ -57,6 +57,16 @@ services:
     image: redis:6-alpine
     container_name: gamehub-redis
 
+  redis-exporter:
+    image: oliver006/redis_exporter
+    container_name: redis_exporter
+    environment:
+      - REDIS_ADDR=redis://redis:6379
+    ports:
+      - "9121:9121"
+    depends_on:
+      - redis
+
 # Create postgres_data if it dosen't exist already
 volumes:
   postgres_data:
