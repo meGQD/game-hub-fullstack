@@ -7,3 +7,4 @@ datasources:
     secureJsonData:
       password: grafana
       tlsSkipVerify: true
+    editable: true
