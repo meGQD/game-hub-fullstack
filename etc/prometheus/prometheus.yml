@@ -35,6 +35,10 @@ scrape_configs:
     static_configs:
       - targets: ['postgres-exporter:9187']       
 
+  - job_name: 'gitlab-exporter'
+    static_configs:
+      - targets: ['localhost:8083']   
+
 rule_files:
   - "rules/alerts.yml"
   - "rules/recording_rules.yml"
