@@ -15,6 +15,10 @@ scrape_configs:
     static_configs:
       - targets: ['prometheus:9090']
 
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['grafana:3000']  
+
   - job_name: 'node_exporter'
     # scheme: https
     # tls_config:
@@ -27,29 +31,29 @@ scrape_configs:
     static_configs:
       - targets: ['node-exporter:9100'] 
 
-  - job_name: 'gamehub-backend'
-    static_configs:
-      - targets: ['backend:8000']   
-
   - job_name: 'gamehub-postgres-exporter'
     static_configs:
       - targets: ['postgres-exporter:9187']       
+
+  - job_name: 'gamehub-backend'
+    static_configs:
+      - targets: ['backend:8000']   
 
 rule_files:
   - "rules/alerts.yml"
   - "rules/recording_rules.yml"
 
-alerting:
-  alertmanagers:
-    # - scheme: http
-      # tls_config:
-      #   ca_file: /etc/my.crt
-      #   server_name: 'localhost'
-      #   insecure_skip_verify: true
-    - basic_auth:
-        username: admin
-        password: admin
-      static_configs:
-        - targets: ['alertmanager:9093']
+# alerting:
+#   alertmanagers:
+#     # - scheme: http
+#       # tls_config:
+#       #   ca_file: /etc/my.crt
+#       #   server_name: 'localhost'
+#       #   insecure_skip_verify: true
+#     - basic_auth:
+#         username: admin
+#         password: admin
+#       static_configs:
+#         - targets: ['alertmanager:9093']
 
         
