@@ -28,6 +28,7 @@ A full-stack web application for discovering video games, built with a modern, c
 - **Fully Containerized:** The entire application stack (Frontend, Backend, Database, Cache) is containerized with Docker for a seamless and consistent development and production environment.
 - **Optimized for Production:** Includes a production-ready setup with Gunicorn, Nginx, and Redis caching.
 - **Monitoring & Observability:** Integrated Prometheus for metrics collection and Grafana for visualization, providing real-time insights into database statistics, backend latency, CPU usage, and system resources.
+
   ![Grafana Dashborad Demo](assets/Grafana-dashboard.gif)
 
 ## 🛠️ Tech Stack
