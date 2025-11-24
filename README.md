@@ -105,8 +105,8 @@ You must have the following software installed on your machine:
 
     The application should now be running.
 
-    - **Frontend:** [http://localhost:3001](http://localhost:3001)
-    - **Backend API:** [http://localhost:8001/api/](http://localhost:8001/api/)
+    - **Frontend:** [http://localhost:3000](http://localhost:3000)
+    - **Backend API:** [http://localhost:8000/api/](http://localhost:8000/api/)
 
 4.  **One-Time Database Setup (Important)**
     After the containers are running for the first time, you need to set up the database. Open a **new terminal window** and run the following commands:
@@ -122,7 +122,7 @@ Your application is now fully set up and ready to use!
 
 ## 🎈 Usage
 
-- Open your browser and go to `http://localhost:3001`.
+- Open your browser and go to `http://localhost:3000`.
 - Filter games by Genres and Platforms from the sidebars.
 - Use the search bar to find specific games by name.
 - Click on a game card to navigate to its detailed view.
@@ -151,13 +151,19 @@ The pipeline's main jobs are:
 
 This project includes a comprehensive, production-ready monitoring stack. We use **Prometheus** to scrape real-time metrics from the application and database, and **Grafana** to visualize them in interactive dashboards.
 
+> ⚠️ **Important:** The monitoring services (Prometheus, Grafana, Exporters) are **not** included in the default `docker-compose.yml`. To enable the monitoring stack, you must run the project using the CI/CD compose file:
+>
+> ```bash
+> docker-compose -f docker-compose.cicd.yml up -d
+> ```
+
 ### 🔌 Services & Access
 
 The monitoring stack runs on separate containers to ensure isolation. You can access the services using the credentials below:
 
 | Service | URL | Description | Default Creds |
 | :--- | :--- | :--- | :--- |
-| **Grafana** | [http://localhost:3002](http://localhost:3002) | Primary Visualization Dashboard | `admin` / `admin` |
+| **Grafana** | [http://localhost:3002](http://localhost:3002) | Primary Visualization Dashboard | `grafana` / `grafana` |
 | **Prometheus** | [http://localhost:9091](http://localhost:9091) | Metric Collection & Query Engine | `admin` / `admin` |
 | **Alertmanager** | [http://localhost:9095](http://localhost:9095) | Alert Handling & Routing | `admin` / `admin` |
 | **Node Exporter** | [http://localhost:9101](http://localhost:9101) | System/OS Metrics Endpoint | `admin` / `admin` |
@@ -178,7 +184,7 @@ The stack provides deep visibility into the application's health, tracking:
 
 While the services start automatically with Docker Compose, you will need to load the visualization template manually the first time:
 
-1.  Log in to Grafana at `http://localhost:3002` (default username and password is : admin).
+1.  Log in to Grafana at `http://localhost:3002` (default username and password is : grafana).
 2.  Navigate to **Dashboards** > **New** > **Import**.
 3.  Upload the `grafana.json` file located in the root of this project.
 4.  Select **Prometheus** as the data source and click **Import**.
