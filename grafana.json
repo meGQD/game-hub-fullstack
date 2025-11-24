@@ -23,12 +23,162 @@
   "links": [],
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 12,
+      "panels": [],
+      "title": "Services",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "ef507fh4qkr28b"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef507fh4qkr28b"
+          },
+          "editorMode": "code",
+          "expr": "up{job=\"gamehub-backend\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Backend",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef507fh4qkr28b"
+          },
+          "editorMode": "code",
+          "expr": "pg_up",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "PostgreSQL",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef507fh4qkr28b"
+          },
+          "editorMode": "code",
+          "expr": "up{job=\"prometheus\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Prometheus",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef507fh4qkr28b"
+          },
+          "editorMode": "code",
+          "expr": "up{job=\"grafana\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Grafana",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "up{job=\"node_exporter\"}",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "node-exporter",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef507fh4qkr28b"
+          },
+          "editorMode": "code",
+          "expr": "up{job=\"gamehub-postgres-exporter\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Postgres-Exporter",
+          "range": true,
+          "refId": "E"
+        }
+      ],
+      "title": "Status",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
       },
       "id": 7,
       "panels": [],
@@ -64,15 +214,15 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 5,
+        "h": 5,
+        "w": 20,
         "x": 0,
-        "y": 1
+        "y": 7
       },
       "id": 9,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "percentChangeColorMode": "standard",
@@ -92,7 +242,7 @@
         {
           "editorMode": "code",
           "expr": "pg_stat_user_tables_n_tup_ins{relname=\"api_game\"}",
-          "legendFormat": "api_game",
+          "legendFormat": "Games",
           "range": true,
           "refId": "A"
         },
@@ -105,7 +255,7 @@
           "expr": "pg_stat_user_tables_n_tup_ins{relname=\"api_genre\"}",
           "hide": false,
           "instant": false,
-          "legendFormat": "api_genre",
+          "legendFormat": "Genres",
           "range": true,
           "refId": "B"
         },
@@ -118,7 +268,7 @@
           "expr": "pg_stat_user_tables_n_tup_ins{relname=\"api_gamescreenshot\"}",
           "hide": false,
           "instant": false,
-          "legendFormat": "api_gamescreenshot",
+          "legendFormat": "Game Screenshots",
           "range": true,
           "refId": "C"
         },
@@ -131,12 +281,12 @@
           "expr": "pg_stat_user_tables_n_tup_ins{relname=\"api_platform\"}",
           "hide": false,
           "instant": false,
-          "legendFormat": "api_platform",
+          "legendFormat": "Platforms",
           "range": true,
           "refId": "D"
         }
       ],
-      "title": "Tables Counts",
+      "title": "Table (api)",
       "type": "stat"
     },
     {
@@ -167,15 +317,15 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 5,
-        "y": 1
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 7
       },
       "id": 8,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "percentChangeColorMode": "standard",
@@ -209,7 +359,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 12
       },
       "id": 5,
       "panels": [],
@@ -278,10 +428,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 6,
       "options": {
@@ -328,7 +478,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 21
       },
       "id": 1,
       "panels": [],
@@ -351,6 +501,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
+            "axisSoftMin": 0,
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
@@ -376,7 +527,7 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "area"
             }
           },
           "mappings": [],
@@ -389,7 +540,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 8000
               }
             ]
           }
@@ -397,12 +548,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 6,
+        "w": 8,
         "x": 0,
-        "y": 18
+        "y": 22
       },
-      "id": 3,
+      "id": 10,
       "options": {
         "legend": {
           "calcs": [],
@@ -419,14 +570,138 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "editorMode": "builder",
-          "expr": "avg by(cpu) (rate(node_cpu_seconds_total[5m]))",
-          "legendFormat": "__auto",
+          "editorMode": "code",
+          "expr": "ceil(node_memory_MemTotal_bytes / 1000000)",
+          "legendFormat": "Total memory (MB)",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef507fh4qkr28b"
+          },
+          "editorMode": "code",
+          "expr": "ceil(node_memory_MemTotal_bytes / 1000000) - ceil(node_memory_MemAvailable_bytes / 1000000)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Memory used (MB)",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "title": "CPU Total Seconds (per CPU)",
+      "title": "Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ef507fh4qkr28b"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed+area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 8,
+        "y": 22
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef507fh4qkr28b"
+          },
+          "editorMode": "code",
+          "expr": "ceil(node_memory_SwapTotal_bytes / 1000000)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Total (MB)",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "editorMode": "code",
+          "expr": "ceil(node_memory_SwapCached_bytes / 1000000)",
+          "legendFormat": "Used (MB)",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Swap",
       "type": "timeseries"
     },
     {
@@ -473,7 +748,6 @@
               "mode": "off"
             }
           },
-          "displayName": "SwapFree (MB)",
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -492,12 +766,12 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 22
       },
-      "id": 4,
+      "id": 3,
       "options": {
         "legend": {
           "calcs": [],
@@ -515,17 +789,18 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "ceil(node_memory_SwapFree_bytes / 1000000)",
+          "expr": "avg by(cpu) (rate(node_cpu_seconds_total[5m]))",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "SwapFree ",
+      "title": "CPU Total Seconds (per CPU)",
       "type": "timeseries"
     }
   ],
   "preload": false,
+  "refresh": "5s",
   "schemaVersion": 42,
   "tags": [],
   "templating": {
@@ -539,5 +814,5 @@
   "timezone": "",
   "title": "GameHub",
   "uid": "ad56b7c",
-  "version": 11
+  "version": 39
 }
