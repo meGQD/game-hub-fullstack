@@ -163,7 +163,7 @@ The monitoring stack runs on separate containers to ensure isolation. You can ac
 
 | Service | URL | Description | Default Creds |
 | :--- | :--- | :--- | :--- |
-| **Grafana** | [http://localhost:3002](http://localhost:3002) | Primary Visualization Dashboard | `grafana` / `grafana` |
+| **Grafana** | [http://localhost:3002](http://localhost:3002) | Primary Visualization Dashboard | `admin` / `admin` |
 | **Prometheus** | [http://localhost:9091](http://localhost:9091) | Metric Collection & Query Engine | `admin` / `admin` |
 | **Alertmanager** | [http://localhost:9095](http://localhost:9095) | Alert Handling & Routing | `admin` / `admin` |
 | **Node Exporter** | [http://localhost:9101](http://localhost:9101) | System/OS Metrics Endpoint | `admin` / `admin` |
@@ -184,7 +184,7 @@ The stack provides deep visibility into the application's health, tracking:
 
 While the services start automatically with Docker Compose, you will need to load the visualization template manually the first time:
 
-1.  Log in to Grafana at `http://localhost:3002` (default username and password is : grafana).
+1.  Log in to Grafana at `http://localhost:3002` (default username and password is : **admin**).
 2.  Navigate to **Dashboards** > **New** > **Import**.
 3.  Upload the `grafana.json` file located in the root of this project.
 4.  Select **Prometheus** as the data source and click **Import**.

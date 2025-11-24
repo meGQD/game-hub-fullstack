@@ -1,0 +1,9 @@
+datasources:
+  - name: Prometheus
+    url: http://prometheus:9090
+    user: grafana
+    basicAuth:
+      grafana
+    secureJsonData:
+      password: grafana
+      tlsSkipVerify: true
