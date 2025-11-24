@@ -3,5 +3,5 @@
 #   key_file: /etc/my.key
 
 basic_auth_users:
-  admin: $2y$10$tUyLTqxX5cp85jtOOxZHMecj9TvrfQKe3ZSig.S2okiZiZ/cmaO0K
-  grafana: $2y$10$9yPA4wC0KVaf4xTn46ndjuSEaHdz7jm4O/ek2cqaE/d3iSTpDa7ku
+  admin: $2y$10$tUyLTqxX5cp85jtOOxZHMecj9TvrfQKe3ZSig.S2okiZiZ/cmaO0K    #admin
+  grafana: $2y$10$9yPA4wC0KVaf4xTn46ndjuSEaHdz7jm4O/ek2cqaE/d3iSTpDa7ku  #grafana
