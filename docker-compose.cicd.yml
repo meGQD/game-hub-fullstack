@@ -76,18 +76,20 @@ services:
     ports:
       - "9091:9090"
 
-  alertmanager:
-    image: prom/alertmanager
-    container_name: alertmanager
-    restart: unless-stopped
-    volumes:
-      - ./etc/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
-      - ./etc/alertmanager/web.yml:/etc/alertmanager/web.yml
-    command:
-      - '--config.file=/etc/alertmanager/alertmanager.yml'
-      - '--web.config.file=/etc/alertmanager/web.yml'
-    ports:
-      - "9095:9093"
+  # uncomment if you have set up an "API_URL_FROM_SLACK" at /etc/alertmanager/alertmanager.yml
+
+  # alertmanager:
+  #   image: prom/alertmanager
+  #   container_name: alertmanager
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./etc/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+  #     - ./etc/alertmanager/web.yml:/etc/alertmanager/web.yml
+  #   command:
+  #     - '--config.file=/etc/alertmanager/alertmanager.yml'
+  #     - '--web.config.file=/etc/alertmanager/web.yml'
+  #   ports:
+  #     - "9095:9093"
 
   grafana:
     image: grafana/grafana
