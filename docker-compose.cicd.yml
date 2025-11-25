@@ -40,8 +40,11 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    ports:
-      - 5432:5432
+
+  redis:
+    restart: unless-stopped
+    image: redis:6-alpine
+    container_name: gamehub-redis
 
   postgres-exporter:
     image: quay.io/prometheuscommunity/postgres-exporter
@@ -55,10 +58,23 @@ services:
     depends_on:
       - db
 
-  redis:
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
     restart: unless-stopped
-    image: redis:6-alpine
-    container_name: gamehub-redis
+    volumes:
+      - ./etc/node_exporter/node_web.yml:/etc/node_exporter/node_web.yml
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--web.config.file=/etc/node_exporter/node_web.yml'
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+       - "9101:9100"
 
   prometheus:
     image: prom/prometheus:latest
@@ -100,25 +116,6 @@ services:
       - ./etc/grafana/provisioning/:/etc/grafana/provisioning/
     ports:
       - "3002:3000"
-
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: node-exporter
-    restart: unless-stopped
-    volumes:
-      - ./etc/node_exporter/node_web.yml:/etc/node_exporter/node_web.yml
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--web.config.file=/etc/node_exporter/node_web.yml'
-      - '--path.procfs=/host/proc'
-      - '--path.rootfs=/rootfs'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-    ports:
-       - "9101:9100"
-
 
 # Create postgres_data if it dosen't exist already
 volumes:
