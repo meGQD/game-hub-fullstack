@@ -2,7 +2,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     url: http://prometheus:9090
-    uid: "PBFA97CFB590B2093"
+    uid: "ef507fh4qkr28b"
     access: proxy
     basicAuth: true
     basicAuthUser: grafana
