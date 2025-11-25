@@ -1,0 +1,7 @@
+providers:
+  - name: Gamehub
+    type: file
+    updateIntervalSeconds: 30
+    options:
+      path: /etc/grafana/provisioning/dashboards/files
+      foldersFromFilesStructure: true
