@@ -4,13 +4,13 @@ datasources:
     url: http://prometheus:9090
     access: proxy
     basicAuth: true
-    basicAuthUser: grafana
+    basicAuthUser: admin
     
     jsonData:
       tlsSkipVerify: true
       
     secureJsonData:
-      basicAuthPassword: grafana
+      basicAuthPassword: admin
       
     isDefault: true
     editable: true
