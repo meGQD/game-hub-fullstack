@@ -177,7 +177,7 @@ The stack provides deep visibility into the application's health, tracking:
 
 ### <a id="grafana-dashboard"></a>⚙️ Dashboard
 
-After you log in to Grafana at `http://localhost:3002` (default username and password is : **admin**), 
+After you log in to Grafana at [http://localhost:3002](http://localhost:3002) (default username and password is : **admin**), 
 you can access the provisioned dashboard at **Dashboards** > **GameHub**.
 
 ## 🤝 Contributing
