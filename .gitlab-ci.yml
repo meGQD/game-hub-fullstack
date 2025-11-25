@@ -51,7 +51,7 @@ deploy prod:
     - prod
   # when: manual
   script:
-    - docker compose down
+    - docker compose -f docker-compose.cicd.yml down
     - docker compose -f docker-compose.cicd.yml up --remove-orphans --force-recreate -d 
 
 
