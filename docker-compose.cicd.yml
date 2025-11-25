@@ -92,6 +92,18 @@ services:
     ports:
       - "9091:9090"
 
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./etc/grafana/provisioning/:/etc/grafana/provisioning/
+    ports:
+      - "3002:3000"
+
+
   # uncomment if you have set up an "API_URL_FROM_SLACK" at /etc/alertmanager/alertmanager.yml
 
   # alertmanager:
@@ -106,17 +118,7 @@ services:
   #     - '--web.config.file=/etc/alertmanager/web.yml'
   #   ports:
   #     - "9095:9093"
-
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: unless-stopped
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./etc/grafana/provisioning/:/etc/grafana/provisioning/
-    ports:
-      - "3002:3000"
-
+  
 # Create postgres_data if it dosen't exist already
 volumes:
   postgres_data:
