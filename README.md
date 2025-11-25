@@ -100,13 +100,14 @@ You must have the following software installed on your machine:
     This command will build the Docker images for the frontend and backend and start all the necessary services.
 
     ```bash
-    docker-compose up --build -d
+    docker compose up --build -d
     ```
 
     The application should now be running.
 
     - **Frontend:** [http://localhost:3000](http://localhost:3000)
     - **Backend API:** [http://localhost:8000/api/](http://localhost:8000/api/)
+    - **Grafana Dashboard:** [Access Instructions](#grafana-dashboard)
 
 4.  **One-Time Database Setup (Important)**
     After the containers are running for the first time, you need to set up the database. Open a **new terminal window** and run the following commands:
@@ -151,12 +152,6 @@ The pipeline's main jobs are:
 
 This project includes a comprehensive, production-ready monitoring stack. We use **Prometheus** to scrape real-time metrics from the application and database, and **Grafana** to visualize them in interactive dashboards.
 
-> ⚠️ **Important:** The monitoring services (Prometheus, Grafana, Exporters) are **not** included in the default `docker-compose.yml`. To enable the monitoring stack, you must run the project using the CI/CD compose file:
->
-> ```bash
-> docker-compose -f docker-compose.cicd.yml up -d
-> ```
-
 ### 🔌 Services & Access
 
 The monitoring stack runs on separate containers to ensure isolation. You can access the services using the credentials below:
@@ -180,9 +175,9 @@ The stack provides deep visibility into the application's health, tracking:
 * **Database Details:** table row counts (Games, Genres, etc) and registered users count.
 * **Backend Latency:** APIs response time (per view).
 
-### ⚙️ Dashboard
+### <a id="grafana-dashboard"></a>⚙️ Dashboard
 
-After you log in to Grafana in at `http://localhost:3002` (default username and password is : **admin**), 
+After you log in to Grafana at `http://localhost:3002` (default username and password is : **admin**), 
 you can access the provisioned dashboard at **Dashboards** > **GameHub**.
 
 ## 🤝 Contributing
