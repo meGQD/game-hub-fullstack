@@ -57,9 +57,6 @@ deploy prod:
 
 data_fetch:
   stage: data_fetch
-  tags:
-    - beta
-    - prod
   when: manual
   script: 
     - docker compose exec backend python manage.py seed_db
