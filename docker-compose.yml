@@ -86,7 +86,7 @@ services:
     volumes:
       - ./etc/prometheus/:/etc/prometheus/
       - ./etc/prometheus/rules/:/etc/prometheus/rules/
-      - prometheus_data:/prometheus
+      - prometheus_data_beta:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.config.file=/etc/prometheus/web.yml'
