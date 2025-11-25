@@ -1,15 +1,16 @@
-# datasources:
-#   - name: Prometheus
-#     type: prometheus
-#     url: http://prometheus:9090
-#     access: proxy
-#     basicAuth: true
-#     basicAuthUser: grafana
+datasources:
+  - name: Prometheus
+    type: prometheus
+    url: http://prometheus:9090
+    access: proxy
+    basicAuth: true
+    basicAuthUser: grafana
     
-#     jsonData:
-#       tlsSkipVerify: true
+    jsonData:
+      tlsSkipVerify: true
       
-#     secureJsonData:
-#       basicAuthPassword: grafana
+    secureJsonData:
+      basicAuthPassword: grafana
       
-#     editable: true
+    isDefault: true
+    editable: true
