@@ -180,14 +180,10 @@ The stack provides deep visibility into the application's health, tracking:
 * **Database Details:** table row counts (Games, Genres, etc) and registered users count.
 * **Backend Latency:** APIs response time (per view).
 
-### ⚙️ Dashboard Setup
+### ⚙️ Dashboard
 
-While the services start automatically with Docker Compose, you will need to load the visualization template manually the first time:
-
-1.  Log in to Grafana at `http://localhost:3002` (default username and password is : **admin**).
-2.  Navigate to **Dashboards** > **New** > **Import**.
-3.  Upload the `grafana.json` file located in the root of this project.
-4.  Select **Prometheus** as the data source and click **Import**.
+After you log in to Grafana in at `http://localhost:3002` (default username and password is : **admin**), 
+you can access the provisioned dashboard at **Dashboards** > **GameHub**.
 
 ## 🤝 Contributing
 
