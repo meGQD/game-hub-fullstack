@@ -52,7 +52,7 @@ services:
     restart: unless-stopped
     environment:
       # Format: postgres://user:password@hostname:5432/dbname?sslmode=disable
-      - DATA_SOURCE_NAME=postgresql://${DB_POSTGRES_EXPORTER_USER}:${DB_POSTGRES_EXPORTER_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
+      - DATA_SOURCE_NAME=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
     ports:
       - "9188:9187"
     depends_on:
