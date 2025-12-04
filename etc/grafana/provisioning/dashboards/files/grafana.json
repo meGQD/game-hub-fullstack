@@ -532,7 +532,7 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -540,7 +540,7 @@
               },
               {
                 "color": "red",
-                "value": 8000
+                "value": 80
               }
             ]
           }
@@ -814,5 +814,5 @@
   "timezone": "",
   "title": "GameHub",
   "uid": "ad56b7c",
-  "version": 39
+  "version": 1
 }
