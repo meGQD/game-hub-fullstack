@@ -59,4 +59,4 @@ data_fetch:
   stage: data_fetch
   when: manual
   script: 
-    - docker compose exec backend python manage.py seed_db
+    - docker compose exec backend-us python manage.py seed_db

@@ -14,9 +14,20 @@ A full-stack web application for discovering video games, built with a modern, c
 
 ![Game Hub Demo](assets/Games-demo.gif)
 
+## 📋 Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [CI/CD Pipeline](#cicd-pipeline)
+- [Monitoring & Observability](#monitoring-observability)
+- [Load Balancing](#load-balancing)
+- [Contributing](#contributing)
+- [Contact](#contact)
+
 ---
 
-## ✨ Features
+## <a id="features"></a>✨ Features
 
 - **Extensive Game Library:** Browse thousands of games with detailed information powered by the RAWG API.
 - **Advanced Search & Filtering:** Easily find games by searching, or filter by genre and platform.
@@ -26,15 +37,23 @@ A full-stack web application for discovering video games, built with a modern, c
 
 - **Personalized Profiles:** Users can update their personal information and view their collection of favorite games.
 - **Favoriting System:** Logged-in users can add or remove any game from their personal favorites list.
-- **Fully Containerized:** The entire application stack (Frontend, Backend, Database, Cache) is containerized with Docker for a seamless and consistent development and production environment.
-- **Optimized for Production:** Includes a production-ready setup with Gunicorn, Nginx, and Redis caching.
+- **Fully Containerized:** The entire application stack is containerized with Docker for a seamless and consistent development and production environment.
 - **Monitoring & Observability:** Integrated Prometheus for metrics collection and Grafana for visualization, providing real-time insights into database statistics, backend latency, CPU usage, and system resources.
 
   ![Grafana Dashborad Demo](assets/Grafana-dashboard.gif)
 
-## 🛠️ Tech Stack
+## <a id="tech-stack"></a>🛠️ Tech Stack
 
 The project is built with a modern, decoupled architecture using the following technologies:
+
+### Infrastructure
+
+| Category             | Technology                                                                            |
+| :------------------- | :------------------------------------------------------------------------------------ |
+| **Containerization** | [Docker](https://docker.com/), [Docker Compose](https://docs.docker.com/compose/)     |
+| **CI/CD Automation** | [GitLab(CI/CD)](https://www.gitlab.com/)                                              |
+| **Monitoring**       | [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/)                 |
+| **Load Balancing**   | [Nginx](https://www.nginx.com/)                                                       |
 
 ### Backend
 
@@ -44,7 +63,7 @@ The project is built with a modern, decoupled architecture using the following t
 | **Authentication** | [Djoser](https://djoser.readthedocs.io/), [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/) |
 | **Database**       | [PostgreSQL](https://www.postgresql.org/) with [Psycopg2](https://www.psycopg.org/)                             |
 | **Caching**        | [Redis](https://redis.io/) with [django-redis](https://github.com/jazzband/django-redis)                        |
-| **Web Server**     | [Gunicorn](https://gunicorn.org/) with [Gevent](http://www.gevent.org/) workers                                 |
+| **Web Server**     | [Gunicorn](https://gunicorn.org/)                                                                               |
 
 ### Frontend
 
@@ -58,16 +77,7 @@ The project is built with a modern, decoupled architecture using the following t
 | **Routing**          | [React Router](https://reactrouter.com/)                                                                    |
 | **Form Handling**    | [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/) for validation                 |
 
-### Infrastructure
-
-| Category             | Technology                                                                            |
-| :------------------- | :------------------------------------------------------------------------------------ |
-| **Containerization** | [Docker](https://docker.com/), [Docker Compose](https://docs.docker.com/compose/)     |
-| **CI/CD Automation** | [GitLab(CI/CD)](https://www.gitlab.com/)                                              |
-| **Load Balancing**   | [Nginx](https://www.nginx.com/)                                                       |
-| **Monitoring**       | [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/)                 |
-
-## 🚀 Getting Started
+## <a id="getting-started"></a>🚀 Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -115,14 +125,14 @@ You must have the following software installed on your machine:
 
     - **Seed the Database with Games:** This command will populate the database with games from the RAWG API. This is a long-running process.
       ```bash
-      docker compose exec backend python manage.py seed_db
+      docker compose exec backend-us python manage.py seed_db
       ```
 
 Your application is now fully set up and ready to use!
 
 ---
 
-## 🎈 Usage
+## <a id="usage"></a>🎈 Usage
 
 - Open your browser and go to `http://localhost:3000`.
 - Filter games by Genres and Platforms from the sidebars.
@@ -137,7 +147,7 @@ Your application is now fully set up and ready to use!
 
 ---
 
-## 🔄 CI/CD Pipeline
+## <a id="cicd-pipeline"></a>🔄 CI/CD Pipeline
 
 This project uses a GitLab CI/CD pipeline to automate builds and deployments. The pipeline is structured into `beta` (automatic) and `prod` (manual) environments.
 
@@ -149,7 +159,7 @@ The pipeline's main jobs are:
 * **Data Fetch (Manual):** An optional job to run `manage.py seed_db` and populate the database on either environment.
 
 ---
-## 📊 Monitoring & Observability
+## <a id="monitoring-observability"></a>📊 Monitoring & Observability
 
 This project includes a comprehensive, production-ready monitoring stack. We use **Prometheus** to scrape real-time metrics from the application and database, and **Grafana** to visualize them in interactive dashboards.
 
@@ -181,11 +191,20 @@ The stack provides deep visibility into the application's health, tracking:
 After you log in to Grafana at [http://localhost:3002](http://localhost:3002) (default username and password is : **admin**), 
 you can access the provisioned dashboard at **Dashboards** > **GameHub**.
 
-## 🤝 Contributing
+---
+## <a id="load-balancing"></a>⚖️ Load Balancing Strategy
+
+This project uses **Nginx** as a reverse proxy to simulate a scalable, high-availability architecture. Instead of a single backend, traffic is distributed across three isolated replicas (`backend-us`, `backend-eu`, `backend-me`).
+
+- **Round-Robin Routing:** Nginx cycles requests sequentially between the three containers to distribute the load evenly.
+- **Automatic Failover:** traffic is automatically rerouted if a specific instance goes down.
+- **Unified Entry Point:** The entire backend cluster is abstracted behind port `80`, providing a seamless API experience for the frontend.
+
+## <a id="contributing"></a>🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/megqd/game-hub-fullstack/issues) if you'd like to contribute.
 
-## 📬 Contact
+## <a id="contact"></a>📬 Contact
 
 [MohammadReza Karimi] - [mrk272727mrk@gmail.com]
 
