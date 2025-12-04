@@ -184,7 +184,7 @@ The stack provides deep visibility into the application's health, tracking:
 * **Services Health:** Backend server, PostgreSQL data base, etc.
 * **System Resources:** CPU usage, Memory distribution (RAM/Swap).
 * **Database Details:** table row counts (Games, Genres, etc) and registered users count.
-* **Backend Latency:** APIs response time (per view).
+* **Backend Latency:** APIs response time for each server (per view).
 
 ### <a id="grafana-dashboard"></a>⚙️ Dashboard
 

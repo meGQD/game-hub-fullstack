@@ -38,7 +38,7 @@ deploy beta:
     name: beta
   tags:
     - beta
-  when: manual
+  when: always
   script:
     - docker compose down || docker compose -f docker-compose.cicd.yml down
     - docker compose up --build -d
@@ -49,7 +49,7 @@ deploy prod:
     name: prod 
   tags:
     - prod
-  # when: manual
+  when: manual
   script:
     - docker compose -f docker-compose.cicd.yml down || docker compose down
     - docker compose -f docker-compose.cicd.yml up --remove-orphans --force-recreate -d 
