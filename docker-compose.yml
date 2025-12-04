@@ -69,6 +69,19 @@ services:
       - db
       - redis
 
+  lb:
+    image: nginx:1.21-alpine
+    container_name: lb
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./etc/nginx/:/etc/nginx/
+    depends_on:
+      - backend-us
+      - backend-eu
+      - backend-me
+
   frontend:
     build: 
       context: ./frontend
