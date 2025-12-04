@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -98,12 +98,38 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "up{job=\"gamehub-backend\"}",
+          "expr": "up{job=\"gamehub-backend-us\"}",
           "hide": false,
           "instant": false,
-          "legendFormat": "Backend",
+          "legendFormat": "Backend-US",
           "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "up{job=\"gamehub-backend-eu\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Backend-EU",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "up{job=\"gamehub-backend-me\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Backend-ME",
+          "range": true,
+          "refId": "H"
         },
         {
           "datasource": {
@@ -363,7 +389,7 @@
       },
       "id": 5,
       "panels": [],
-      "title": "Backend",
+      "title": "Backend APIs Latency",
       "type": "row"
     },
     {
@@ -428,8 +454,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 24,
+        "h": 7,
+        "w": 8,
         "x": 0,
         "y": 13
       },
@@ -451,18 +477,18 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{view!=\"prometheus-django-metrics\"}[5m])) by(view)",
+          "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{job=\"gamehub-backend-us\",view!=\"prometheus-django-metrics\"}[5m])) by(view)",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "APIs latency",
+      "title": "Backend-US",
       "transformations": [
         {
           "id": "calculateField",
           "options": {
-            "alias": "Total Latency",
+            "alias": "",
             "mode": "reduceRow",
             "reduce": {
               "reducer": "sum"
@@ -473,12 +499,212 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 13
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{job=\"gamehub-backend-eu\",view!=\"prometheus-django-metrics\"}[5m])) by(view)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Backend-EU",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 13
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{job=\"gamehub-backend-me\",view!=\"prometheus-django-metrics\"}[5m])) by(view)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Backend-ME",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 20
       },
       "id": 1,
       "panels": [],
@@ -540,7 +766,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 90
               }
             ]
           }
@@ -551,7 +777,7 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 22
+        "y": 21
       },
       "id": 10,
       "options": {
@@ -662,7 +888,7 @@
         "h": 6,
         "w": 4,
         "x": 8,
-        "y": 22
+        "y": 21
       },
       "id": 4,
       "options": {
@@ -769,7 +995,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 21
       },
       "id": 3,
       "options": {
@@ -814,5 +1040,5 @@
   "timezone": "",
   "title": "GameHub",
   "uid": "ad56b7c",
-  "version": 1
+  "version": 2
 }

@@ -35,9 +35,17 @@ scrape_configs:
     static_configs:
       - targets: ['postgres-exporter:9187']       
 
-  - job_name: 'gamehub-backend'
+  - job_name: 'gamehub-backend-us'
     static_configs:
-      - targets: ['backend:8000']   
+      - targets: ['backend-us:8001']
+
+  - job_name: 'gamehub-backend-eu'
+    static_configs:
+      - targets: ['backend-eu:8002']   
+
+  - job_name: 'gamehub-backend-me'
+    static_configs:
+      - targets: ['backend-me:8003']   
 
 rule_files:
   - "rules/alerts.yml"
