@@ -1,10 +1,57 @@
 services:
-  backend:
+  backend-us:
     build: ./backend
-    container_name: gamehub-backend
+    container_name: gamehub-backend-us
+    command: "gunicorn gamehub.wsgi --bind 0.0.0.0:8001 --workers 2 --worker-class gevent --timeout 120 --log-level=debug"
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "8001:8001"
+    environment:
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - SECRET_KEY=${SECRET_KEY}
+      - RAWG_API_KEY=${RAWG_API_KEY}
+      - SEEDING_MAX_PAGES=${SEEDING_MAX_PAGES}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - REDIS_LOCATION=${REDIS_LOCATION}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    depends_on:
+      - db
+      - redis
+  backend-eu:
+    build: ./backend
+    container_name: gamehub-backend-eu
+    command: "gunicorn gamehub.wsgi --bind 0.0.0.0:8002 --workers 2 --worker-class gevent --timeout 120 --log-level=debug"
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    environment:
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - SECRET_KEY=${SECRET_KEY}
+      - RAWG_API_KEY=${RAWG_API_KEY}
+      - SEEDING_MAX_PAGES=${SEEDING_MAX_PAGES}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - REDIS_LOCATION=${REDIS_LOCATION}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+    depends_on:
+      - db
+      - redis
+  backend-me:
+    build: ./backend
+    container_name: gamehub-backend-me
+    command: "gunicorn gamehub.wsgi --bind 0.0.0.0:8003 --workers 2 --worker-class gevent --timeout 120 --log-level=debug"
+    restart: unless-stopped
+    ports:
+      - "8003:8003"
     environment:
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
       - SECRET_KEY=${SECRET_KEY}

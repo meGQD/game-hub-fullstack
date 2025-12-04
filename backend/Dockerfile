@@ -21,9 +21,8 @@ RUN DJANGO_SETTINGS_MODULE='gamehub.settings.prod' \
     DB_PORT=dummy \ 
     python manage.py collectstatic --noinput
 
-EXPOSE 8000
+# EXPOSE 8000
 
 CMD sh -c "python wait_for_db.py && \
     python wait_for_redis.py && \
-    python manage.py migrate && \
-    gunicorn gamehub.wsgi --bind 0.0.0.0:8000 --workers 2 --worker-class gevent --timeout 120 --log-level=debug"
+    python manage.py migrate"
