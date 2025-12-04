@@ -6,7 +6,7 @@ export interface Genre{
     image_background: string
 }
 
-const useGames = () => useData<Genre>("/api/genres")
+const useGames = () => useData<Genre>("/api/genres/")
 
 
 export default useGames

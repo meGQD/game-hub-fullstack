@@ -19,7 +19,7 @@ export interface Profile{
 
 const useProfile = () => {
   const user = useAppStore(s => s.auth.user)
-  return useDatum<Profile>("accounts/profiles/me", [user])
+  return useDatum<Profile>("accounts/profiles/me/", [user])
 }
 
 export default useProfile;

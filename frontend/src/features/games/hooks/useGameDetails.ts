@@ -21,6 +21,6 @@ export interface GameDetail {
     parent_platforms: Platform[];
 }
 
-const useGameDetail = (slug: string) => useDatum<GameDetail>(`/api/games/${slug}`)
+const useGameDetail = (slug: string) => useDatum<GameDetail>(`/api/games/${slug}/`)
 
 export default useGameDetail;
