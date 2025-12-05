@@ -77,6 +77,7 @@ services:
       - 80:80
     volumes:
       - ./etc/nginx/:/etc/nginx/
+      - nginx_data:/var/log/nginx/
     depends_on:
       - backend-us
       - backend-eu
@@ -146,7 +147,7 @@ services:
     volumes:
       - ./etc/prometheus/:/etc/prometheus/
       - ./etc/prometheus/rules/:/etc/prometheus/rules/
-      - prometheus_data_beta:/prometheus
+      - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.config.file=/etc/prometheus/web.yml'
@@ -160,13 +161,13 @@ services:
     container_name: grafana
     restart: unless-stopped
     volumes:
-      - grafana_data_beta:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
       - ./etc/grafana/provisioning/:/etc/grafana/provisioning/
     ports:
       - "3002:3000"
 
-# Create postgres_data if it dosen't exist already
 volumes:
   postgres_data_beta:
-  prometheus_data_beta:
-  grafana_data_beta:
+  prometheus_data:
+  grafana_data:
+  nginx_data:
