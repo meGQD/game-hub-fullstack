@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-ARG VITE_BASE_URL
+ARG VITE_BASE_URL=http://api.gamehub.cum
 ENV VITE_BASE_URL=$VITE_BASE_URL
 
 RUN npm run build

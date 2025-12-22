@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-configmap
+data:
+  FRONTEND_URL: http://frontend-service
+  REDIS_LOCATION: redis-service

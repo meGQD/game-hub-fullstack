@@ -28,3 +28,6 @@ yarn-error.log
 /etc/node_exporter/qemu1.crt
 /etc/my.crt
 /etc/my.crt
+
+# Kubernetes
+*secret.yaml
