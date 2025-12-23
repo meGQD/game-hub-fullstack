@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: main:5000/gamehub-backend:latest
+        image: main:5000/gamehub-backend:0.1
         ports:
         - containerPort: 8000
         env:
@@ -72,13 +72,13 @@ spec:
                 key: DB_PASSWORD
           - name: DB_HOST
             valueFrom:
-              secretKeyRef:
-                name: backend-secret
+              configMapKeyRef:
+                name: backend-configmap
                 key: DB_HOST
           - name: DB_PORT
             valueFrom:
-              secretKeyRef:
-                name: backend-secret
+              configMapKeyRef:
+                name: backend-configmap
                 key: DB_PORT
         resources:
           requests:

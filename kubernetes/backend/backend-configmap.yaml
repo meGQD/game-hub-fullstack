@@ -3,5 +3,7 @@ kind: ConfigMap
 metadata:
   name: backend-configmap
 data:
-  FRONTEND_URL: http://frontend-service
+  FRONTEND_URL: http://gamehub.cum
   REDIS_LOCATION: redis-service
+  DB_HOST: postgres-service
+  DB_PORT: "5432"
