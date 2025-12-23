@@ -19,67 +19,11 @@ spec:
         image: main:5000/gamehub-backend:0.1
         ports:
         - containerPort: 8000
-        env:
-          - name: DJANGO_SETTINGS_MODULE
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: DJANGO_SETTINGS_MODULE
-          - name: SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: SECRET_KEY
-          - name: RAWG_API_KEY
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: RAWG_API_KEY
-          - name: SEEDING_MAX_PAGES
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: SEEDING_MAX_PAGES
-          - name: FRONTEND_URL
-            valueFrom:
-              configMapKeyRef:
-                name: backend-configmap
-                key: FRONTEND_URL
-          - name: REDIS_LOCATION
-            valueFrom:
-              configMapKeyRef:
-                name: backend-configmap
-                key: REDIS_LOCATION
-          - name: ALLOWED_HOSTS
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: ALLOWED_HOSTS
-          - name: DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: DB_NAME
-          - name: DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: DB_USER
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: backend-secret
-                key: DB_PASSWORD
-          - name: DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: backend-configmap
-                key: DB_HOST
-          - name: DB_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: backend-configmap
-                key: DB_PORT
+        envFrom:
+          - secretRef:
+              name: backend-secret
+          - configMapRef:
+              name: backend-configmap              
         resources:
           requests:
             memory: "128Mi"

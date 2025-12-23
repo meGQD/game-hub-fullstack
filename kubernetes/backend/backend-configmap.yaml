@@ -3,6 +3,9 @@ kind: ConfigMap
 metadata:
   name: backend-configmap
 data:
+  DJANGO_SETTINGS_MODULE: gamehub.settings.prod
+  SEEDING_MAX_PAGES: "5"
+  ALLOWED_HOSTS: .gamehub.cum,gamehub.cum
   FRONTEND_URL: http://gamehub.cum
   REDIS_LOCATION: redis-service
   DB_HOST: postgres-service
