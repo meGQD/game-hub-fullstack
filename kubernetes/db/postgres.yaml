@@ -31,6 +31,21 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+      - name: postgres-exporter
+        image: quay.io/prometheuscommunity/postgres-exporter
+        envFrom:
+          - secretRef:
+              name: postgres-exporter-secret
+        ports:
+        - containerPort: 9187
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
   volumeClaimTemplates:
   - metadata:
       name: postgres-storage
@@ -51,5 +66,9 @@ spec:
   ports:
   - port: 5432
     targetPort: 5432
+    name: postgres
+  - port: 9187
+    targetPort: 9187
+    name: postgres-exporter
 
 
