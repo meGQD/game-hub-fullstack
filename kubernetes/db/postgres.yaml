@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: postgres-deployment
+  name: postgres-statefulset
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: postgres
+  serviceName: postgres-service
   template:
     metadata:
       labels:
@@ -30,10 +31,15 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
-      volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: postgres-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: manual-nfs
+      resources:
+        requests:
+          storage: 250Mi
 ---
 apiVersion: v1
 kind: Service
@@ -45,4 +51,5 @@ spec:
   ports:
   - port: 5432
     targetPort: 5432
+
 
