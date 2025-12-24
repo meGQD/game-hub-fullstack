@@ -1,24 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
-  labels:
-    app: frontend  
+  name: redis-deployment
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app: frontend
+      app: redis
   template:
     metadata:
       labels:
-        app: frontend
+        app: redis
     spec:
       containers:
-      - name: frontend
-        image: main:5000/gamehub-frontend:0.3
+      - name: redis
+        image: docker.arvancloud.ir/redis:6-alpine
         ports:
-        - containerPort: 80
+        - containerPort: 6379
         resources:
           requests:
             memory: "128Mi"
@@ -30,13 +27,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: redis-service
 spec:
   selector:
-    app: frontend
-  # type: NodePort
+    app: redis
   ports:
-  - port: 80
-    targetPort: 80
-    # nodePort: 30000
+  - port: 6379
+    targetPort: 6379
 
