@@ -7,6 +7,6 @@ data:
   SEEDING_MAX_PAGES: "5"
   ALLOWED_HOSTS: .gamehub.cum,gamehub.cum
   FRONTEND_URL: http://gamehub.cum
-  REDIS_LOCATION: redis://redis-service:6379/1
+  REDIS_LOCATION: redis://redis-bitnami-master:6379/1
   DB_HOST: postgres-service
   DB_PORT: "5432"

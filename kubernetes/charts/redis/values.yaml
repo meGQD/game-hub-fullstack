@@ -1,0 +1,47 @@
+# global:
+#   imageRegistry: "docker.arvancloud.ir"
+#   security:
+#     ## @param global.security.allowInsecureImages Allows skipping image verification
+#     allowInsecureImages: true
+
+# image:
+#   registry: docker.io
+#   repository: bitnami/redis
+#   tag: 8.2.1-debian-12-r0
+#   pullPolicy: IfNotPresent
+
+## @param architecture Redis(R) architecture. Allowed values: `standalone` or `replication`
+##
+architecture: standalone
+
+auth:
+  enabled: false
+
+master:
+  count: 1
+  kind: StatefulSet
+  containerPorts:
+    redis: 6379
+  resources:
+    requests:
+      cpu: 250m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 250Mi
+  persistence:
+    enabled: false
+  service:
+    type: ClusterIP
+    ## @param master.service.portNames.redis Redis(R) master service port name
+    ##
+    portNames:
+      redis: "tcp-redis"
+    ## @param master.service.ports.redis Redis(R) master service port
+    ##
+    ports:
+      redis: 6379
+
+replica:
+  count: 0
+
