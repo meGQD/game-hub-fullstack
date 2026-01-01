@@ -4,11 +4,11 @@
 #     ## @param global.security.allowInsecureImages Allows skipping image verification
 #     allowInsecureImages: true
 
-# image:
-#   registry: docker.io
-#   repository: bitnami/redis
-#   tag: 8.2.1-debian-12-r0
-#   pullPolicy: IfNotPresent
+image:
+  registry: docker.io
+  repository: bitnamilegacy/redis
+  tag: 8.2.1-debian-12-r0
+  pullPolicy: IfNotPresent
 
 ## @param architecture Redis(R) architecture. Allowed values: `standalone` or `replication`
 ##
@@ -43,5 +43,6 @@ master:
       redis: 6379
 
 replica:
-  count: 0
-
+  replicaCount: 0
+  persistence:
+    enabled: false
