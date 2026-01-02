@@ -8,5 +8,5 @@ data:
   ALLOWED_HOSTS: .gamehub.cum,gamehub.cum
   FRONTEND_URL: http://gamehub.cum
   REDIS_LOCATION: redis://redis-bitnami-master:6379/1
-  DB_HOST: postgres-service
+  DB_HOST: postgres-cloudpirates
   DB_PORT: "5432"

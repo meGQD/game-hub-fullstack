@@ -1,0 +1,61 @@
+image:
+  registry: docker.io
+  repository: postgres
+  tag: "17.5-alpine"
+  imagePullPolicy: IfNotPresent
+
+replicaCount: 1
+
+## @section Security Context
+podSecurityContext:
+  ## @param podSecurityContext.fsGroup Group ID for the volumes of the pod
+  fsGroup: 70
+
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  runAsUser: 70
+  runAsGroup: 70
+
+auth:
+  existingSecret: "postgres-secret"
+  secretKeys:
+    passwordKey: "POSTGRES_PASSWORD"
+
+extraEnvVarsSecret: "postgres-secret"
+
+# customUser:
+#   existingSecret: "postgres-secret"
+#   secretKeys:
+#     name: "POSTGRES_USER"
+#     password: "POSTGRES_PASSWORD"
+#     database: "POSTGRES_DB"
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+persistence:
+  enabled: true
+  storageClass: "manual-nfs"
+  size: 250Mi
+  accessModes:
+    - ReadWriteOnce
+
+persistentVolumeClaimRetentionPolicy:
+  enabled: true
+  ## @param persistentVolumeClaimRetentionPolicy.whenScaled Volume retention behavior when the replica count of the StatefulSet is reduced
+  whenScaled: Retain
+  ## @param persistentVolumeClaimRetentionPolicy.whenDeleted Volume retention behavior that applies when the StatefulSet is deleted
+  whenDeleted: Retain
+
+service:
+  type: ClusterIP
+  port: 5432
+  targetPort: 5432
+
+  

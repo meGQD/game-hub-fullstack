@@ -41,6 +41,8 @@ master:
     ##
     ports:
       redis: 6379
+  disableCommands:
+    - FLUSHALL
 
 replica:
   replicaCount: 0
