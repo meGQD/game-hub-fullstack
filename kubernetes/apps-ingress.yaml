@@ -12,7 +12,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: frontend-service
+            name: frontend
             port: 
               number: 80
   - host: api.gamehub.cum
@@ -22,6 +22,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: backend-service
+            name: backend
             port: 
               number: 8000

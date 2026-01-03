@@ -1,0 +1,57 @@
+# replicaCount: 3
+
+image:
+  repository: main:5000/gamehub-backend
+  tag: "0.1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "500Mi"
+    cpu: "200m"
+
+# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+startupProbe:
+  tcpSocket:
+    port: 8000
+  periodSeconds: 5
+  failureThreshold: 30  
+
+livenessProbe:
+  tcpSocket:
+    port: 8000
+  periodSeconds: 20
+  failureThreshold: 3  
+
+readinessProbe:
+  tcpSocket:
+    port: 8000
+  periodSeconds: 10
+  
+# This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+config:
+  DJANGO_SETTINGS_MODULE: gamehub.settings.prod
+  SEEDING_MAX_PAGES: "5"
+  ALLOWED_HOSTS: .gamehub.cum,gamehub.cum
+  FRONTEND_URL: http://gamehub.cum
+  REDIS_LOCATION: redis://redis-bitnami-master:6379/1
+  DB_HOST: postgres-cloudpirates
+  DB_PORT: "5432"
+
+secret:
+  name: backend-secret

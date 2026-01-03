@@ -32,3 +32,4 @@ yarn-error.log
 # Kubernetes
 *secret.yaml
 db_backup.sql
+public-charts
