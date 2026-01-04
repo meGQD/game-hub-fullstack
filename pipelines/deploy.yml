@@ -6,6 +6,7 @@
     - prod
 
 deploy prod:
+  extends: .deploy_rules
   when: manual
   script:
     - helm install backend ./kubernetes/charts/backend
