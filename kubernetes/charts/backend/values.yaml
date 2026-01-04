@@ -1,7 +1,7 @@
 # replicaCount: 3
 
 image:
-  repository: gitlab-registry/root/gamehub/gamehub-backend
+  repository: 172.20.10.11:5050/root/gamehub/gamehub-backend
   tag: latest
   pullPolicy: IfNotPresent
 
