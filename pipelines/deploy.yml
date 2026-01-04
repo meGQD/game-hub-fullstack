@@ -9,8 +9,8 @@ deploy prod:
   extends: .deploy_rules
   when: manual
   script:
-    - helm install backend ./kubernetes/charts/backend
-    - helm install frontend ./kubernetes/charts/frontend
+    - helm upgrade --install backend ./kubernetes/charts/backend
+    - helm upgrade --install frontend ./kubernetes/charts/frontend
 
 
 # deploy beta:
