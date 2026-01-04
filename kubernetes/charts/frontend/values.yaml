@@ -1,8 +1,8 @@
 # replicaCount: 2
 
 image:
-  repository: main:5000/gamehub-frontend
-  tag: "0.3"
+  repository: gitlab-registry/root/gamehub/gamehub-frontend
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:
