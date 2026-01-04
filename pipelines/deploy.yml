@@ -1,3 +1,17 @@
+.deploy_rules:
+  stage: deploy
+  environment: 
+    name: prod 
+  tags:
+    - prod
+
+deploy prod:
+  when: manual
+  script:
+    - helm install backend ./kubernetes/charts/backend
+    - helm install frontend ./kubernetes/charts/frontend
+
+
 # deploy beta:
 #   stage: deploy
 #   environment: 
@@ -8,14 +22,3 @@
 #   script:
 #     - docker compose down || docker compose -f docker-compose.cicd.yml down
 #     - docker compose up --build -d
-
-# deploy prod:
-#   stage: deploy
-#   environment: 
-#     name: prod 
-#   tags:
-#     - prod
-#   when: manual
-#   script:
-#     - docker compose -f docker-compose.cicd.yml down || docker compose down
-#     - docker compose -f docker-compose.cicd.yml up --remove-orphans --force-recreate -d 

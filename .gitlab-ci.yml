@@ -1,13 +1,10 @@
 stages:
   - build
-  # - deploy
+  - deploy
   # - data-fetch
 
 include:
   - local: '/pipelines/build.yml'
-  # - local: '/pipelines/deploy.yml'
+  - local: '/pipelines/deploy.yml'
   # - local: '/pipelines/data-fetch.yml'
-
-before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
