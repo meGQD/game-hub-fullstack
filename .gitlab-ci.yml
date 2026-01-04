@@ -1,62 +1,13 @@
-# stages:
-#   - build
-#   - deploy
-#   - data_fetch
+stages:
+  - build
+  - deploy
+  - data-fetch
 
-# before_script:
-#   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+include:
+  - local: '/pipelines/build.yml'
+  - local: '/pipelines/deploy.yml'
+  - local: '/pipelines/data-fetch.yml'
 
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-# build backend:
-#   stage: build
-#   environment:
-#     name: prod
-#   tags:
-#     - prod
-#   script:
-#     - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend
-
-#     - docker push $CI_REGISTRY/root/gamehub/gamehub-backend
-
-# build frontend:
-#   stage: build
-#   environment:
-#     name: prod
-#   tags:
-#     - prod
-#   script:    
-#     - docker build 
-#       --build-arg VITE_BASE_URL=$VITE_BASE_URL 
-#       ./frontend -t $CI_REGISTRY/root/gamehub/gamehub-frontend
-
-#     - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend
-
-
-# deploy beta:
-#   stage: deploy
-#   environment: 
-#     name: beta
-#   tags:
-#     - beta
-#   when: always
-#   script:
-#     - docker compose down || docker compose -f docker-compose.cicd.yml down
-#     - docker compose up --build -d
-
-# deploy prod:
-#   stage: deploy
-#   environment: 
-#     name: prod 
-#   tags:
-#     - prod
-#   when: manual
-#   script:
-#     - docker compose -f docker-compose.cicd.yml down || docker compose down
-#     - docker compose -f docker-compose.cicd.yml up --remove-orphans --force-recreate -d 
-
-
-# data_fetch:
-#   stage: data_fetch
-#   when: manual
-#   script: 
-#     - docker compose exec backend-us python manage.py seed_db

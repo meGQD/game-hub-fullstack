@@ -1,0 +1,22 @@
+.build_rules:
+  stage: build
+  environment:
+    name: prod
+  tags:
+    - prod
+
+build backend:
+  extends: .build_rules
+  script:
+    - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend
+
+    - docker push $CI_REGISTRY/root/gamehub/gamehub-backend
+
+build frontend:
+  extends: .build_rules
+  script:    
+    - docker build 
+      --build-arg VITE_BASE_URL=$VITE_BASE_URL 
+      ./frontend -t $CI_REGISTRY/root/gamehub/gamehub-frontend
+
+    - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend
