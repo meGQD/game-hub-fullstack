@@ -31,7 +31,14 @@ deploy backend:
         - "backend/**/*"
         - "kubernetes/charts/backend/**/*"      
   script:
-    - helm upgrade --install backend ./kubernetes/charts/backend  
+    - helm upgrade --install backend ./kubernetes/charts/backend \
+        --set config.DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE \
+        --set config.SEEDING_MAX_PAGES=$SEEDING_MAX_PAGES \
+        --set config.ALLOWED_HOSTS=$ALLOWED_HOSTS \
+        --set config.FRONTEND_URL=$FRONTEND_URL \
+        --set config.REDIS_LOCATION=$REDIS_LOCATION \
+        --set config.DB_HOST=$DB_HOST \
+        --set config.DB_PORT=$DB_PORT 
 
 deploy frontend:
   extends: .deploy_rules
