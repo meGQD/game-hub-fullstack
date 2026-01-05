@@ -3,7 +3,7 @@
   environment: 
     name: prod 
   tags:
-    - prod
+    - deploy
 
 initial pv:
   extends: .initial_rules

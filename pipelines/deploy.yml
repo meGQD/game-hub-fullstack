@@ -3,7 +3,7 @@
   environment: 
     name: prod 
   tags:
-    - prod
+    - deploy
 
 deploy postgres:
   extends: .deploy_rules

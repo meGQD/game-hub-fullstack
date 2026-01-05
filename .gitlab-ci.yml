@@ -2,11 +2,11 @@ stages:
   - build
   - initial
   - deploy
-  # - data-fetch
+  - data
 
 include:
   - local: '/pipelines/build.yml'
   - local: '/pipelines/initial.yml'
   - local: '/pipelines/deploy.yml'
-  # - local: '/pipelines/data-fetch.yml'
+  - local: '/pipelines/data.yml'
 
