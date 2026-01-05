@@ -24,14 +24,3 @@ deploy frontend:
   extends: .deploy_rules
   script:
     - helm upgrade --install frontend ./kubernetes/charts/frontend 
-
-# deploy beta:
-#   stage: deploy
-#   environment: 
-#     name: beta
-#   tags:
-#     - beta
-#   when: always
-#   script:
-#     - docker compose down || docker compose -f docker-compose.cicd.yml down
-#     - docker compose up --build -d

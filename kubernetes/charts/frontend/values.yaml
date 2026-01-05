@@ -1,7 +1,7 @@
 # replicaCount: 2
 
 image:
-  repository: 172.20.10.11:5050/root/gamehub/gamehub-frontend
+  repository: 172.20.10.11:5050/root/gamehub/gamehub-frontend:$CI_COMMIT_SHORT_SHA
   tag: latest
   pullPolicy: IfNotPresent
 
