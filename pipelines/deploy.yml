@@ -11,6 +11,9 @@ deploy prod:
   script:
     - helm upgrade --install backend ./kubernetes/charts/backend
     - helm upgrade --install frontend ./kubernetes/charts/frontend
+    - helm upgrade --install redis-bitnami bitnami/redis --version 24.1.0 -f ./kubernetes/charts/redis/values.yaml
+    - helm upgrade --install postgres-cloudpirates oci://registry-1.docker.io/cloudpirates/postgres --version 0.5.5 -f ./kubernetes/charts/postgres/values.yaml
+
 
 
 # deploy beta:
