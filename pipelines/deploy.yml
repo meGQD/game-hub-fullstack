@@ -5,14 +5,25 @@
   tags:
     - prod
 
-deploy prod:
+deploy frontend:
   extends: .deploy_rules
-  when: manual
   script:
-    - helm upgrade --install backend ./kubernetes/charts/backend
-    - helm upgrade --install frontend ./kubernetes/charts/frontend
-    - helm upgrade --install redis-bitnami oci://registry-1.docker.io/bitnamicharts/redis --version 24.1.0 -f ./kubernetes/charts/redis/values.yaml
+    - helm upgrade --install frontend ./kubernetes/charts/frontend 
+
+deploy backend:
+  extends: .deploy_rules
+  script:
+    - helm upgrade --install backend ./kubernetes/charts/backend  
+
+deploy postgres:
+  extends: .deploy_rules
+  script:
     - helm upgrade --install postgres-cloudpirates oci://registry-1.docker.io/cloudpirates/postgres --version 0.5.5 -f ./kubernetes/charts/postgres/values.yaml
+
+deploy redis:
+  extends: .deploy_rules
+  script:
+    - helm upgrade --install redis-bitnami oci://registry-1.docker.io/bitnamicharts/redis --version 24.1.0 -f ./kubernetes/charts/redis/values.yaml
 
 
 
