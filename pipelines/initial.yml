@@ -1,0 +1,16 @@
+.initial_rules:
+  stage: initial
+  environment: 
+    name: prod 
+  tags:
+    - prod
+
+initial pv:
+  extends: .initial_rules
+  script:
+    - kubectl apply -f ./kubernetes/db/postgres-pv.yaml
+
+initial ingress:
+  extends: .initial_rules
+  script:
+    - kubectl apply -f ./kubernetes/apps-ingress.yaml
