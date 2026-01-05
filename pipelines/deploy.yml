@@ -5,16 +5,6 @@
   tags:
     - prod
 
-deploy frontend:
-  extends: .deploy_rules
-  script:
-    - helm upgrade --install frontend ./kubernetes/charts/frontend 
-
-deploy backend:
-  extends: .deploy_rules
-  script:
-    - helm upgrade --install backend ./kubernetes/charts/backend  
-
 deploy postgres:
   extends: .deploy_rules
   script:
@@ -25,7 +15,15 @@ deploy redis:
   script:
     - helm upgrade --install redis-bitnami oci://registry-1.docker.io/bitnamicharts/redis --version 24.1.0 -f ./kubernetes/charts/redis/values.yaml
 
+deploy backend:
+  extends: .deploy_rules
+  script:
+    - helm upgrade --install backend ./kubernetes/charts/backend  
 
+deploy frontend:
+  extends: .deploy_rules
+  script:
+    - helm upgrade --install frontend ./kubernetes/charts/frontend 
 
 # deploy beta:
 #   stage: deploy

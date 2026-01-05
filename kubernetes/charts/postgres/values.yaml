@@ -1,5 +1,5 @@
 image:
-  registry: docker.io
+  registry: docker.arvancloud.ir
   repository: postgres
   tag: "17.5-alpine"
   imagePullPolicy: IfNotPresent

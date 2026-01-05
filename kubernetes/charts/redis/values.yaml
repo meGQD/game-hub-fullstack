@@ -1,11 +1,11 @@
-# global:
-#   imageRegistry: "docker.arvancloud.ir"
-#   security:
-#     ## @param global.security.allowInsecureImages Allows skipping image verification
-#     allowInsecureImages: true
+global:
+  imageRegistry: "docker.arvancloud.ir"
+  security:
+    ## @param global.security.allowInsecureImages Allows skipping image verification
+    allowInsecureImages: true
 
 image:
-  registry: docker.io
+  registry: docker.arvancloud.ir
   repository: bitnamilegacy/redis
   tag: 8.2.1-debian-12-r0
   pullPolicy: IfNotPresent
