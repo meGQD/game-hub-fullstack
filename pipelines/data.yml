@@ -11,8 +11,8 @@ data fetch:
   script:
     - kubectl exec deployment/backend -- python3 manage.py seed_db
 
-data use-backup:
-  extends: .data_rules
-  when: manual
-  script:
-    - kubectl exec -i postgres-cloudpirates-0 -- psql -U $DB_USER $DB_NAME < db_backup.sql
+# data use-backup:
+#   extends: .data_rules
+#   when: manual
+#   script:
+#     - kubectl exec -i postgres-cloudpirates-0 -- psql -U $DB_USER $DB_NAME < db_backup.sql
