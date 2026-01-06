@@ -12,7 +12,7 @@ initial pv:
       - "kubernetes/manifests/db/postgres-pv.yaml"
       - "pipelines/initial.yml"  
   script:
-    - kubectl apply -f ./kubernetes/db/postgres-pv.yaml
+    - kubectl apply -f ./kubernetes/manifests/db/postgres-pv.yaml
 
 initial ingress:
   extends: .initial_rules
@@ -21,4 +21,4 @@ initial ingress:
       - "kubernetes/manifests/apps-ingress.yaml"
       - "pipelines/initial.yml"  
   script:
-    - kubectl apply -f ./kubernetes/apps-ingress.yaml
+    - kubectl apply -f ./kubernetes/manifests/apps-ingress.yaml
