@@ -4,6 +4,9 @@
     name: prod
   tags:
     - build
+  rules:
+    - changes:
+        - "pipelines/build.yml"  
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY

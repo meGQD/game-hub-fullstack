@@ -4,12 +4,15 @@
     name: prod 
   tags:
     - deploy
+  rules:
+    - changes:
+        - "pipelines/deploy.yml"  
 
 deploy postgres:
   extends: .deploy_rules
   rules:
     - changes:
-        - "kubernetes/charts/postgres/**/*"      
+        - "kubernetes/charts/postgres/**/*"    
   script:
     - helm upgrade --install postgres-cloudpirates oci://registry-1.docker.io/cloudpirates/postgres --version 0.5.5 -f ./kubernetes/charts/postgres/values.yaml
 

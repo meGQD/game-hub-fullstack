@@ -4,6 +4,9 @@
     name: prod 
   tags:
     - deploy
+  rules:
+    - changes:
+        - "pipelines/initial.yml"  
 
 initial pv:
   extends: .initial_rules
