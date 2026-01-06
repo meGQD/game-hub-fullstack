@@ -4,15 +4,13 @@
     name: prod 
   tags:
     - deploy
-  rules:
-    - changes:
-        - "pipelines/deploy.yml"  
 
 deploy postgres:
   extends: .deploy_rules
   rules:
     - changes:
-        - "kubernetes/charts/postgres/**/*"    
+      - "kubernetes/charts/postgres/**/*"  
+      - "pipelines/deploy.yml"    
   script:
     - helm upgrade --install postgres-cloudpirates oci://registry-1.docker.io/cloudpirates/postgres --version 0.5.5 -f ./kubernetes/charts/postgres/values.yaml
 
@@ -20,7 +18,8 @@ deploy redis:
   extends: .deploy_rules
   rules:
     - changes:
-        - "kubernetes/charts/redis/**/*"      
+      - "kubernetes/charts/redis/**/*"    
+      - "pipelines/deploy.yml"    
   script:
     - helm upgrade --install redis-bitnami oci://registry-1.docker.io/bitnamicharts/redis --version 24.1.0 -f ./kubernetes/charts/redis/values.yaml
 
@@ -31,8 +30,9 @@ deploy backend:
       optional: true
   rules:
     - changes:
-        - "backend/**/*"
-        - "kubernetes/charts/backend/**/*"      
+      - "backend/**/*"
+      - "kubernetes/charts/backend/**/*"   
+      - "pipelines/deploy.yml"     
   script:
     - |
       helm upgrade --install backend ./kubernetes/charts/backend \
@@ -52,8 +52,9 @@ deploy frontend:
       optional: true
   rules:
     - changes:
-        - "frontend/**/*"
-        - "kubernetes/charts/frontend/**/*"      
+      - "frontend/**/*"
+      - "kubernetes/charts/frontend/**/*"     
+      - "pipelines/deploy.yml"   
   script:
     - |
       helm upgrade --install frontend ./kubernetes/charts/frontend \

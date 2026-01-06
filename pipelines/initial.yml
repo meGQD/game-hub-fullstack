@@ -4,15 +4,13 @@
     name: prod 
   tags:
     - deploy
-  rules:
-    - changes:
-        - "pipelines/initial.yml"  
 
 initial pv:
   extends: .initial_rules
   rules:
     - changes:
       - "kubernetes/db/postgres-pv.yaml"
+      - "pipelines/initial.yml"  
   script:
     - kubectl apply -f ./kubernetes/db/postgres-pv.yaml
 
@@ -21,5 +19,6 @@ initial ingress:
   rules:
     - changes:
       - "kubernetes/apps-ingress.yaml"
+      - "pipelines/initial.yml"  
   script:
     - kubectl apply -f ./kubernetes/apps-ingress.yaml

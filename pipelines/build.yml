@@ -4,9 +4,6 @@
     name: prod
   tags:
     - build
-  rules:
-    - changes:
-        - "pipelines/build.yml"  
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -17,6 +14,7 @@ build backend:
     - changes:
         - "backend/**/*"
         - "kubernetes/charts/backend/**/*"  
+        - "pipelines/build.yml"  
   script:
     - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend:$CI_COMMIT_SHORT_SHA
 
@@ -28,6 +26,7 @@ build frontend:
     - changes:
         - "frontend/**/*"  
         - "kubernetes/charts/backend/**/*"  
+        - "pipelines/build.yml"  
   script:    
     - docker build 
       --build-arg VITE_BASE_URL=$VITE_BASE_URL 
