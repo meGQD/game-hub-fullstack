@@ -13,19 +13,21 @@ build backend:
   rules:
     - changes:
         - "backend/**/*"
+        - "kubernetes/charts/backend/**/*"  
   script:
-    - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend
+    - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend:$CI_COMMIT_SHORT_SHA
 
-    - docker push $CI_REGISTRY/root/gamehub/gamehub-backend
+    - docker push $CI_REGISTRY/root/gamehub/gamehub-backend:$CI_COMMIT_SHORT_SHA
 
 build frontend:
   extends: .build_rules
   rules:
     - changes:
         - "frontend/**/*"  
+        - "kubernetes/charts/backend/**/*"  
   script:    
     - docker build 
       --build-arg VITE_BASE_URL=$VITE_BASE_URL 
-      ./frontend -t $CI_REGISTRY/root/gamehub/gamehub-frontend
+      ./frontend -t $CI_REGISTRY/root/gamehub/gamehub-frontend:$CI_COMMIT_SHORT_SHA
 
-    - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend
+    - docker push $CI_REGISTRY/root/gamehub/gamehub-frontend:$CI_COMMIT_SHORT_SHA

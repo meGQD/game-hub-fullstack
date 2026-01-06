@@ -2,8 +2,9 @@
 
 image:
   repository: 172.20.10.11:5050/root/gamehub/gamehub-frontend
-  tag: latest
-  pullPolicy: Always
+  # image tag will be overriden by $CI_COMMIT_SHORT_SHA
+  tag: latest   
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP

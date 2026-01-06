@@ -33,6 +33,7 @@ deploy backend:
   script:
     - |
       helm upgrade --install backend ./kubernetes/charts/backend \
+        --set image.tag=$CI_COMMIT_SHORT_SHA
         --set config.DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE \
         --set config.SEEDING_MAX_PAGES=$SEEDING_MAX_PAGES \
         --set config.ALLOWED_HOSTS=$ALLOWED_HOSTS \
@@ -51,4 +52,6 @@ deploy frontend:
         - "frontend/**/*"
         - "kubernetes/charts/frontend/**/*"      
   script:
-    - helm upgrade --install frontend ./kubernetes/charts/frontend 
+    - |
+      helm upgrade --install frontend ./kubernetes/charts/frontend 
+        --set image.tag=$CI_COMMIT_SHORT_SHA
