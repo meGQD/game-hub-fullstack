@@ -15,6 +15,7 @@ build backend:
         - "backend/**/*"
         - "kubernetes/charts/backend/**/*"  
         - "pipelines/build.yml"  
+        - "pipelines/deploy.yml"  
   script:
     - docker build ./backend -t $CI_REGISTRY/root/gamehub/gamehub-backend:$CI_COMMIT_SHORT_SHA
 
@@ -27,6 +28,7 @@ build frontend:
         - "frontend/**/*"  
         - "kubernetes/charts/backend/**/*"  
         - "pipelines/build.yml"  
+        - "pipelines/deploy.yml"  
   script:    
     - docker build 
       --build-arg VITE_BASE_URL=$VITE_BASE_URL 

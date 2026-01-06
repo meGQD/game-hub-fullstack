@@ -27,7 +27,7 @@ deploy backend:
   extends: .deploy_rules
   needs:
     - job: "build backend"
-      optional: true
+      # optional: true
   rules:
     - changes:
       - "backend/**/*"
@@ -49,7 +49,7 @@ deploy frontend:
   extends: .deploy_rules
   needs:
     - job: "build frontend"
-      optional: true
+      # optional: true
   rules:
     - changes:
       - "frontend/**/*"
