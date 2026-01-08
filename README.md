@@ -1,16 +1,18 @@
 # 🎮 Game Hub
 
-[![Django Badge](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
-[![React Badge](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-[![PostgreSQL Badge](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-[![Redis Badge](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
-[![Docker Badge](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-[![GitLab Badge](https://img.shields.io/badge/GitLab-ffffff?style=for-the-badge&logo=gitlab&logoColor=orange)](https://img.shields.io/badge/GitLab-ffffff?style=for-the-badge&logo=gitlab&logoColor=orange)
-[![Prometheus Badge](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
-[![Grafana Badge](https://img.shields.io/badge/Grafana-F2F4F9?style=for-the-badge&logo=grafana&logoColor=orange)](https://img.shields.io/badge/Grafana-F2F4F9?style=for-the-badge&logo=grafana&logoColor=orange)
-[![Nginx Badge](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white&style=for-the-badge)](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white&style=for-the-badge)
+![Django Badge](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![React Badge](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![PostgreSQL Badge](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis Badge](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=white&style=for-the-badge)
+![Helm](https://img.shields.io/badge/Helm-0F1689?logo=helm&logoColor=white&style=for-the-badge)
+![Docker Badge](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![GitLab Badge](https://img.shields.io/badge/GitLab_CI-ffffff?style=for-the-badge&logo=gitlab&logoColor=orange)
+![Prometheus Badge](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
+![Grafana Badge](https://img.shields.io/badge/Grafana-F2F4F9?style=for-the-badge&logo=grafana&logoColor=orange)
+![Nginx Badge](https://img.shields.io/badge/Nginx-009639?logo=nginx&logoColor=white&style=for-the-badge)
 
-A full-stack web application for discovering video games, built with a modern, containerized architecture. This platform allows users to browse a vast library of games, view detailed information, and manage their personal favorites.
+GameHub — a containerized full-stack game discovery app (Django/DRF + React) deployed to a self-managed k3s cluster with automated GitLab CI → Helm deployments, Prometheus/Grafana observability, and Redis caching.
 
 ![Game Hub Demo](assets/Games-demo.gif)
 
@@ -19,6 +21,7 @@ A full-stack web application for discovering video games, built with a modern, c
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
+- [Helm Charts](#helm-charts)
 - [CI/CD Pipeline](#cicd-pipeline)
 - [Monitoring & Observability](#monitoring-observability)
 - [Load Balancing](#load-balancing)
@@ -51,6 +54,7 @@ The project is built with a modern, decoupled architecture using the following t
 | Category             | Technology                                                                            |
 | :------------------- | :------------------------------------------------------------------------------------ |
 | **Containerization** | [Docker](https://docker.com/), [Docker Compose](https://docs.docker.com/compose/)     |
+| **Orechestration**   | [Kubernetes](https://kubernetes.io/), [Helm](https://helm.sh/)                        |
 | **CI/CD Automation** | [GitLab(CI/CD)](https://www.gitlab.com/)                                              |
 | **Monitoring**       | [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/)                 |
 | **Load Balancing**   | [Nginx](https://www.nginx.com/)                                                       |
@@ -147,16 +151,33 @@ Your application is now fully set up and ready to use!
 
 ---
 
+## <a id="helm-charts"></a>☸️ Helm Charts
+
+This project utilizes Helm charts to streamline the deployment and management of Kubernetes resources. The charts are organized in the `kubernetes/charts/` directory.
+
+The manifests on which Helm charts are built based on are also included in `kubernetes/manifests/` directory (except postgres and redis which i used public charts instead).
+
+every configuration is done automatically through the pipelines or in the helm charts but secrets (postgres-secret & backend) must be manually applied to the cluster.
+
+| Chart | Type | Description | Details |
+| :--- | :--- | :--- | :--- |
+| **Backend** | Application | Custom chart for the **Django** backend. | Manages Deployment, Service, HPA, startup/liveness/readiness probes and ConfigMaps/Secret injection for the backend API. |
+| **Frontend** | Application | Custom chart for the **React** frontend. | Manages Deployment, Service, HPA, http healthchecks for the frontned web server. |
+| **Postgres** | Configuration | Overlay for **PostgreSQL**. | Configured for `cloudpirates/postgres` with persistent storage, ClusterIP and Headless service, StatefulSet and secret injection. |
+| **Redis** | Configuration | Overlay for **Redis**. | Configured for `bitnami/redis` with standalone architecture, ClusterIP and Headless service, StatefulSet. |
+
+---
+
 ## <a id="cicd-pipeline"></a>🔄 CI/CD Pipeline
 
-This project uses a GitLab CI/CD pipeline to automate builds and deployments. The pipeline is structured into `beta` (automatic) and `prod` (manual) environments.
+This project uses multiple GitLab CI/CD pipelines to automate image builds, intializations, k8s helm charts deployments and data fetching.
 
 The pipeline's main jobs are:
 
-* **Build (Automatic):** On every push, new Docker images for the frontend and backend are built and pushed to the GitLab Container Registry.
-* **Deploy Beta (Automatic):** The latest build is automatically deployed to the `beta` environment using `docker-compose.yml`.
-* **Deploy Prod (Manual):** Requires a manual trigger from the GitLab UI to deploy the `prod` environment using its specific `docker-compose.cicd.yml`.
-* **Data Fetch (Manual):** An optional job to run `manage.py seed_db` and populate the database on either environment.
+* **Build:** On every push, new Docker images with new tags for the frontend and backend are built and pushed to the GitLab Container Registry.
+* **Initialization:** ingress and PersistentVolume components are applied to the k8s cluster.
+* **Deploy:** helm charts are applied for each micro service. 
+* **Data (Manual):** An optional job to run to populate the database.
 
 ---
 ## <a id="monitoring-observability"></a>📊 Monitoring & Observability
