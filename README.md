@@ -45,6 +45,8 @@ GameHub — a containerized full-stack game discovery app (Django/DRF + React) d
 
   ![Grafana Dashborad Demo](assets/Grafana-dashboard.gif)
 
+---
+
 ## <a id="tech-stack"></a>🛠️ Tech Stack
 
 The project is built with a modern, decoupled architecture using the following technologies:
@@ -81,9 +83,11 @@ The project is built with a modern, decoupled architecture using the following t
 | **Routing**          | [React Router](https://reactrouter.com/)                                                                    |
 | **Form Handling**    | [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/) for validation                 |
 
+---
+
 ## <a id="getting-started"></a>🚀 Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine using docker compose for development and testing purposes.
 
 ### Prerequisites
 
@@ -180,6 +184,7 @@ The pipeline's main jobs are:
 * **Data (Manual):** An optional job to run to populate the database.
 
 ---
+
 ## <a id="monitoring-observability"></a>📊 Monitoring & Observability
 
 This project includes a comprehensive, production-ready monitoring stack. We use **Prometheus** to scrape real-time metrics from the application and database, and **Grafana** to visualize them in interactive dashboards.
@@ -213,6 +218,7 @@ After you log in to Grafana at [http://localhost:3002](http://localhost:3002) (d
 you can access the provisioned dashboard at **Dashboards** > **GameHub**.
 
 ---
+
 ## <a id="load-balancing"></a>⚖️ Load Balancing Strategy
 
 This project uses **Nginx** as a reverse proxy to simulate a scalable, high-availability architecture. Instead of a single backend, traffic is distributed across three isolated replicas (`backend-us`, `backend-eu`, `backend-me`).
@@ -220,6 +226,8 @@ This project uses **Nginx** as a reverse proxy to simulate a scalable, high-avai
 - **Round-Robin Routing:** Nginx cycles requests sequentially between the three containers to distribute the load evenly.
 - **Automatic Failover:** traffic is automatically rerouted if a specific instance goes down.
 - **Unified Entry Point:** The entire backend cluster is abstracted behind port `80`, providing a seamless API experience for the frontend.
+
+---
 
 ## <a id="contributing"></a>🤝 Contributing
 
